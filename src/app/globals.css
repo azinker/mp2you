@@ -1097,6 +1097,47 @@ h1,
     var(--porcelain);
 }
 
+.theme-v1[dir="rtl"],
+.theme-v1[dir="rtl"] .brand-tagline,
+.theme-v1[dir="rtl"] .button,
+.theme-v1[dir="rtl"] .eyebrow,
+.theme-v1[dir="rtl"] .mobile-nav-link,
+.theme-v1[dir="rtl"] h1,
+.theme-v1[dir="rtl"] h2,
+.theme-v1[dir="rtl"] .proof-card h2,
+.theme-v1[dir="rtl"] .feature-card h3,
+.theme-v1[dir="rtl"] .service-card h3,
+.theme-v1[dir="rtl"] .industry-card h3,
+.theme-v1[dir="rtl"] .card-link h3,
+.theme-v1[dir="rtl"] .feature-large h2,
+.theme-v1[dir="rtl"] .testimonial-card blockquote,
+.theme-v1[dir="rtl"] .image-card h2,
+.theme-v1[dir="rtl"] .faq-item summary,
+.theme-v1[dir="rtl"] .article-body h2,
+.theme-v1[dir="rtl"] .post-card h2,
+.theme-v1[dir="rtl"] .case-card h2,
+.theme-v1[dir="rtl"] .content-panel h2 {
+  font-family: var(--hebrew-font-stack);
+}
+
+.theme-v1[dir="rtl"] h1,
+.theme-v1[dir="rtl"] h2,
+.theme-v1[dir="rtl"] .proof-card h2,
+.theme-v1[dir="rtl"] .feature-card h3,
+.theme-v1[dir="rtl"] .service-card h3,
+.theme-v1[dir="rtl"] .industry-card h3,
+.theme-v1[dir="rtl"] .card-link h3,
+.theme-v1[dir="rtl"] .feature-large h2,
+.theme-v1[dir="rtl"] .testimonial-card blockquote,
+.theme-v1[dir="rtl"] .image-card h2,
+.theme-v1[dir="rtl"] .faq-item summary,
+.theme-v1[dir="rtl"] .article-body h2,
+.theme-v1[dir="rtl"] .post-card h2,
+.theme-v1[dir="rtl"] .case-card h2,
+.theme-v1[dir="rtl"] .content-panel h2 {
+  font-weight: 800;
+}
+
 .theme-v1 .site-header {
   border-bottom-color: rgba(147, 103, 31, 0.18);
   background: rgba(251, 250, 247, 0.84);

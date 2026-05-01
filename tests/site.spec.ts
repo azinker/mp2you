@@ -23,14 +23,6 @@ const routes = [
   "/he",
   "/he/gaming-vip-player-gifting",
   "/he/contact",
-  "/v2",
-  "/v2/gaming-vip-player-gifting",
-  "/he/v2",
-  "/he/v2/gaming-vip-player-gifting",
-  "/v3",
-  "/v3/gaming-vip-player-gifting",
-  "/he/v3",
-  "/he/v3/gaming-vip-player-gifting",
 ];
 
 test.describe("primary pages", () => {
@@ -59,50 +51,20 @@ test("language switcher preserves matching page", async ({ page }) => {
   await expect(page).toHaveURL(/\/he\/gaming-vip-player-gifting$/);
 });
 
-test("version 2 keeps internal navigation in version 2", async ({ page }) => {
-  await page.goto("/v2/gaming-vip-player-gifting");
-  await expect(page.locator(".theme-v2")).toBeVisible();
-  const desktopServices = page.locator("header nav[aria-label='Main navigation']").getByRole("link", { name: "Services" });
-  if (await desktopServices.isVisible()) {
-    await desktopServices.click();
-  } else {
-    await page.getByRole("button", { name: "Open navigation" }).click();
-    await page.locator("nav[aria-label='Mobile navigation']").getByRole("link", { name: "Services" }).click();
-  }
-  await expect(page).toHaveURL(/\/v2\/services$/);
-});
+test("retired preview routes redirect to V1 equivalents", async ({ page }) => {
+  const redirects = [
+    { from: "/v2", to: "/" },
+    { from: "/v2/gaming-vip-player-gifting", to: "/gaming-vip-player-gifting" },
+    { from: "/v3/contact", to: "/contact" },
+    { from: "/he/v2", to: "/he" },
+    { from: "/he/v3/gaming-vip-player-gifting", to: "/he/gaming-vip-player-gifting" },
+  ];
 
-test("version 2 language switcher preserves preview path", async ({ page }) => {
-  await page.goto("/v2/gaming-vip-player-gifting");
-  if (!(await page.getByRole("link", { name: "HE" }).isVisible())) {
-    await page.getByRole("button", { name: "Open navigation" }).click();
+  for (const { from, to } of redirects) {
+    await page.goto(from);
+    await expect(page).toHaveURL(new RegExp(`${to === "/" ? "/$" : `${to}$`}`));
+    await expect(page.locator(".theme-v1")).toBeVisible();
   }
-  await page.getByRole("link", { name: "HE" }).click();
-  await expect(page).toHaveURL(/\/he\/v2\/gaming-vip-player-gifting$/);
-  await expect(page.locator(".theme-v2[dir='rtl']")).toBeVisible();
-});
-
-test("version 3 keeps internal navigation in version 3", async ({ page }) => {
-  await page.goto("/v3/gaming-vip-player-gifting");
-  await expect(page.locator(".theme-v3")).toBeVisible();
-  const desktopServices = page.locator("header nav[aria-label='Main navigation']").getByRole("link", { name: "Services" });
-  if (await desktopServices.isVisible()) {
-    await desktopServices.click();
-  } else {
-    await page.getByRole("button", { name: "Open navigation" }).click();
-    await page.locator("nav[aria-label='Mobile navigation']").getByRole("link", { name: "Services" }).click();
-  }
-  await expect(page).toHaveURL(/\/v3\/services$/);
-});
-
-test("version 3 language switcher preserves preview path", async ({ page }) => {
-  await page.goto("/v3/gaming-vip-player-gifting");
-  if (!(await page.getByRole("link", { name: "HE" }).isVisible())) {
-    await page.getByRole("button", { name: "Open navigation" }).click();
-  }
-  await page.getByRole("link", { name: "HE" }).click();
-  await expect(page).toHaveURL(/\/he\/v3\/gaming-vip-player-gifting$/);
-  await expect(page.locator(".theme-v3[dir='rtl']")).toBeVisible();
 });
 
 test("contact form validates required fields", async ({ page }) => {

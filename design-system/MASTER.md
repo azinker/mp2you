@@ -38,7 +38,7 @@ The palette is warm but not one-note beige. Sage, green, clay, and charcoal keep
 ## Typography
 - Headlines: Cormorant Garamond for English.
 - Body: Inter.
-- Hebrew: Noto Sans Hebrew for both headings and body to preserve natural RTL readability.
+- Hebrew: Heebo through `next/font/google`, with Noto Sans Hebrew and Arial fallbacks. V1 applies this same RTL stack to headings, cards, buttons, navigation, and body text.
 - Letter spacing remains `0`; avoid compressed luxury typography that harms readability.
 
 ## Layout
@@ -77,10 +77,8 @@ Use subtle hover lift and shadow only. Respect reduced-motion preferences. No ba
 ## Tone
 Professional, warm, premium, and truthful. Avoid invented client names, awards, hard guarantees, years in business, exact statistics, or public address details.
 
-## Version 2 Preview
-V2 is available without replacing V1:
-- English preview: `/v2`
-- Hebrew preview: `/he/v2`
+## Version 2 Exploration
+V2 is retired from public routing. Old `/v2` and `/he/v2` preview paths redirect to matching V1 pages.
 
 V2 keeps the same page flow and copy, but changes the visual language:
 - cooler porcelain/white base
@@ -89,15 +87,13 @@ V2 keeps the same page flow and copy, but changes the visual language:
 - champagne secondary accents
 - sharper card borders and top accent rules
 - English fonts: Plus Jakarta Sans body, DM Serif Display headings
-- Hebrew fonts: Assistant body, Frank Ruhl Libre headings
+- Hebrew fonts: inherited Heebo RTL stack
 - subtle entrance motion, hover lift, hero image float, and line-sweep detail
 
 The direction should feel more modern, professional, sharp, inviting, and trustworthy while preserving the turnkey gifting content strategy from V1.
 
-## Version 3 Preview
-V3 is available without replacing V1 or V2:
-- English preview: `/v3`
-- Hebrew preview: `/he/v3`
+## Version 3 Exploration
+V3 is retired from public routing. Old `/v3` and `/he/v3` preview paths redirect to matching V1 pages.
 
 V3 pushes the site toward a sharper 2026 professional direction:
 - porcelain/white base with ink graphite
@@ -105,7 +101,7 @@ V3 pushes the site toward a sharper 2026 professional direction:
 - champagne/gold signal accents
 - advanced glass-like cards, precision grid surfaces, and side accent rules
 - Plus Jakarta Sans for English headings/body for a sharper unified look
-- Assistant for Hebrew headings/body for a modern RTL interface feel
+- Heebo for Hebrew headings/body for a modern RTL interface feel
 - more advanced motion: load-in blur/rise, scanning hero line, button sheen, subtle orbital accents, generated image layer in the hero
 
 Generated image-model assets are saved in `public/generated-assets/`:

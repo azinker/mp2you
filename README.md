@@ -72,9 +72,7 @@ Submission statuses: New, Contacted, Archived.
 English routes live at `/`.
 Hebrew routes live at `/he/...` with RTL layout.
 
-Version 2 visual preview is available at `/v2` and `/he/v2`. It uses the same content and page flow with an alternate modern, sharper theme.
-
-Version 3 visual preview is available at `/v3` and `/he/v3`. It pushes a more advanced 2026 look with luminous teal, ink graphite, precision grid surfaces, sharper motion, and generated image-model assets in `public/generated-assets/`.
+Only V1 is public. Retired V2/V3 preview paths redirect to the matching V1 route.
 
 Primary pages include home, about, services, four service pages, Gaming & VIP Player Gifting, Who We Serve, Process, Gallery, Case Studies, Testimonials, FAQs, Insights, Contact, Privacy, Terms, and Data/Cookies Notice.
 

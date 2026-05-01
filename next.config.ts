@@ -8,6 +8,14 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      { source: "/v2", destination: "/", permanent: true },
+      { source: "/v2/:path*", destination: "/:path*", permanent: true },
+      { source: "/v3", destination: "/", permanent: true },
+      { source: "/v3/:path*", destination: "/:path*", permanent: true },
+      { source: "/he/v2", destination: "/he", permanent: true },
+      { source: "/he/v2/:path*", destination: "/he/:path*", permanent: true },
+      { source: "/he/v3", destination: "/he", permanent: true },
+      { source: "/he/v3/:path*", destination: "/he/:path*", permanent: true },
       { source: "/about-us", destination: "/about", permanent: true },
       { source: "/about-us/", destination: "/about", permanent: true },
       { source: "/contact-us", destination: "/contact", permanent: true },
