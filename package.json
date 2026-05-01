@@ -1,0 +1,51 @@
+{
+  "name": "morepower2you-next",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": ">=20.19 <25"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "dev:stable": "next dev --webpack -H 0.0.0.0 -p 3000",
+    "dev:alt": "next dev --webpack -H 0.0.0.0 -p 3050",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint src tests scripts next.config.ts sanity.config.ts sanity.cli.ts playwright.config.ts eslint.config.mjs",
+    "typecheck": "tsc --noEmit",
+    "test:e2e": "playwright test",
+    "studio": "sanity dev --base-path /studio",
+    "cms:key-guide": "tsx scripts/cms-key-guide.ts",
+    "cms:check": "tsx scripts/check-cms-env.ts",
+    "cms:seed": "tsx scripts/seed-sanity.ts",
+    "cms:seed:dry": "tsx scripts/seed-sanity.ts --dry-run",
+    "contact:resend-latest": "tsx scripts/resend-latest-inquiry.ts"
+  },
+  "dependencies": {
+    "@portabletext/react": "^4.0.3",
+    "@sanity/client": "^7.22.0",
+    "@sanity/image-url": "^1.2.0",
+    "@sanity/vision": "^3.99.0",
+    "lucide-react": "^1.12.0",
+    "next": "16.2.4",
+    "next-sanity": "^9.12.3",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "resend": "^6.12.2",
+    "sanity": "^3.99.0",
+    "styled-components": "^6.4.1",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.59.1",
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.4",
+    "tailwindcss": "^4",
+    "tsx": "^4.21.0",
+    "typescript": "^5"
+  }
+}
