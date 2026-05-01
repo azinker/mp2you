@@ -212,10 +212,10 @@ function industryDraftDoc(title: string, heTitle: string | undefined, index: num
     title: localized(title, heTitle || title),
     slug: { current: slug },
     status: "draft",
-    heroEyebrow: localized("Future industry page", "עמוד תעשייה עתידי"),
+    heroEyebrow: localized("Future industry page", "עמוד תחום עתידי"),
     heroCopy: localized(
       "CMS-ready draft page prepared for deeper, industry-specific copy before publishing.",
-      "עמוד טיוטה מוכן ב-CMS לכתיבה ממוקדת יותר לפני פרסום.",
+      "עמוד טיוטה מוכן במערכת התוכן לכתיבה ממוקדת יותר לפני פרסום.",
     ),
     blocks: [
       block(
@@ -225,7 +225,7 @@ function industryDraftDoc(title: string, heTitle: string | undefined, index: num
         },
         {
           title: "הערת תוכן לטיוטה",
-          text: "לפני פרסום יש להוסיף צרכי קהל, סוגי פרויקטים, אירועי מתנה וקופי SEO ייעודי.",
+          text: "לפני פרסום יש להוסיף צרכי קהל, סוגי פרויקטים, אירועי מתנה וטקסט SEO ייעודי.",
         },
         index,
       ),
@@ -234,7 +234,7 @@ function industryDraftDoc(title: string, heTitle: string | undefined, index: num
       title: localized(`${title} | MorePower2You`, `${heTitle || title} | MorePower2You`),
       description: localized(
         `Future CMS draft for ${title.toLowerCase()} programs by MorePower2You.`,
-        `טיוטת CMS עתידית עבור ${heTitle || title}.`,
+        `טיוטת תוכן עתידית עבור ${heTitle || title}.`,
       ),
       keywords: [title.toLowerCase(), "corporate gifting", "custom gifting"],
     },
@@ -262,10 +262,10 @@ function homeDoc(): SanitySeedDocument {
       {
         _key: "turnkey-process",
         eyebrow: localized("Process", "תהליך"),
-        title: localized("Turnkey Process", "תהליך מקצה לקצה"),
+        title: localized("Turnkey Process", "תהליך עבודה מלא"),
         text: localized(
           "A practical workflow from discovery and curation through customization, warehousing, fulfillment, delivery, and support.",
-          "תהליך עבודה מעשי משלב האפיון והאוצרות ועד מיתוג, אחסון, מילוי, שילוח ותמיכה.",
+          "תהליך עבודה מעשי משלב האפיון ובחירת המוצרים ועד מיתוג, אחסון, הרכבה, שילוח ותמיכה.",
         ),
         items: items(enHome.process, heHome.process),
       },
@@ -276,17 +276,17 @@ function homeDoc(): SanitySeedDocument {
         title: localized("Occasions and Seasonal Programs", "אירועים ותוכניות עונתיות"),
         text: localized(
           "Flexible starting points for holiday gifting, VIP appreciation, employee appreciation, launch kits, loyalty programs, and custom concierge projects.",
-          "נקודות פתיחה גמישות למתנות חגים, הוקרת VIP, הוקרת עובדים, ערכות השקה, תוכניות נאמנות ופרויקטי קונסיירז' מותאמים.",
+          "רעיונות טובים להתחלה: מתנות חגים, הוקרת VIP, הוקרת עובדים, ערכות השקה, תוכניות נאמנות ופרויקטי קונסיירז' מותאמים.",
         ),
         items: items(
           enHome.occasions.map((title) => ({ title, text: "Custom quoted based on scope, product mix, timing, destination count, and fulfillment needs." })),
-          heHome.occasions.map((title) => ({ title, text: "הצעת מחיר מותאמת לפי היקף, שילוב מוצרים, לוח זמנים, יעדים וצרכי מילוי." })),
+          heHome.occasions.map((title) => ({ title, text: "הצעת מחיר מותאמת לפי היקף, שילוב מוצרים, לוח זמנים, יעדים וצרכי הרכבה ושילוח." })),
         ),
       },
       block(enHome.finalCta, heHome.finalCta, 99),
     ],
     seo: seo(enHome.seo, heHome.seo),
-    imageAlt: localized("Premium MorePower2You corporate gifting hero image", "תמונת הירו פרימיום למתנות ארגוניות של MorePower2You"),
+    imageAlt: localized("Premium MorePower2You corporate gifting hero image", "תמונת פתיחה פרימיום למתנות ארגוניות של MorePower2You"),
   };
 }
 

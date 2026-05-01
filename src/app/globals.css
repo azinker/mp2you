@@ -13,6 +13,7 @@
   --clay: #9a6255;
   --white: #ffffff;
   --line: rgba(169, 127, 45, 0.24);
+  --hebrew-font-stack: var(--font-hebrew), "Noto Sans Hebrew", Arial, sans-serif;
 }
 
 @theme inline {
@@ -47,13 +48,21 @@ body {
 }
 
 [dir="rtl"] {
-  font-family: var(--font-hebrew), var(--font-sans), Arial, Helvetica, sans-serif;
+  font-family: var(--hebrew-font-stack);
 }
 
 [dir="rtl"] .font-serif,
 [dir="rtl"] h1,
 [dir="rtl"] h2 {
-  font-family: var(--font-hebrew), var(--font-sans), Arial, Helvetica, sans-serif;
+  font-family: var(--hebrew-font-stack);
+  line-height: 1.08;
+}
+
+[dir="rtl"] .hero-copy,
+[dir="rtl"] .section-intro p,
+[dir="rtl"] .feature-large p,
+[dir="rtl"] .article-body p {
+  line-height: 1.86;
 }
 
 ::selection {
@@ -284,7 +293,7 @@ textarea {
 }
 
 [dir="rtl"] .brand-tagline {
-  font-family: var(--font-hebrew), var(--font-sans), Arial, Helvetica, sans-serif;
+  font-family: var(--hebrew-font-stack);
   text-transform: none;
 }
 
@@ -1333,7 +1342,7 @@ h1,
 }
 
 .theme-v2[dir="rtl"] {
-  font-family: var(--font-v2-hebrew), var(--font-hebrew), Arial, Helvetica, sans-serif;
+  font-family: var(--hebrew-font-stack);
 }
 
 .theme-v2 h1,
@@ -1374,7 +1383,7 @@ h1,
 .theme-v2[dir="rtl"] .post-card h2,
 .theme-v2[dir="rtl"] .case-card h2,
 .theme-v2[dir="rtl"] .content-panel h2 {
-  font-family: var(--font-v2-hebrew-serif), var(--font-v2-hebrew), serif;
+  font-family: var(--hebrew-font-stack);
   font-weight: 700;
 }
 
@@ -1413,7 +1422,7 @@ h1,
 }
 
 .theme-v2[dir="rtl"] .brand-tagline {
-  font-family: var(--font-v2-hebrew), var(--font-hebrew), Arial, Helvetica, sans-serif;
+  font-family: var(--hebrew-font-stack);
 }
 
 .theme-v2 .nav-link {
@@ -1454,7 +1463,7 @@ h1,
 }
 
 .theme-v2[dir="rtl"] .button {
-  font-family: var(--font-v2-hebrew), var(--font-hebrew), Arial, Helvetica, sans-serif;
+  font-family: var(--hebrew-font-stack);
 }
 
 .theme-v2 .button-primary {
@@ -1514,7 +1523,7 @@ h1,
 }
 
 .theme-v2[dir="rtl"] .eyebrow {
-  font-family: var(--font-v2-hebrew), var(--font-hebrew), Arial, Helvetica, sans-serif;
+  font-family: var(--hebrew-font-stack);
 }
 
 .theme-v2 h1,
@@ -1811,7 +1820,7 @@ h1,
 }
 
 .theme-v3[dir="rtl"] {
-  font-family: var(--font-v2-hebrew), var(--font-hebrew), Arial, Helvetica, sans-serif;
+  font-family: var(--hebrew-font-stack);
 }
 
 .theme-v3 h1,
@@ -1852,7 +1861,7 @@ h1,
 .theme-v3[dir="rtl"] .post-card h2,
 .theme-v3[dir="rtl"] .case-card h2,
 .theme-v3[dir="rtl"] .content-panel h2 {
-  font-family: var(--font-v2-hebrew), var(--font-hebrew), Arial, Helvetica, sans-serif;
+  font-family: var(--hebrew-font-stack);
   font-weight: 800;
 }
 
@@ -1894,7 +1903,7 @@ h1,
 }
 
 .theme-v3[dir="rtl"] .brand-tagline {
-  font-family: var(--font-v2-hebrew), var(--font-hebrew), Arial, Helvetica, sans-serif;
+  font-family: var(--hebrew-font-stack);
 }
 
 .theme-v3 .brand-symbol::after {
@@ -1941,7 +1950,7 @@ h1,
 }
 
 .theme-v3[dir="rtl"] .button {
-  font-family: var(--font-v2-hebrew), var(--font-hebrew), Arial, Helvetica, sans-serif;
+  font-family: var(--hebrew-font-stack);
 }
 
 .theme-v3 .button-primary {
@@ -2019,7 +2028,7 @@ h1,
 }
 
 .theme-v3[dir="rtl"] .eyebrow {
-  font-family: var(--font-v2-hebrew), var(--font-hebrew), Arial, Helvetica, sans-serif;
+  font-family: var(--hebrew-font-stack);
 }
 
 .theme-v3 h1,

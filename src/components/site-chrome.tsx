@@ -18,7 +18,7 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
   const brandVariant: BrandVariant = isV3 ? "v3" : isV2 ? "v2" : "v1";
   const site = getLocaleContent(locale);
   const cta = {
-    label: locale === "he" ? "התחילו פרויקט" : "Start a Project",
+    label: locale === "he" ? "דברו איתנו" : "Start a Project",
     href: locale === "he" ? "/he/contact" : "/contact",
   };
 

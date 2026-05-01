@@ -126,10 +126,10 @@ export function HomePage({ site }: { site: SiteContent }) {
       </section>
 
       <EditorialBlock block={site.home.whatWeDo} />
-      <ProcessBand title={site.locale === "he" ? "תהליך מקצה לקצה" : "Turnkey Process"} items={site.home.process} />
+      <ProcessBand title={site.locale === "he" ? "תהליך עבודה מלא" : "Turnkey Process"} items={site.home.process} />
       <FeaturedBlocks blocks={site.home.featured} />
       <ServiceOverview locale={site.locale} services={site.services} />
-      <OccasionBand title={site.locale === "he" ? "אירועים ועונות שאפשר לתכנן סביבם" : "Occasions and Seasonal Programs"} occasions={site.home.occasions} />
+      <OccasionBand title={site.locale === "he" ? "אירועים ועונות שמתאימים למתנות" : "Occasions and Seasonal Programs"} occasions={site.home.occasions} />
       <IndustryBand title={site.locale === "he" ? "למי זה מתאים" : "Who We Serve"} items={site.industries} />
       <TestimonialsPreview site={site} />
       <GalleryPreview site={site} />
@@ -163,12 +163,12 @@ export function ServicePage({ locale, service, related }: { locale: Locale; serv
       {service.blocks.map((block) => (
         <EditorialBlock block={block} key={block.title} />
       ))}
-      <OccasionBand title={locale === "he" ? "נקודות פתיחה גמישות" : "Flexible Starting Points"} occasions={service.occasions} />
+      <OccasionBand title={locale === "he" ? "רעיונות טובים להתחלה" : "Flexible Starting Points"} occasions={service.occasions} />
       <section className="section-band">
         <div className="container-shell">
           <SectionIntro
             eyebrow={locale === "he" ? "שירותים קשורים" : "Related services"}
-            title={locale === "he" ? "אפשר לחבר את השירותים לפי הצורך." : "Combine services around the shape of the project."}
+            title={locale === "he" ? "אפשר לשלב שירותים לפי הצורך." : "Combine services around the shape of the project."}
             text={
               locale === "he"
                 ? "כל פרויקט מתוכנן לפי קהל, היקף, מיתוג, יעדים ולוח זמנים."
@@ -203,15 +203,15 @@ export function WhoWeServePage({ site }: { site: SiteContent }) {
   return (
     <>
       {page ? <PageHero eyebrow={page.eyebrow} title={page.title} intro={page.intro} primaryCta={page.primaryCta} secondaryCta={page.secondaryCta} /> : null}
-      <IndustryBand title={site.locale === "he" ? "צוותים ותעשיות" : "Industries and Teams"} items={site.industries} />
+      <IndustryBand title={site.locale === "he" ? "צוותים ותחומים" : "Industries and Teams"} items={site.industries} />
       <section className="section-band section-band-warm">
         <div className="container-shell">
           <SectionIntro
-            eyebrow={site.locale === "he" ? "מוכן ל-CMS" : "CMS ready"}
-            title={site.locale === "he" ? "עמודי תעשייה עתידיים מוכנים במודל התוכן." : "Future industry pages are ready in the content model."}
+            eyebrow={site.locale === "he" ? "תוכן עתידי" : "CMS ready"}
+            title={site.locale === "he" ? "עמודי תחומים נוספים מוכנים להמשך." : "Future industry pages are ready in the content model."}
             text={
               site.locale === "he"
-                ? "עמוד הגיימינג מפורסם עכשיו. שאר התעשיות שמורות לכתיבה עמוקה יותר לפני פרסום."
+                ? "עמוד הגיימינג מפורסם עכשיו. שאר התחומים שמורים לכתיבה ממוקדת יותר לפני פרסום."
                 : "The gaming page is published now. Additional industries are held for deeper content before publishing."
             }
           />
@@ -233,7 +233,7 @@ export function ProcessPage({ site }: { site: SiteContent }) {
   return (
     <>
       {page ? <PageHero eyebrow={page.eyebrow} title={page.title} intro={page.intro} primaryCta={page.primaryCta} secondaryCta={page.secondaryCta} /> : null}
-      <ProcessBand title={site.locale === "he" ? "מהרעיון ועד הדלת" : "From Idea to Doorstep"} items={site.home.process} detailed />
+      <ProcessBand title={site.locale === "he" ? "מהרעיון ועד ההגעה ליעד" : "From Idea to Doorstep"} items={site.home.process} detailed />
       <FinalCta site={site} />
     </>
   );
@@ -304,8 +304,8 @@ export function CaseStudyPage({ locale, item }: { locale: Locale; item: CaseStud
       <section className="section-band">
         <div className="container-narrow grid gap-5">
           <DetailPanel title={locale === "he" ? "האתגר" : "Challenge"} text={item.challenge} />
-          <DetailPanel title={locale === "he" ? "גישה אפשרית" : "Possible Approach"} text={item.approach} />
-          <DetailPanel title={locale === "he" ? "תוצאה רצויה" : "Intended Outcome"} text={item.outcome} />
+          <DetailPanel title={locale === "he" ? "הגישה" : "Possible Approach"} text={item.approach} />
+          <DetailPanel title={locale === "he" ? "התוצאה" : "Intended Outcome"} text={item.outcome} />
         </div>
       </section>
     </>
@@ -318,10 +318,10 @@ export function InsightsIndex({ site }: { site: SiteContent }) {
     <>
       <PageHero
         eyebrow={site.locale === "he" ? "מאמרים" : "Insights"}
-        title={site.locale === "he" ? "מחשבות שימושיות על מתנות ארגוניות." : "Useful thinking for better corporate gifting."}
+        title={site.locale === "he" ? "תובנות שימושיות על מתנות ארגוניות." : "Useful thinking for better corporate gifting."}
         intro={
           site.locale === "he"
-            ? "מאמרי פתיחה שמכסים אסטרטגיה, VIP, חגים, קופסאות ממותגות ולוגיסטיקה."
+            ? "מאמרים קצרים על אסטרטגיה, VIP, חגים, קופסאות ממותגות ולוגיסטיקה."
             : "Starter SEO content covering gifting strategy, VIP appreciation, holiday planning, branded boxes, and fulfillment logistics."
         }
         compact
@@ -359,7 +359,7 @@ export function ResourcePage({ locale, resource }: { locale: Locale; resource: R
   return (
     <>
       <PageHero
-        eyebrow={locale === "he" ? "משאב פתוח" : "Open resource"}
+        eyebrow={locale === "he" ? "מדריך פתוח" : "Open resource"}
         title={resource.title}
         intro={resource.summary}
         primaryCta={{ label: locale === "he" ? "התחילו פרויקט" : "Start a Project", href: locale === "he" ? "/he/contact" : "/contact" }}
@@ -372,7 +372,7 @@ export function ResourcePage({ locale, resource }: { locale: Locale; resource: R
           ))}
           <p className="text-sm leading-7 text-stone">
             {locale === "he"
-              ? "מבנה זה מוכן לשער הורדה בעתיד. כרגע המשאב פתוח ואינו כולל הרשמה לניוזלטר."
+              ? "המדריך פתוח כרגע ואינו דורש הרשמה לניוזלטר. בהמשך אפשר להפוך אותו להורדה עם הרשמה."
               : "This structure is ready for future gated download behavior. It is currently ungated and has no newsletter signup."}
           </p>
         </div>
@@ -508,10 +508,10 @@ function ServiceOverview({ locale, services, expanded = false }: { locale: Local
       <div className="container-shell">
         <SectionIntro
           eyebrow={locale === "he" ? "שירותים" : "Services"}
-          title={locale === "he" ? "שירותים שאפשר לשלב לפרויקט אחד." : "Services that can work together as one project."}
+          title={locale === "he" ? "שירותים שאפשר לשלב בפרויקט אחד." : "Services that can work together as one project."}
           text={
             locale === "he"
-              ? "הסדר מדגיש מתנות ארגוניות, קופסאות ממותגות, קונסיירז' ולוגיסטיקה."
+              ? "ההתמקדות היא מתנות ארגוניות, קופסאות ממותגות, קונסיירז' ולוגיסטיקה."
               : "The emphasis order is corporate gifting, custom branded gift boxes, concierge services, and fulfillment."
           }
         />
@@ -526,7 +526,7 @@ function ServiceOverview({ locale, services, expanded = false }: { locale: Local
                   <h3>{service.title}</h3>
                   <p>{service.summary}</p>
                   <span>
-                    {locale === "he" ? "לפרטים" : "Explore"} <ArrowRight size={16} aria-hidden="true" />
+                    {locale === "he" ? "למידע נוסף" : "Explore"} <ArrowRight size={16} aria-hidden="true" />
                   </span>
                 </Link>
               );
@@ -579,10 +579,10 @@ function TestimonialsPreview({ site }: { site: SiteContent }) {
       <div className="container-shell">
         <SectionIntro
           eyebrow={site.locale === "he" ? "המלצות" : "Testimonials"}
-          title={site.locale === "he" ? "משמעות ההמלצות מהאתר הקיים נשמרה." : "The meaning of current testimonials is preserved."}
+          title={site.locale === "he" ? "מה לקוחות מעריכים בעבודה איתנו." : "The meaning of current testimonials is preserved."}
           text={
             site.locale === "he"
-              ? "הניסוח חודש כדי להיות ברור, מקצועי ואמין יותר."
+              ? "תיאום מסודר, רעיונות טובים וביצוע שאפשר לסמוך עליו."
               : "The wording has been refreshed to feel clearer, more polished, and more enterprise-ready."
           }
         />
@@ -627,8 +627,8 @@ function GalleryPreview({ site }: { site: SiteContent }) {
         <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
           <SectionIntro
             eyebrow={site.locale === "he" ? "גלריה" : "Gallery"}
-            title={site.locale === "he" ? "הקשר חזותי למתנות, אריזות ומילוי." : "Visual context for gifting, packaging, and fulfillment."}
-            text={site.locale === "he" ? "תמונות מקור ישנות משמשות כפלייסהולדר עד יצירת תמונות פרימיום." : "Legacy source images are used as placeholders until premium imagery is generated."}
+            title={site.locale === "he" ? "השראה חזותית למתנות, אריזות ושילוח." : "Visual context for gifting, packaging, and fulfillment."}
+            text={site.locale === "he" ? "התמונות זמניות עד להחלפה בתמונות פרימיום חדשות." : "Legacy source images are used as placeholders until premium imagery is generated."}
           />
           <Link className="button button-secondary" href={site.locale === "he" ? "/he/gallery" : "/gallery"}>
             {site.locale === "he" ? "לגלריה" : "View Gallery"}
@@ -655,7 +655,7 @@ function ResourcesPreview({ site }: { site: SiteContent }) {
           title={site.locale === "he" ? "תכנון מתנות מתחיל בהחלטות טובות." : "Better gifting starts with better planning."}
           text={
             site.locale === "he"
-              ? "שלושה משאבים פתוחים מוכנים לשימוש, עם מבנה שמתאים להמרה ל-PDF בעתיד."
+              ? "שלושה מדריכים פתוחים מוכנים לשימוש, עם מבנה שמתאים להמרה ל-PDF בעתיד."
               : "Three ungated resources are ready now, with a structure that can be converted into PDFs later."
           }
         />
@@ -689,7 +689,7 @@ function FinalCta({ site }: { site: SiteContent }) {
               {site.home.hero.primaryCta.label}
             </Link>
             <Link href={site.locale === "he" ? "/he/services" : "/services"} className="button button-secondary" data-track="final-secondary-cta">
-              {site.locale === "he" ? "ראו שירותים" : "Explore Services"}
+              {site.locale === "he" ? "לשירותים" : "Explore Services"}
             </Link>
           </div>
         </div>

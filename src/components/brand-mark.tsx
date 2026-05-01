@@ -13,9 +13,9 @@ const taglines: Record<Locale, Record<BrandVariant, string>> = {
     v3: "Corporate gifting concierge",
   },
   he: {
-    v1: "קונסיירז' למתנות חברה",
+    v1: "קונסיירז' למתנות ארגוניות",
     v2: "מתנות / קונסיירז' / שילוח",
-    v3: "מערכות מתנה לארגונים",
+    v3: "מתנות ארגוניות בקנה מידה",
   },
 };
 

@@ -16,18 +16,6 @@ const nextConfig: NextConfig = {
       { source: "/testimonial/", destination: "/testimonials", permanent: true },
     ];
   },
-  async rewrites() {
-    return [
-      { source: "/v2", destination: "/" },
-      { source: "/v2/:path*", destination: "/:path*" },
-      { source: "/v3", destination: "/" },
-      { source: "/v3/:path*", destination: "/:path*" },
-      { source: "/he/v2", destination: "/he" },
-      { source: "/he/v2/:path*", destination: "/he/:path*" },
-      { source: "/he/v3", destination: "/he" },
-      { source: "/he/v3/:path*", destination: "/he/:path*" },
-    ];
-  },
 };
 
 export default nextConfig;
