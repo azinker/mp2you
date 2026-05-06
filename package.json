@@ -9,6 +9,7 @@
     "dev": "next dev",
     "dev:stable": "next dev --webpack -H 0.0.0.0 -p 3000",
     "dev:alt": "next dev --webpack -H 0.0.0.0 -p 3050",
+    "postinstall": "prisma generate",
     "build": "next build",
     "start": "next start",
     "lint": "eslint src tests scripts next.config.ts sanity.config.ts sanity.cli.ts playwright.config.ts eslint.config.mjs",
