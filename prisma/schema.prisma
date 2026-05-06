@@ -1,0 +1,345 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum UserStatus {
+  ACTIVE
+  DEACTIVATED
+}
+
+enum ThemePreference {
+  SYSTEM
+  LIGHT
+  DARK
+}
+
+enum AssetOwnerType {
+  USER
+  STUDIO
+  PRODUCT
+}
+
+enum ProductStatus {
+  ACTIVE
+  LOW_STOCK
+  OUT_OF_STOCK
+  ARCHIVED
+  DISCONTINUED
+}
+
+enum InventoryTransactionType {
+  INITIAL_COUNT
+  ADD
+  REMOVE
+  TRANSFER
+  CORRECTION
+}
+
+enum RemovalReason {
+  SHIPPED
+  DAMAGED
+  SAMPLE
+  CORRECTION
+  TRANSFER
+  OTHER
+}
+
+enum ActivityAction {
+  LOGIN
+  USER_INVITED
+  USER_ACCEPTED_INVITE
+  USER_UPDATED
+  USER_DEACTIVATED
+  PASSWORD_CHANGED
+  EMAIL_CHANGE_REQUESTED
+  AVATAR_CHANGED
+  STUDIO_CREATED
+  STUDIO_UPDATED
+  STUDIO_ARCHIVED
+  PRODUCT_CREATED
+  PRODUCT_UPDATED
+  PRODUCT_ARCHIVED
+  SUPPLIER_CREATED
+  SUPPLIER_UPDATED
+  SUPPLIER_ARCHIVED
+  LOCATION_CREATED
+  LOCATION_UPDATED
+  LOCATION_ARCHIVED
+  INVENTORY_INITIAL_COUNT
+  INVENTORY_ADDED
+  INVENTORY_REMOVED
+  INVENTORY_TRANSFERRED
+  INVENTORY_CORRECTED
+  REPORT_SENT
+  REPORT_FAILED
+}
+
+enum EntityType {
+  USER
+  STUDIO
+  PRODUCT
+  SUPPLIER
+  LOCATION
+  INVENTORY
+  REPORT
+}
+
+enum ReportRunType {
+  SCHEDULED
+  MANUAL
+  TEST
+}
+
+enum ReportRunStatus {
+  SUCCESS
+  FAILED
+  PARTIAL
+}
+
+model User {
+  id                    String                  @id @default(cuid())
+  firstName             String
+  lastName              String
+  email                 String                  @unique
+  pendingEmail          String?
+  avatarUrl             String?
+  passwordHash          String
+  status                UserStatus              @default(ACTIVE)
+  reportOptIn           Boolean                 @default(true)
+  themePreference       ThemePreference          @default(SYSTEM)
+  isOriginalAdmin       Boolean                 @default(false)
+  lastLoginAt           DateTime?
+  createdAt             DateTime                @default(now())
+  updatedAt             DateTime                @updatedAt
+  studiosCreated        Studio[]                @relation("StudioCreatedBy")
+  studiosUpdated        Studio[]                @relation("StudioUpdatedBy")
+  productsCreated       Product[]               @relation("ProductCreatedBy")
+  productsUpdated       Product[]               @relation("ProductUpdatedBy")
+  inventoryTransactions InventoryTransaction[]
+  activityLogs          ActivityLog[]
+  inviteTokens          InviteToken[]            @relation("InviteCreatedBy")
+  reportRuns            WeeklyReportRun[]        @relation("ReportTriggeredBy")
+}
+
+model Studio {
+  id            String             @id @default(cuid())
+  name          String
+  repName       String
+  repEmail      String
+  repPhone      String?
+  address       String?
+  avatarUrl     String?
+  notes         String?
+  archivedAt    DateTime?
+  createdById   String
+  updatedById   String?
+  createdAt     DateTime           @default(now())
+  updatedAt     DateTime           @updatedAt
+  createdBy     User               @relation("StudioCreatedBy", fields: [createdById], references: [id])
+  updatedBy     User?              @relation("StudioUpdatedBy", fields: [updatedById], references: [id])
+  products      Product[]
+  balances      InventoryBalance[]
+  transactionsFrom InventoryTransaction[] @relation("TransactionFromStudio")
+  transactionsTo   InventoryTransaction[] @relation("TransactionToStudio")
+
+  @@index([archivedAt])
+  @@index([name])
+}
+
+model Supplier {
+  id          String    @id @default(cuid())
+  name        String
+  contactName String?
+  email       String?
+  phone       String?
+  notes       String?
+  archivedAt  DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  products    Product[]
+}
+
+model Location {
+  id          String             @id @default(cuid())
+  name        String
+  description String?
+  archivedAt  DateTime?
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
+  balances    InventoryBalance[]
+  products    Product[]
+}
+
+model Product {
+  id                String                  @id @default(cuid())
+  name              String
+  manualSku         String?
+  internalSku       String                  @unique
+  imageUrl          String?
+  locationText      String?
+  supplierText      String?
+  unitCost          Decimal                 @default(0) @db.Decimal(12, 2)
+  unitSalePrice     Decimal                 @default(0) @db.Decimal(12, 2)
+  piecesPerCarton   Int
+  totalPiecesOnHand Int                     @default(0)
+  lowStockThreshold Int?
+  status            ProductStatus           @default(ACTIVE)
+  notes             String?
+  archivedAt        DateTime?
+  discontinuedAt    DateTime?
+  studioId          String?
+  supplierId        String?
+  locationId        String?
+  createdById       String
+  updatedById       String?
+  createdAt         DateTime                @default(now())
+  updatedAt         DateTime                @updatedAt
+  studio            Studio?                 @relation(fields: [studioId], references: [id])
+  supplier          Supplier?               @relation(fields: [supplierId], references: [id])
+  location          Location?               @relation(fields: [locationId], references: [id])
+  createdBy         User                    @relation("ProductCreatedBy", fields: [createdById], references: [id])
+  updatedBy         User?                   @relation("ProductUpdatedBy", fields: [updatedById], references: [id])
+  balances          InventoryBalance[]
+  transactions      InventoryTransaction[]
+
+  @@index([name])
+  @@index([studioId])
+  @@index([supplierId])
+  @@index([locationId])
+  @@index([status])
+}
+
+model InventoryBalance {
+  id            String    @id @default(cuid())
+  productId     String
+  studioId      String?
+  locationId    String?
+  locationText  String?
+  piecesOnHand  Int       @default(0)
+  updatedAt     DateTime  @updatedAt
+  product       Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
+  studio        Studio?   @relation(fields: [studioId], references: [id])
+  location      Location? @relation(fields: [locationId], references: [id])
+
+  @@unique([productId, studioId, locationId, locationText])
+  @@index([studioId])
+  @@index([locationId])
+}
+
+model InventoryTransaction {
+  id                String                   @id @default(cuid())
+  productId         String
+  type              InventoryTransactionType
+  quantityPieces    Int
+  previousTotal     Int
+  resultingTotal    Int
+  fromStudioId      String?
+  toStudioId        String?
+  fromLocationText  String?
+  toLocationText    String?
+  reason            RemovalReason?
+  note              String?
+  correctionComment String?
+  createdById       String
+  createdAt         DateTime                 @default(now())
+  product           Product                  @relation(fields: [productId], references: [id])
+  fromStudio        Studio?                  @relation("TransactionFromStudio", fields: [fromStudioId], references: [id])
+  toStudio          Studio?                  @relation("TransactionToStudio", fields: [toStudioId], references: [id])
+  createdBy         User                     @relation(fields: [createdById], references: [id])
+
+  @@index([productId, createdAt])
+  @@index([type])
+  @@index([createdAt])
+}
+
+model ActivityLog {
+  id              String         @id @default(cuid())
+  userId          String?
+  action          ActivityAction
+  entityType      EntityType
+  entityId        String?
+  entityName      String
+  summary         String
+  note            String?
+  beforeValues    Json?
+  afterValues     Json?
+  studioId        String?
+  productId       String?
+  supplierId      String?
+  locationId      String?
+  relatedUserId   String?
+  createdAt       DateTime       @default(now())
+  user            User?          @relation(fields: [userId], references: [id])
+
+  @@index([createdAt])
+  @@index([action])
+  @@index([entityType, entityId])
+  @@index([studioId])
+  @@index([productId])
+}
+
+model WeeklyReportRun {
+  id              String          @id @default(cuid())
+  runType         ReportRunType
+  status          ReportRunStatus
+  subject         String
+  periodStart     DateTime
+  periodEnd       DateTime
+  recipientEmails String[]
+  errorMessage    String?
+  triggeredById   String?
+  snapshot        Json?
+  createdAt       DateTime        @default(now())
+  triggeredBy     User?           @relation("ReportTriggeredBy", fields: [triggeredById], references: [id])
+}
+
+model UploadedAsset {
+  id           String         @id @default(cuid())
+  ownerType    AssetOwnerType
+  ownerId      String
+  fileName     String
+  contentType  String
+  sizeBytes    Int
+  storageKey   String
+  publicUrl    String
+  createdById  String?
+  createdAt    DateTime       @default(now())
+
+  @@index([ownerType, ownerId])
+}
+
+model PasswordResetToken {
+  id        String   @id @default(cuid())
+  userId    String
+  tokenHash String   @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime @default(now())
+}
+
+model InviteToken {
+  id             String    @id @default(cuid())
+  email          String
+  firstName      String
+  lastName       String
+  tokenHash      String    @unique
+  expiresAt      DateTime
+  acceptedAt     DateTime?
+  createdById    String
+  createdAt      DateTime  @default(now())
+  createdBy      User      @relation("InviteCreatedBy", fields: [createdById], references: [id])
+}
+
+model EmailVerificationToken {
+  id        String   @id @default(cuid())
+  userId    String
+  newEmail  String
+  tokenHash String   @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime @default(now())
+}

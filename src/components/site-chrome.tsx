@@ -10,6 +10,7 @@ import type { Locale } from "@/content/site";
 export function SiteChrome({ children }: { children: React.ReactNode }) {
   const pathname = usePathname() || "/";
   const isStudio = pathname === "/studio" || pathname.startsWith("/studio/");
+  const isInventory = pathname === "/inventory" || pathname.startsWith("/inventory/");
   const locale: Locale = pathname.startsWith("/he") ? "he" : "en";
   const site = getLocaleContent(locale);
   const cta = {
@@ -17,7 +18,7 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
     href: locale === "he" ? "/he/contact" : "/contact",
   };
 
-  if (isStudio) {
+  if (isStudio || isInventory) {
     return (
       <div lang="en" dir="ltr" className="min-h-screen bg-white text-charcoal">
         {children}
