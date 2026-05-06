@@ -102,7 +102,8 @@ textarea {
   margin-inline: auto;
 }
 
-.inventory-root {
+.inventory-root,
+.inventory-auth {
   --inv-bg: #f8f5ef;
   --inv-surface: #fffdf9;
   --inv-panel: #ffffff;
@@ -114,6 +115,9 @@ textarea {
   --inv-blue: #315f78;
   --inv-rust: #9d5545;
   --inv-danger: #b42318;
+}
+
+.inventory-root {
   min-height: 100vh;
   display: grid;
   grid-template-columns: 280px minmax(0, 1fr);
@@ -472,6 +476,15 @@ textarea {
   background: var(--inv-surface);
   color: var(--inv-text);
   padding: 10px 11px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55);
+}
+
+.inventory-field input:focus,
+.inventory-field select:focus,
+.inventory-field textarea:focus {
+  border-color: color-mix(in srgb, var(--inv-gold) 70%, var(--inv-line));
+  outline: 3px solid color-mix(in srgb, var(--inv-gold) 30%, transparent);
+  outline-offset: 1px;
 }
 
 .inventory-checkbox {
@@ -479,6 +492,10 @@ textarea {
   align-items: center;
   gap: 9px;
   color: var(--inv-muted);
+}
+
+.inventory-checkbox input {
+  accent-color: var(--inv-green);
 }
 
 .inventory-primary,
@@ -499,6 +516,8 @@ textarea {
 .inventory-primary {
   background: var(--inv-green);
   color: #fff;
+  border: 1px solid color-mix(in srgb, var(--inv-green) 88%, #000);
+  box-shadow: 0 10px 22px color-mix(in srgb, var(--inv-green) 18%, transparent);
 }
 
 .inventory-primary.inline,
@@ -515,6 +534,21 @@ textarea {
 .inventory-danger {
   background: var(--inv-danger);
   color: #fff;
+}
+
+.inventory-primary:hover,
+.inventory-secondary:hover,
+.inventory-danger:hover,
+.inventory-icon-button:hover {
+  transform: translateY(-1px);
+}
+
+.inventory-primary:disabled,
+.inventory-secondary:disabled,
+.inventory-danger:disabled {
+  cursor: not-allowed;
+  opacity: 0.58;
+  transform: none;
 }
 
 .inventory-help {
@@ -579,7 +613,17 @@ textarea {
 
 .inventory-timeline li {
   border-left: 3px solid var(--inv-gold);
-  padding: 4px 0 4px 12px;
+  padding: 8px 0 8px 12px;
+}
+
+.inventory-timeline strong,
+.inventory-timeline span {
+  display: block;
+}
+
+.inventory-timeline strong {
+  margin-bottom: 4px;
+  line-height: 1.35;
 }
 
 .inventory-timeline span,
@@ -614,6 +658,7 @@ textarea {
 .inventory-auth-card {
   width: min(100%, 460px);
   padding: 28px;
+  background: color-mix(in srgb, var(--inv-panel) 96%, transparent);
 }
 
 .inventory-auth-mark {
@@ -652,6 +697,11 @@ textarea {
 .inventory-muted-link {
   color: var(--inv-muted);
   text-align: center;
+  font-weight: 700;
+}
+
+.inventory-muted-link:hover {
+  color: var(--inv-green);
 }
 
 .inventory-product-hero {
@@ -719,6 +769,32 @@ textarea {
 }
 
 @media (max-width: 720px) {
+  .inventory-sidebar {
+    padding: 16px 12px;
+    gap: 16px;
+  }
+
+  .inventory-brand {
+    justify-content: center;
+  }
+
+  .inventory-sidebar-footer {
+    margin-top: 0;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+  }
+
+  .inventory-sidebar-actions {
+    justify-content: end;
+  }
+
+  .inventory-nav-link {
+    justify-content: center;
+    min-height: 48px;
+    padding: 8px;
+    font-size: 14px;
+  }
+
   .inventory-main {
     width: min(100% - 24px, 1500px);
     padding-top: 20px;
@@ -729,7 +805,6 @@ textarea {
     align-items: start;
   }
 
-  .inventory-sidebar nav,
   .inventory-metrics,
   .inventory-studio-grid,
   .inventory-action-grid,
@@ -737,8 +812,20 @@ textarea {
     grid-template-columns: 1fr;
   }
 
+  .inventory-sidebar nav {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
   .inventory-page-header h1 {
     font-size: 28px;
+  }
+
+  .inventory-auth {
+    padding: 16px;
+  }
+
+  .inventory-auth-card {
+    padding: 22px;
   }
 }
 
