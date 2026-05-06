@@ -427,6 +427,76 @@ export async function archiveEntityAction(formData: FormData) {
   revalidatePath("/inventory");
 }
 
+export async function deleteEntityAction(formData: FormData) {
+  const user = await requireInventoryUser();
+  const entity = stringValue(formData, "entity");
+  const id = stringValue(formData, "id");
+  const confirm = stringValue(formData, "confirm");
+  if (confirm !== "DELETE") throw new Error("Type DELETE to confirm.");
+
+  if (entity === "product") {
+    const product = await db.product.findUnique({ where: { id } });
+    if (!product) throw new Error("Product not found.");
+
+    await db.$transaction(async (tx) => {
+      await tx.inventoryTransaction.deleteMany({ where: { productId: id } });
+      await tx.inventoryBalance.deleteMany({ where: { productId: id } });
+      await tx.uploadedAsset.deleteMany({ where: { ownerType: "PRODUCT", ownerId: id } });
+      await tx.product.delete({ where: { id } });
+      await tx.activityLog.create({
+        data: {
+          userId: user.id,
+          action: "PRODUCT_ARCHIVED",
+          entityType: "PRODUCT",
+          entityId: id,
+          entityName: product.name,
+          summary: `${user.firstName} ${user.lastName} permanently deleted product ${product.name}.`,
+          beforeValues: {
+            name: product.name,
+            internalSku: product.internalSku,
+            totalPiecesOnHand: product.totalPiecesOnHand,
+          },
+        },
+      });
+    });
+
+    revalidatePath("/inventory");
+    redirect("/inventory/products");
+  }
+
+  if (entity === "studio") {
+    const studio = await db.studio.findUnique({ where: { id } });
+    if (!studio) throw new Error("Studio not found.");
+
+    await db.$transaction(async (tx) => {
+      await tx.product.updateMany({ where: { studioId: id }, data: { studioId: null, updatedById: user.id } });
+      await tx.inventoryBalance.updateMany({ where: { studioId: id }, data: { studioId: null } });
+      await tx.uploadedAsset.deleteMany({ where: { ownerType: "STUDIO", ownerId: id } });
+      await tx.studio.delete({ where: { id } });
+      await tx.activityLog.create({
+        data: {
+          userId: user.id,
+          action: "STUDIO_ARCHIVED",
+          entityType: "STUDIO",
+          entityId: id,
+          entityName: studio.name,
+          summary: `${user.firstName} ${user.lastName} permanently deleted Studio ${studio.name}. Products were moved to Unassigned Inventory.`,
+          beforeValues: {
+            name: studio.name,
+            repName: studio.repName,
+            repEmail: studio.repEmail,
+          },
+        },
+      });
+    });
+
+    revalidatePath("/inventory");
+    redirect("/inventory/studios");
+  }
+
+  throw new Error("Choose a valid entity to delete.");
+}
+
 export async function updateProfileAction(formData: FormData) {
   const user = await requireInventoryUser();
   const firstName = stringValue(formData, "firstName");

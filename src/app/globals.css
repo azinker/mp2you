@@ -634,6 +634,11 @@ textarea {
   border-radius: 8px;
 }
 
+.inventory-danger-copy {
+  margin: -4px 0 14px;
+  color: var(--inv-danger);
+}
+
 .inventory-error {
   color: #9f1d16;
   background: #fee4e2;

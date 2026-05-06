@@ -10,6 +10,7 @@ import {
   createProductAction,
   createStudioAction,
   createSupplierAction,
+  deleteEntityAction,
   inviteUserAction,
   inventoryTransactionAction,
   sendManualReportAction,
@@ -59,7 +60,8 @@ function StatusBadge({ status }: { status: string }) {
 }
 
 function ProductTable({ products }: { products: Awaited<ReturnType<typeof getDashboardData>>["products"] }) {
-  if (!products.length) {
+  const visibleProducts = products.filter((product) => !product.archivedAt);
+  if (!visibleProducts.length) {
     return <EmptyState title="No products yet." body="Create your first product to begin tracking inventory by pieces, cartons, and Studio." />;
   }
   return (
@@ -82,7 +84,7 @@ function ProductTable({ products }: { products: Awaited<ReturnType<typeof getDas
           </tr>
         </thead>
         <tbody>
-          {products.map((product) => {
+          {visibleProducts.map((product) => {
             const breakdown = cartonBreakdown(product.totalPiecesOnHand, product.piecesPerCarton);
             return (
               <tr key={product.id}>
@@ -116,12 +118,13 @@ function ProductTable({ products }: { products: Awaited<ReturnType<typeof getDas
 }
 
 function StudioCards({ studios }: { studios: Awaited<ReturnType<typeof getDashboardData>>["studios"] }) {
-  if (!studios.filter((studio) => studio.id !== "unassigned").length) {
+  const visibleStudios = studios.filter((studio) => studio.id === "unassigned" || !studio.archivedAt);
+  if (!visibleStudios.filter((studio) => studio.id !== "unassigned").length) {
     return <EmptyState title="No Studios yet." body="Create your first Studio to begin organizing inventory." action={<Link className="inventory-primary inline" href="/inventory/studios">Create Studio</Link>} />;
   }
   return (
     <div className="inventory-studio-grid">
-      {studios.map((studio) => (
+      {visibleStudios.map((studio) => (
         <Link href={studio.id === "unassigned" ? "/inventory/products?assigned=unassigned" : `/inventory/studios/${studio.id}`} className="inventory-studio-card" key={studio.id}>
           {studio.avatarUrl ? <img src={studio.avatarUrl} alt="" /> : <span>{studio.name.slice(0, 2).toUpperCase()}</span>}
           <div>
@@ -340,6 +343,16 @@ export async function StudioDetailView({ id }: { id: string }) {
           <button className="inventory-danger" type="submit"><Archive size={16} /> Archive Studio</button>
         </form>
       </section>
+      <section className="inventory-panel danger">
+        <h2>Delete Studio</h2>
+        <p className="inventory-danger-copy">Permanently deletes this Studio and moves its products to Unassigned Inventory.</p>
+        <form action={deleteEntityAction} className="inventory-form compact">
+          <input type="hidden" name="entity" value="studio" />
+          <input type="hidden" name="id" value={id} />
+          <Field label="Type DELETE" name="confirm" required help="archive" />
+          <button className="inventory-danger" type="submit"><Archive size={16} /> Delete Studio</button>
+        </form>
+      </section>
     </>
   );
 }
@@ -400,6 +413,16 @@ export async function ProductDetailView({ id }: { id: string }) {
           <input type="hidden" name="id" value={id} />
           <Field label="Type ARCHIVE" name="confirm" required help="archive" />
           <button className="inventory-danger" type="submit"><Archive size={16} /> Archive Product</button>
+        </form>
+      </section>
+      <section className="inventory-panel danger">
+        <h2>Delete Product</h2>
+        <p className="inventory-danger-copy">Permanently deletes this product and its inventory transactions from the portal.</p>
+        <form action={deleteEntityAction} className="inventory-form compact">
+          <input type="hidden" name="entity" value="product" />
+          <input type="hidden" name="id" value={id} />
+          <Field label="Type DELETE" name="confirm" required help="archive" />
+          <button className="inventory-danger" type="submit"><Archive size={16} /> Delete Product</button>
         </form>
       </section>
     </>
