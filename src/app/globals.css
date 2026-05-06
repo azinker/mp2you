@@ -694,6 +694,10 @@ textarea {
   background: #dcfaea;
 }
 
+.inventory-form-message {
+  margin: 0 0 14px;
+}
+
 .inventory-muted-link {
   color: var(--inv-muted);
   text-align: center;

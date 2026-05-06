@@ -3,7 +3,7 @@ export const inventoryHelp = {
   password: "Use a secure password. The seeded admin can change the temporary password in Settings.",
   firstName: "Required for audit logs and report lines so teammates can see who made each change.",
   lastName: "Required for audit logs and user management.",
-  studioName: "The Studio this inventory belongs to. Example: House of Fun.",
+  studioName: "The Studio this inventory belongs to. Example: Slotomania.",
   studioRep: "The main contact for this Studio.",
   productName: "The item name shown in dashboards, reports, and inventory history.",
   sku: "Optional internal code. If blank, the system creates a clean MorePower2You SKU.",

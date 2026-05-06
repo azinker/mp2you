@@ -1,6 +1,6 @@
 import "server-only";
 
-import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
+import { GetObjectCommand, PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import { db } from "@/lib/inventory/db";
 
 const acceptedTypes = new Set(["image/jpeg", "image/png", "image/webp", "image/gif"]);
@@ -17,6 +17,10 @@ function r2Client() {
     endpoint: process.env.CLOUDFLARE_R2_ENDPOINT || `https://${accountId}.r2.cloudflarestorage.com`,
     credentials: { accessKeyId, secretAccessKey },
   });
+}
+
+function inventoryAssetUrl(assetId: string) {
+  return `/inventory/assets/${assetId}`;
 }
 
 export async function uploadInventoryImage(file: File | null, ownerType: "USER" | "STUDIO" | "PRODUCT", ownerId: string, userId?: string) {
@@ -44,8 +48,8 @@ export async function uploadInventoryImage(file: File | null, ownerType: "USER" 
         ContentType: file.type,
       }),
     );
-    const url = publicUrl ? `${publicUrl.replace(/\/$/, "")}/${key}` : `r2://${bucket}/${key}`;
-    await db.uploadedAsset.create({
+    const externalUrl = publicUrl ? `${publicUrl.replace(/\/$/, "")}/${key}` : null;
+    const asset = await db.uploadedAsset.create({
       data: {
         ownerType,
         ownerId,
@@ -53,12 +57,26 @@ export async function uploadInventoryImage(file: File | null, ownerType: "USER" 
         contentType: file.type,
         sizeBytes: file.size,
         storageKey: key,
-        publicUrl: url,
+        publicUrl: externalUrl || `r2://${bucket}/${key}`,
         createdById: userId,
       },
     });
-    return publicUrl ? url : null;
+    if (externalUrl) return externalUrl;
+
+    const privateUrl = inventoryAssetUrl(asset.id);
+    await db.uploadedAsset.update({ where: { id: asset.id }, data: { publicUrl: privateUrl } });
+    return privateUrl;
   }
 
   return null;
+}
+
+export async function getInventoryImageObject(assetId: string) {
+  const asset = await db.uploadedAsset.findUnique({ where: { id: assetId } });
+  const client = r2Client();
+  const bucket = process.env.CLOUDFLARE_R2_BUCKET_NAME;
+  if (!asset || !client || !bucket) return null;
+
+  const object = await client.send(new GetObjectCommand({ Bucket: bucket, Key: asset.storageKey }));
+  return { asset, object };
 }

@@ -20,7 +20,7 @@ import { cleanSku, productStatus } from "@/lib/inventory/format";
 import { uploadInventoryImage } from "@/lib/inventory/r2";
 import { sendWeeklyReport } from "@/lib/inventory/reports";
 
-type FormState = { error?: string; success?: string } | undefined;
+export type FormState = { error?: string; success?: string } | undefined;
 
 function stringValue(formData: FormData, key: string) {
   const value = formData.get(key);
@@ -30,6 +30,12 @@ function stringValue(formData: FormData, key: string) {
 function optionalString(formData: FormData, key: string) {
   const value = stringValue(formData, key);
   return value.length ? value : null;
+}
+
+function studioSelectValue(formData: FormData, key: string) {
+  const value = stringValue(formData, key);
+  if (!value || value === "__unassigned") return null;
+  return value;
 }
 
 function intValue(formData: FormData, key: string, fallback = 0) {
@@ -279,14 +285,20 @@ async function refreshProductTotal(productId: string, userId: string) {
   });
 }
 
-export async function inventoryTransactionAction(formData: FormData) {
+function friendlyActionError(error: unknown) {
+  if (error instanceof z.ZodError) return "Please check the highlighted fields and try again.";
+  if (error instanceof Error) return error.message;
+  return "The request could not be processed.";
+}
+
+async function applyInventoryTransaction(formData: FormData) {
   const user = await requireInventoryUser();
   const productId = stringValue(formData, "productId");
   const type = stringValue(formData, "type") as InventoryTransactionType;
   const quantityPieces = intValue(formData, "quantityPieces");
   const reason = optionalString(formData, "reason") as RemovalReason | null;
   const note = optionalString(formData, "note");
-  const toStudioId = optionalString(formData, "toStudioId");
+  const toStudioId = studioSelectValue(formData, "toStudioId");
   const toLocationText = optionalString(formData, "toLocationText");
 
   if (!productId || !Object.values(InventoryTransactionType).includes(type)) throw new Error("Choose a valid inventory action.");
@@ -299,7 +311,8 @@ export async function inventoryTransactionAction(formData: FormData) {
   const product = await db.product.findUnique({ where: { id: productId } });
   if (!product) throw new Error("Product not found.");
 
-  const fromStudioId = optionalString(formData, "fromStudioId") || product.studioId;
+  const rawFromStudioId = stringValue(formData, "fromStudioId");
+  const fromStudioId = rawFromStudioId === "__unassigned" ? null : rawFromStudioId || product.studioId;
   const fromLocationText = optionalString(formData, "fromLocationText") || product.locationText;
   const previousTotal = product.totalPiecesOnHand;
   let resultingTotal = previousTotal;
@@ -322,15 +335,25 @@ export async function inventoryTransactionAction(formData: FormData) {
     }
 
     if (type === "REMOVE") {
-      const balance = await findBalance(tx, productId, fromStudioId, fromLocationText);
-      if (quantityPieces > balance.piecesOnHand || quantityPieces > previousTotal) throw new Error("Removal exceeds available inventory.");
+      const balance = await tx.inventoryBalance.findFirst({ where: { productId, studioId: fromStudioId, locationText: fromLocationText } });
+      if (!balance || balance.piecesOnHand <= 0) {
+        throw new Error("No available inventory exists for this product in the selected Studio.");
+      }
+      if (quantityPieces > balance.piecesOnHand || quantityPieces > previousTotal) {
+        throw new Error(`Only ${balance.piecesOnHand} piece(s) are available for this product in the selected Studio.`);
+      }
       await tx.inventoryBalance.update({ where: { id: balance.id }, data: { piecesOnHand: balance.piecesOnHand - quantityPieces } });
       resultingTotal = previousTotal - quantityPieces;
     }
 
     if (type === "TRANSFER") {
-      const fromBalance = await findBalance(tx, productId, fromStudioId, fromLocationText);
-      if (quantityPieces > fromBalance.piecesOnHand) throw new Error("Transfer exceeds available inventory.");
+      const fromBalance = await tx.inventoryBalance.findFirst({ where: { productId, studioId: fromStudioId, locationText: fromLocationText } });
+      if (!fromBalance || fromBalance.piecesOnHand <= 0) {
+        throw new Error("No available inventory exists for this product in the selected source Studio.");
+      }
+      if (quantityPieces > fromBalance.piecesOnHand) {
+        throw new Error(`Only ${fromBalance.piecesOnHand} piece(s) are available to transfer from the selected source Studio.`);
+      }
       const toBalance = await findBalance(tx, productId, toStudioId, toLocationText);
       await tx.inventoryBalance.update({ where: { id: fromBalance.id }, data: { piecesOnHand: fromBalance.piecesOnHand - quantityPieces } });
       await tx.inventoryBalance.update({ where: { id: toBalance.id }, data: { piecesOnHand: toBalance.piecesOnHand + quantityPieces } });
@@ -399,6 +422,21 @@ export async function inventoryTransactionAction(formData: FormData) {
   });
 
   revalidatePath("/inventory");
+  return productId;
+}
+
+export async function inventoryTransactionAction(formData: FormData) {
+  const productId = await applyInventoryTransaction(formData);
+  redirect(`/inventory/products/${productId}`);
+}
+
+export async function inventoryTransactionStateAction(_prev: FormState, formData: FormData): Promise<FormState> {
+  let productId = "";
+  try {
+    productId = await applyInventoryTransaction(formData);
+  } catch (error) {
+    return { error: friendlyActionError(error) };
+  }
   redirect(`/inventory/products/${productId}`);
 }
 

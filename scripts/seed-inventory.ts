@@ -49,11 +49,11 @@ async function main() {
   }
 
   const studio = await prisma.studio.upsert({
-    where: { id: "demo-house-of-fun" },
+    where: { id: "demo-slotomania" },
     update: {},
     create: {
-      id: "demo-house-of-fun",
-      name: "House of Fun",
+      id: "demo-slotomania",
+      name: "Slotomania",
       repName: "Laurie Zinker",
       repEmail: "laurie@example.com",
       notes: "Local demo Studio only.",

@@ -1,8 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
-import { Archive, ArrowRightLeft, Download, Plus, Send, UploadCloud } from "lucide-react";
+import { Archive, Download, Plus, Send, UploadCloud } from "lucide-react";
 import { HelpTooltip } from "@/components/inventory/help-tooltip";
 import { Field, Select, TextArea } from "@/components/inventory/fields";
+import { InventoryActionFormsClient } from "@/components/inventory/inventory-action-forms";
 import {
   archiveEntityAction,
   changePasswordAction,
@@ -12,7 +13,6 @@ import {
   createSupplierAction,
   deleteEntityAction,
   inviteUserAction,
-  inventoryTransactionAction,
   sendManualReportAction,
   updateProfileAction,
 } from "@/lib/inventory/actions";
@@ -192,53 +192,19 @@ function ProductForm({ data }: { data: Awaited<ReturnType<typeof getDashboardDat
 }
 
 function InventoryActionForms({ data, productId }: { data: Awaited<ReturnType<typeof getDashboardData>>; productId?: string }) {
-  const products = productId ? data.products.filter((product) => product.id === productId) : data.products;
   return (
-    <div className="inventory-action-grid">
-      {(["INITIAL_COUNT", "ADD", "REMOVE", "TRANSFER", "CORRECTION"] as const).map((type) => (
-        <details className="inventory-action-card" key={type}>
-          <summary>
-            {type === "TRANSFER" ? <ArrowRightLeft size={17} /> : <Plus size={17} />}
-            {type.replace("_", " ")}
-            <HelpTooltip k={type === "REMOVE" ? "removeInventory" : type === "TRANSFER" ? "transferInventory" : type === "CORRECTION" ? "correction" : type === "INITIAL_COUNT" ? "initialCount" : "addInventory"} />
-          </summary>
-          <form action={inventoryTransactionAction} className="inventory-form compact">
-            <input type="hidden" name="type" value={type} />
-            <Select label="Product" name="productId" required help="productName" defaultValue={productId}>
-              <option value="">Choose product</option>
-              {products.map((product) => <option value={product.id} key={product.id}>{product.name} ({product.totalPiecesOnHand} pieces)</option>)}
-            </Select>
-            <Select label="From Studio" name="fromStudioId" help="studioName">
-              <option value="">Unassigned</option>
-              {data.studios.filter((studio) => studio.id !== "unassigned").map((studio) => <option value={studio.id} key={studio.id}>{studio.name}</option>)}
-            </Select>
-            <Field label={type === "CORRECTION" ? "Correct total pieces" : "Quantity pieces"} name="quantityPieces" type="number" min={1} required help="quantityPieces" />
-            {type === "TRANSFER" ? (
-              <>
-                <Select label="To Studio" name="toStudioId" required help="transferInventory">
-                  <option value="">Unassigned</option>
-                  {data.studios.filter((studio) => studio.id !== "unassigned").map((studio) => <option value={studio.id} key={studio.id}>{studio.name}</option>)}
-                </Select>
-                <Field label="To location" name="toLocationText" help="transferInventory" />
-              </>
-            ) : null}
-            {type === "REMOVE" ? (
-              <Select label="Reason" name="reason" required help="removeInventory">
-                <option value="">Choose reason</option>
-                <option value="SHIPPED">Shipped</option>
-                <option value="DAMAGED">Damaged</option>
-                <option value="SAMPLE">Sample</option>
-                <option value="CORRECTION">Correction</option>
-                <option value="TRANSFER">Transfer</option>
-                <option value="OTHER">Other</option>
-              </Select>
-            ) : null}
-            <TextArea label="Note / reason" name="note" required={type === "REMOVE" || type === "TRANSFER" || type === "CORRECTION"} help={type === "CORRECTION" ? "correction" : "removeInventory"} />
-            <button className="inventory-primary" type="submit">Confirm {type.replace("_", " ")}</button>
-          </form>
-        </details>
-      ))}
-    </div>
+    <InventoryActionFormsClient
+      productId={productId}
+      products={data.products.filter((product) => !product.archivedAt).map((product) => ({
+        id: product.id,
+        name: product.name,
+        totalPiecesOnHand: product.totalPiecesOnHand,
+      }))}
+      studios={data.studios.filter((studio) => studio.id !== "unassigned" && !studio.archivedAt).map((studio) => ({
+        id: studio.id,
+        name: studio.name,
+      }))}
+    />
   );
 }
 
