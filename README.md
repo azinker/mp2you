@@ -34,6 +34,25 @@ Important variables:
 - `TURNSTILE_SECRET_KEY`
 - `NEXT_PUBLIC_SITE_URL`
 
+Inventory Portal variables:
+- `DATABASE_URL`
+- `DIRECT_DATABASE_URL`
+- `SESSION_SECRET`
+- `AUTH_SECRET`
+- `APP_URL`
+- `INVENTORY_BASE_URL`
+- `RESEND_API_KEY`
+- `RESEND_FROM_EMAIL`
+- `RESEND_REPLY_TO_EMAIL`
+- `CLOUDFLARE_R2_ACCOUNT_ID`
+- `CLOUDFLARE_R2_ACCESS_KEY_ID`
+- `CLOUDFLARE_R2_SECRET_ACCESS_KEY`
+- `CLOUDFLARE_R2_BUCKET_NAME`
+- `CLOUDFLARE_R2_PUBLIC_URL`
+- `CRON_SECRET`
+- `SEED_ADMIN_EMAIL`
+- `SEED_ADMIN_PASSWORD`
+
 Helpful setup commands:
 ```bash
 npm run cms:key-guide
@@ -42,6 +61,74 @@ npm run cms:seed:dry
 ```
 
 The full click-by-click setup guide is in `CMS_SETUP.md`.
+
+## Inventory Portal
+The private internal Inventory Management Portal lives at `/inventory`. It is intentionally hidden from public navigation and marked `noindex`; `robots.ts` also disallows `/inventory/`.
+
+It includes email/password login, 30-day secure sessions, first-admin seeding, user invites, password resets, profile theme/report preferences, Studio/Product/Supplier/Location management, R2 image uploads, transaction-based inventory, Studio/product valuations, activity logs, weekly report previews, manual report sending, scheduled report endpoint protection, and CSV/XLSX exports.
+
+### Service Setup Checklist
+Neon Postgres:
+- Create a Neon project/database for production.
+- Add pooled `DATABASE_URL` and direct `DIRECT_DATABASE_URL` to Vercel and `.env.local`.
+- Run `npm run db:deploy` in production deployment or `npm run db:migrate` locally.
+- Run `npm run inventory:seed` after migrations to create the original admin.
+
+Cloudflare R2:
+- Bucket name: `morepower`.
+- Create R2 access keys with object read/write permissions for that bucket.
+- Configure public custom domain or public bucket URL and set `CLOUDFLARE_R2_PUBLIC_URL`.
+- Required env vars: `CLOUDFLARE_R2_ACCOUNT_ID`, `CLOUDFLARE_R2_ACCESS_KEY_ID`, `CLOUDFLARE_R2_SECRET_ACCESS_KEY`, `CLOUDFLARE_R2_BUCKET_NAME`, `CLOUDFLARE_R2_PUBLIC_URL`.
+- Accepted uploads: JPG, PNG, WebP, GIF up to 5MB. Images are stored in R2; Postgres stores metadata/URLs only.
+
+Resend:
+- Verify the sending domain/address before production sends.
+- Required env vars: `RESEND_API_KEY`, `RESEND_FROM_EMAIL=inventory@morepower2you.com`, `RESEND_REPLY_TO_EMAIL=eli@morepower2you.com`.
+- Invite, reset, and report emails are skipped with a server warning if `RESEND_API_KEY` is absent.
+
+Vercel environment variables:
+- Add every Inventory Portal variable from `.env.example` to Vercel Production and Preview as appropriate.
+- Do not expose secrets with `NEXT_PUBLIC_`.
+- Set `APP_URL=https://www.morepower2you.com` and `INVENTORY_BASE_URL=https://www.morepower2you.com/inventory`.
+
+Vercel Cron:
+- `vercel.json` schedules `/api/inventory/reports/weekly` at both `0 21 * * 5` and `0 22 * * 5` UTC.
+- The route checks that the actual local time is Friday 5:00 PM America/New_York, so daylight saving time is handled safely.
+- Protect the endpoint with `CRON_SECRET`. Vercel should call with `?secret=...` or a `Bearer` token if configured.
+
+Seed user:
+- Production seed creates/updates `eli@morepower2you.com` with password `1234`, active status, and original-admin protection.
+- Users can change this password in `/inventory/settings/profile`.
+- Demo inventory is not seeded unless `npm run inventory:seed:demo` is run locally.
+
+Local dev commands:
+```bash
+npm install
+npm run db:generate
+npm run db:migrate
+npm run inventory:seed
+npm run dev
+```
+
+Migration commands:
+```bash
+npm run db:migrate
+npm run db:deploy
+```
+
+Test/check commands:
+```bash
+npm run lint
+npm run typecheck
+npm run build
+npm run test:e2e
+```
+
+Deployment notes:
+- Pushing to GitHub triggers Vercel auto-deployment for this repo.
+- Run migrations and seed against the production Neon database before using `/inventory`.
+- Do not seed demo inventory into production without explicit approval.
+- Confirm `/inventory` redirects logged-out users to `/inventory/login`, then log in with the seeded admin and change the temporary password.
 
 ## CMS/Admin
 Visit `/studio` after setting Sanity variables. The Studio uses Sanity authentication for admin-only access.
