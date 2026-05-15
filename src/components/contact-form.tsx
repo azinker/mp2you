@@ -20,7 +20,7 @@ const copy = {
     message: "Message / project details",
     consent: "I understand this form is for custom project inquiry and that MorePower2You may follow up about next steps.",
     submit: "Send Project Inquiry",
-    success: "Your gifting project request has been received. We’ll review the details and follow up with next steps.",
+    success: "Your gifting project request has been received. We'll review the details and follow up with next steps.",
     error: "Something prevented the request from sending. Please review the fields and try again.",
     required: "Required",
     turnstileDev: "Spam protection will appear here when a Turnstile site key is configured.",

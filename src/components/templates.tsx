@@ -611,7 +611,7 @@ function TestimonialsGrid({ testimonials }: { testimonials: { name: string; cont
 function TestimonialCard({ item }: { item: { name: string; context: string; quote: string } }) {
   return (
     <figure className="testimonial-card">
-      <blockquote>“{item.quote}”</blockquote>
+      <blockquote>&quot;{item.quote}&quot;</blockquote>
       <figcaption>
         <strong>{item.name}</strong>
         <span>{item.context}</span>

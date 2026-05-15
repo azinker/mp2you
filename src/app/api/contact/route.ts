@@ -112,7 +112,7 @@ async function sendEmails(data: z.infer<typeof inquirySchema>) {
     to: data.email,
     subject: "Your MorePower2You project inquiry was received",
     html: `
-      <p>Your gifting project request has been received. We’ll review the details and follow up with next steps.</p>
+      <p>Your gifting project request has been received. We'll review the details and follow up with next steps.</p>
       <p>Thank you,<br />MorePower2You</p>
     `,
   });

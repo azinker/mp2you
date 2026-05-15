@@ -201,7 +201,7 @@ const en: SiteContent = {
       eyebrow: "Turnkey gifting, concierge, and fulfillment",
       title: "Custom corporate gifting handled from idea to doorstep.",
       text:
-        "MorePower2You designs and delivers premium gifting experiences—from branded gift boxes and seasonal campaigns to fully managed concierge projects—with sourcing, packaging, warehousing, fulfillment, delivery, and support all under one roof.",
+        "MorePower2You designs and delivers premium gifting experiences, from branded gift boxes and seasonal campaigns to fully managed concierge projects, with sourcing, packaging, warehousing, fulfillment, delivery, and support all under one roof.",
       proof: [
         "Select projects exceeding 5,000 gifts",
         "National and international reach",
@@ -399,7 +399,7 @@ const en: SiteContent = {
       title: "Gallery",
       eyebrow: "Visual direction and gifting context",
       intro:
-        "The gallery preserves the current site’s gift-box context while pointing the new brand toward cleaner, more premium editorial imagery.",
+        "The gallery preserves the current site's gift-box context while pointing the new brand toward cleaner, more premium editorial imagery.",
       seo: {
         title: "Gifting Gallery | MorePower2You",
         description:
@@ -478,7 +478,7 @@ const en: SiteContent = {
         {
           title: "What happens next",
           text:
-            "Your gifting project request has been received. We’ll review the details and follow up with next steps.",
+            "Your gifting project request has been received. We'll review the details and follow up with next steps.",
           items: [
             { title: "No ecommerce checkout", text: "Every project is scoped and quoted based on needs." },
             { title: "No file upload", text: "Attachments can be coordinated later if needed." },
