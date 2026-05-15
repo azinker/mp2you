@@ -201,7 +201,7 @@ const en: SiteContent = {
       eyebrow: "Turnkey gifting, concierge, and fulfillment",
       title: "Custom corporate gifting handled from idea to doorstep.",
       text:
-        "MorePower2You creates premium gifting programs, branded gift boxes, VIP drops, seasonal campaigns, and complex concierge projects with sourcing, packaging, warehousing, fulfillment, delivery, and support under one roof.",
+        "MorePower2You designs and delivers premium gifting experiences—from branded gift boxes and seasonal campaigns to fully managed concierge projects—with sourcing, packaging, warehousing, fulfillment, delivery, and support all under one roof.",
       proof: [
         "Select projects exceeding 5,000 gifts",
         "National and international reach",
@@ -333,7 +333,7 @@ const en: SiteContent = {
       title: "Services",
       eyebrow: "Gifting strategy, packaging, concierge, and logistics",
       intro:
-        "MorePower2You brings the creative and operational sides of gifting together, helping companies move from a rough idea to a finished program.",
+        "MorePower2You brings the creative and operational sides of gifting together, helping companies move from a rough idea to a finished project.",
       primaryCta: { label: "Start a Custom Gifting Project", href: "/contact" },
       secondaryCta: { label: "See the Process", href: "/process" },
       seo: {
@@ -467,7 +467,7 @@ const en: SiteContent = {
       title: "Project Inquiry",
       eyebrow: "Start a custom gifting project",
       intro:
-        "Tell MorePower2You what you are planning. The form asks for project scale, timeline, destinations, and customization needs instead of a public budget field.",
+        "Tell us what you are planning. Please enter the project scale, timeline, destinations, and customization needs.",
       seo: {
         title: "Start a Custom Gifting Project | MorePower2You",
         description:
@@ -481,7 +481,6 @@ const en: SiteContent = {
             "Your gifting project request has been received. We’ll review the details and follow up with next steps.",
           items: [
             { title: "No ecommerce checkout", text: "Every project is scoped and quoted based on needs." },
-            { title: "No public phone CTA", text: "The form is the primary intake path for project details." },
             { title: "No file upload", text: "Attachments can be coordinated later if needed." },
           ],
         },

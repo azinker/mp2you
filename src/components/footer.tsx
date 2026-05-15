@@ -44,7 +44,6 @@ export function Footer({
       <div className="border-t border-champagne/50">
         <div className="container-shell flex flex-col gap-3 py-5 text-xs text-stone sm:flex-row sm:items-center sm:justify-between">
           <span>© {new Date().getFullYear()} MorePower2You. All rights reserved.</span>
-          <span>No public phone CTA. No public physical address.</span>
         </div>
       </div>
     </footer>

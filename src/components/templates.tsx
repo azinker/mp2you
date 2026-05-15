@@ -512,7 +512,7 @@ function ServiceOverview({ locale, services, expanded = false }: { locale: Local
           text={
             locale === "he"
               ? "ההתמקדות היא מתנות ארגוניות, קופסאות ממותגות, קונסיירז' ולוגיסטיקה."
-              : "The emphasis order is corporate gifting, custom branded gift boxes, concierge services, and fulfillment."
+              : "Our emphasis is corporate gifting, gifting ideas, custom branded gift boxes and gifts as well as concierge services, and fulfillment."
           }
         />
         <div className={cn("mt-10 grid gap-5", expanded ? "md:grid-cols-2" : "md:grid-cols-3")}>
