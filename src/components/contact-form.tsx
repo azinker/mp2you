@@ -5,7 +5,27 @@ import { Send } from "lucide-react";
 import { FormEvent, useState } from "react";
 import type { Locale } from "@/content/site";
 
-const copy = {
+type FormCopy = {
+  name: string;
+  company: string;
+  email: string;
+  projectType: string;
+  industry: string;
+  occasion: string;
+  scale: string;
+  timeline: string;
+  customization: string;
+  destinations: string;
+  message: string;
+  consent: string;
+  submit: string;
+  success: string;
+  error: string;
+  required: string;
+  turnstileDev: string;
+};
+
+const copy: Record<Locale, FormCopy> = {
   en: {
     name: "Name",
     company: "Company",
@@ -24,6 +44,120 @@ const copy = {
     error: "Something prevented the request from sending. Please review the fields and try again.",
     required: "Required",
     turnstileDev: "Spam protection will appear here when a Turnstile site key is configured.",
+  },
+  es: {
+    name: "Nombre",
+    company: "Empresa",
+    email: "Correo",
+    projectType: "Tipo de proyecto",
+    industry: "Sector",
+    occasion: "Ocasión del regalo",
+    scale: "Destinatarios estimados / escala",
+    timeline: "Plazo / fecha límite",
+    customization: "Personalización o marca",
+    destinations: "Destinos de envío o número de destinos",
+    message: "Mensaje / detalles del proyecto",
+    consent: "Entiendo que este formulario es para una consulta de proyecto y que MorePower2You puede contactarme sobre los siguientes pasos.",
+    submit: "Enviar consulta",
+    success: "Hemos recibido su solicitud. Revisaremos los detalles y le contactaremos con el siguiente paso.",
+    error: "No se pudo enviar la solicitud. Revise los campos e inténtelo de nuevo.",
+    required: "Obligatorio",
+    turnstileDev: "La protección antispam aparecerá aquí cuando haya una clave de Turnstile.",
+  },
+  fr: {
+    name: "Nom",
+    company: "Entreprise",
+    email: "E-mail",
+    projectType: "Type de projet",
+    industry: "Secteur",
+    occasion: "Occasion du cadeau",
+    scale: "Destinataires estimés / envergure",
+    timeline: "Calendrier / échéance",
+    customization: "Personnalisation ou branding",
+    destinations: "Destinations d’expédition ou nombre de destinations",
+    message: "Message / détails du projet",
+    consent: "Je comprends que ce formulaire sert à une demande de projet et que MorePower2You peut me recontacter pour la suite.",
+    submit: "Envoyer la demande",
+    success: "Votre demande a bien été reçue. Nous examinerons les détails et reviendrons vers vous.",
+    error: "L’envoi n’a pas abouti. Vérifiez les champs et réessayez.",
+    required: "Obligatoire",
+    turnstileDev: "La protection anti-spam apparaîtra ici lorsqu’une clé Turnstile sera configurée.",
+  },
+  de: {
+    name: "Name",
+    company: "Unternehmen",
+    email: "E-Mail",
+    projectType: "Projektart",
+    industry: "Branche",
+    occasion: "Anlass",
+    scale: "Geschätzte Empfänger / Umfang",
+    timeline: "Zeitplan / Frist",
+    customization: "Anpassung oder Branding",
+    destinations: "Versandziele oder Anzahl der Ziele",
+    message: "Nachricht / Projektdetails",
+    consent: "Ich verstehe, dass dieses Formular einer Projektanfrage dient und MorePower2You sich zu den nächsten Schritten melden kann.",
+    submit: "Anfrage senden",
+    success: "Ihre Anfrage ist eingegangen. Wir prüfen die Angaben und melden uns mit dem nächsten Schritt.",
+    error: "Die Anfrage konnte nicht gesendet werden. Bitte prüfen Sie die Felder und versuchen Sie es erneut.",
+    required: "Pflichtfeld",
+    turnstileDev: "Der Spamschutz erscheint hier, sobald ein Turnstile-Schlüssel hinterlegt ist.",
+  },
+  pt: {
+    name: "Nome",
+    company: "Empresa",
+    email: "E-mail",
+    projectType: "Tipo de projeto",
+    industry: "Setor",
+    occasion: "Ocasião do presente",
+    scale: "Destinatários estimados / escala",
+    timeline: "Prazo / data limite",
+    customization: "Personalização ou branding",
+    destinations: "Destinos de envio ou número de destinos",
+    message: "Mensagem / detalhes do projeto",
+    consent: "Compreendo que este formulário é para um pedido de projeto e que a MorePower2You pode contactar-me sobre os próximos passos.",
+    submit: "Enviar pedido",
+    success: "O seu pedido foi recebido. Vamos rever os detalhes e contactá-lo com o próximo passo.",
+    error: "Não foi possível enviar o pedido. Reveja os campos e tente novamente.",
+    required: "Obrigatório",
+    turnstileDev: "A proteção antispam aparecerá aqui quando existir uma chave Turnstile.",
+  },
+  zh: {
+    name: "姓名",
+    company: "公司",
+    email: "邮箱",
+    projectType: "项目类型",
+    industry: "行业",
+    occasion: "礼赠场合",
+    scale: "预计人数 / 项目规模",
+    timeline: "时间 / 截止日期",
+    customization: "定制或品牌需求",
+    destinations: "配送目的地或目的地数量",
+    message: "留言 / 项目详情",
+    consent: "我理解此表单用于定制项目咨询，MorePower2You 可能会就后续步骤与我联系。",
+    submit: "发送项目咨询",
+    success: "我们已收到您的礼赠项目需求，会审阅细节并跟进下一步。",
+    error: "请求未能发送。请检查字段后重试。",
+    required: "必填",
+    turnstileDev: "配置 Turnstile 站点密钥后，此处将显示垃圾信息防护。",
+  },
+  ar: {
+    name: "الاسم",
+    company: "الشركة",
+    email: "البريد الإلكتروني",
+    projectType: "نوع المشروع",
+    industry: "القطاع",
+    occasion: "مناسبة الإهداء",
+    scale: "عدد المستلمين / حجم المشروع",
+    timeline: "الجدول / الموعد النهائي",
+    customization: "التخصيص أو العلامة",
+    destinations: "وجهات الشحن أو عدد الوجهات",
+    message: "الرسالة / تفاصيل المشروع",
+    consent: "أفهم أن هذا النموذج مخصص لاستفسار مشروع مخصص، وأن MorePower2You قد تتواصل معي بشأن الخطوات التالية.",
+    submit: "إرسال الاستفسار",
+    success: "تم استلام طلب مشروع الإهداء. سنراجع التفاصيل ونتابع مع الخطوة التالية.",
+    error: "تعذر إرسال الطلب. يرجى مراجعة الحقول والمحاولة مرة أخرى.",
+    required: "مطلوب",
+    turnstileDev: "ستظهر حماية الرسائل غير المرغوب فيها هنا عند إعداد مفتاح Turnstile.",
   },
   he: {
     name: "שם",
@@ -51,7 +185,10 @@ type SelectOption = {
   label: string;
 };
 
-const options = {
+const options: Partial<Record<Locale, { projectType: SelectOption[]; industry: SelectOption[]; occasion: SelectOption[] }>> & {
+  en: { projectType: SelectOption[]; industry: SelectOption[]; occasion: SelectOption[] };
+  he: { projectType: SelectOption[]; industry: SelectOption[]; occasion: SelectOption[] };
+} = {
   en: {
     projectType: [
       "Corporate gifting campaign",
@@ -116,8 +253,8 @@ const options = {
 };
 
 export function ContactForm({ locale }: { locale: Locale }) {
-  const t = copy[locale];
-  const selectOptions = options[locale];
+  const t = copy[locale] ?? copy.en;
+  const selectOptions = options[locale] ?? options.en;
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [error, setError] = useState("");
   const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;

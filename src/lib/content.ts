@@ -1,11 +1,17 @@
 import imageUrlBuilder from "@sanity/image-url";
-import { content, locales, type BasicItem, type BlogPost, type CaseStudy, type Locale, type MarketingPage, type Resource, type Seo, type Service, type SiteContent } from "@/content/site";
+import { content as staticContent, locales, type BasicItem, type BlogPost, type CaseStudy, type Locale, type MarketingPage, type Resource, type Seo, type Service, type SiteContent } from "@/content/site";
+import { buildLocalizedSite } from "@/content/localize";
+import { alternatePath as alternateLocalizedPath, prefixedLocales, stripLocale as stripLocalizedPath, withLocale as localizeHref } from "@/lib/i18n";
 import { sanityClient } from "@/sanity/lib/client";
 
-type LocalizedValue = {
-  en?: string;
-  he?: string;
-};
+function siteForLocale(locale: Locale): SiteContent {
+  if (locale === "en" || locale === "he") {
+    return staticContent[locale];
+  }
+  return buildLocalizedSite(locale);
+}
+
+type LocalizedValue = Partial<Record<Locale, string>>;
 
 type SanitySlug = {
   current?: string;
@@ -265,8 +271,8 @@ function imageUrl(image: unknown) {
 }
 
 function mapSanityPayload(payload: SanitySitePayload, locale: Locale): SiteContent {
-  const fallback = content[locale];
-  const enFallback = content.en;
+  const fallback = siteForLocale(locale);
+  const enFallback = staticContent.en;
   const pagesBySlug = new Map(fallback.pages.map((page) => [page.slug, page]));
   const legalBySlug = new Map(fallback.legal.map((page) => [page.slug, page]));
   const servicesBySlug = new Map(fallback.services.map((service) => [service.slug, service]));
@@ -383,7 +389,7 @@ function mapSanityPayload(payload: SanitySitePayload, locale: Locale): SiteConte
 }
 
 export function getLocaleContent(locale: Locale = "en") {
-  return content[locale];
+  return siteForLocale(locale);
 }
 
 export async function getSiteContent(locale: Locale = "en") {
@@ -405,19 +411,18 @@ export function isLocale(value: string | undefined): value is Locale {
 }
 
 export function withLocale(locale: Locale, href: string) {
-  if (href.startsWith("http")) return href;
-  if (locale === "en") return href;
-  return href === "/" ? "/he" : `/he${href.startsWith("/he") ? href.slice(3) : href}`;
+  return localizeHref(locale, href);
 }
 
 export function stripLocale(pathname: string) {
-  return pathname.replace(/^\/he(?=\/|$)/, "") || "/";
+  return stripLocalizedPath(pathname);
 }
 
 export function alternatePath(locale: Locale, pathname: string) {
-  const clean = stripLocale(pathname);
-  return locale === "en" ? clean : withLocale("he", clean);
+  return alternateLocalizedPath(locale, pathname);
 }
+
+export { prefixedLocales };
 
 export function findPage(locale: Locale, slug: string): MarketingPage | undefined {
   const site = getLocaleContent(locale);

@@ -4,6 +4,7 @@ import {
   DM_Serif_Display,
   Heebo,
   Inter,
+  Noto_Sans_Arabic,
   Plus_Jakarta_Sans,
 } from "next/font/google";
 import { SiteChrome } from "@/components/site-chrome";
@@ -28,6 +29,14 @@ const hebrew = Heebo({
   display: "swap",
   weight: ["400", "500", "600", "700", "800"],
   fallback: ["Noto Sans Hebrew", "Arial", "sans-serif"],
+});
+
+const arabic = Noto_Sans_Arabic({
+  subsets: ["arabic"],
+  variable: "--font-arabic",
+  display: "swap",
+  weight: ["400", "500", "600", "700"],
+  fallback: ["Noto Sans Arabic", "Arial", "sans-serif"],
 });
 
 const v2Sans = Plus_Jakarta_Sans({
@@ -57,7 +66,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html
       lang="en"
       data-scroll-behavior="smooth"
-      className={`${serif.variable} ${sans.variable} ${hebrew.variable} ${v2Sans.variable} ${v2Serif.variable}`}
+      className={`${serif.variable} ${sans.variable} ${hebrew.variable} ${arabic.variable} ${v2Sans.variable} ${v2Serif.variable}`}
     >
       <body>
         <SiteChrome>{children}</SiteChrome>

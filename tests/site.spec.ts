@@ -23,6 +23,9 @@ const routes = [
   "/he",
   "/he/gaming-vip-player-gifting",
   "/he/contact",
+  "/es",
+  "/fr",
+  "/ar",
 ];
 
 test.describe("primary pages", () => {
@@ -44,10 +47,12 @@ test("Hebrew pages render RTL content", async ({ page }) => {
 
 test("language switcher preserves matching page", async ({ page }) => {
   await page.goto("/gaming-vip-player-gifting");
-  if (!(await page.getByRole("link", { name: "HE" }).isVisible())) {
+  const languageButton = page.getByRole("button", { name: "Language" }).first();
+  if (!(await languageButton.isVisible())) {
     await page.getByRole("button", { name: "Open navigation" }).click();
   }
-  await page.getByRole("link", { name: "HE" }).click();
+  await page.getByRole("button", { name: "Language" }).first().click();
+  await page.getByRole("option", { name: "עברית" }).first().click();
   await expect(page).toHaveURL(/\/he\/gaming-vip-player-gifting$/);
 });
 

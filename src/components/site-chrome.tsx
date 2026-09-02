@@ -3,7 +3,9 @@
 import { usePathname } from "next/navigation";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
-import { getLocaleContent } from "@/lib/content";
+import { ui } from "@/content/ui";
+import { getLocaleContent, withLocale } from "@/lib/content";
+import { localeFromPathname, localeMeta } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import type { Locale } from "@/content/site";
 
@@ -11,12 +13,17 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
   const pathname = usePathname() || "/";
   const isStudio = pathname === "/studio" || pathname.startsWith("/studio/");
   const isInventory = pathname === "/inventory" || pathname.startsWith("/inventory/");
-  const locale: Locale = pathname.startsWith("/he") ? "he" : "en";
+  const isDesignLab = pathname === "/design-lab" || pathname.startsWith("/design-lab/");
+  const locale: Locale = localeFromPathname(pathname);
   const site = getLocaleContent(locale);
   const cta = {
-    label: locale === "he" ? "דברו איתנו" : "Start a Project",
-    href: locale === "he" ? "/he/contact" : "/contact",
+    label: ui[locale].startProject,
+    href: withLocale(locale, "/contact"),
   };
+
+  if (isDesignLab) {
+    return <>{children}</>;
+  }
 
   if (isStudio || isInventory) {
     return (
@@ -27,7 +34,7 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <div lang={locale} dir={site.direction} className={cn("min-h-screen bg-porcelain text-charcoal", "theme-v1")}>
+    <div lang={localeMeta[locale].htmlLang} dir={site.direction} className={cn("min-h-screen bg-porcelain text-charcoal", "theme-v1")}>
       <Header locale={locale} nav={site.nav} cta={cta} brandVariant="v1" />
       <main>{children}</main>
       <Footer locale={locale} footer={site.footer} serviceArea={site.settings.serviceArea} brandVariant="v1" />

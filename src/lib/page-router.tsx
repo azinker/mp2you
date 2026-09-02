@@ -4,6 +4,7 @@ import {
   ContactPage,
   FaqPage,
   GalleryPage,
+  InsightsIndex,
   ProcessPage,
   ServicePage,
   ServicesIndex,
@@ -47,6 +48,8 @@ export function RenderSlugPage({ locale, slug, site = getLocaleContent(locale) }
       return <FaqPage site={site} />;
     case "contact":
       return <ContactPage site={site} />;
+    case "insights":
+      return <InsightsIndex site={site} />;
     default: {
       const page = findPageInSite(site, slug);
       if (!page) notFound();

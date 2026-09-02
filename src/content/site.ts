@@ -1,4 +1,4 @@
-export type Locale = "en" | "he";
+export type Locale = "en" | "es" | "fr" | "de" | "pt" | "zh" | "ar" | "he";
 
 export type Seo = {
   title: string;
@@ -2425,6 +2425,8 @@ const he: SiteContent = {
   ]
 };
 
-export const content: Record<Locale, SiteContent> = { en, he };
+export const englishContent = en;
+export const hebrewContent = he;
+export const content: Record<"en" | "he", SiteContent> = { en, he };
 
-export const locales: Locale[] = ["en", "he"];
+export const locales: Locale[] = ["en", "es", "fr", "de", "pt", "zh", "ar", "he"];

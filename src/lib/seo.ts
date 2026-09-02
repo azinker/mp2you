@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getLocaleContent, withLocale } from "@/lib/content";
 import type { Locale, Seo } from "@/content/site";
+import { languageAlternates, localeMeta } from "@/lib/i18n";
 
 const fallbackUrl = "https://www.morepower2you.com";
 
@@ -25,8 +26,10 @@ export function metadataFor(locale: Locale, path: string, seo: Seo): Metadata {
     alternates: {
       canonical: absoluteUrl(localizedPath),
       languages: {
-        en: absoluteUrl(path),
-        he: absoluteUrl(withLocale("he", path)),
+        ...Object.fromEntries(
+          Object.entries(languageAlternates(path)).map(([lang, href]) => [lang, absoluteUrl(href)]),
+        ),
+        "x-default": absoluteUrl(path),
       },
     },
     openGraph: {
@@ -35,7 +38,7 @@ export function metadataFor(locale: Locale, path: string, seo: Seo): Metadata {
       description,
       siteName: site.settings.siteName,
       url: absoluteUrl(localizedPath),
-      locale: locale === "he" ? "he_IL" : "en_US",
+      locale: localeMeta[locale].ogLocale,
       images: [{ url: absoluteUrl("/opengraph-image"), width: 1200, height: 630, alt: title }],
     },
     twitter: {

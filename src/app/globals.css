@@ -13,7 +13,7 @@
   --clay: #9a6255;
   --white: #ffffff;
   --line: rgba(169, 127, 45, 0.24);
-  --hebrew-font-stack: var(--font-hebrew), "Noto Sans Hebrew", Arial, sans-serif;
+  --hebrew-font-stack: var(--font-hebrew), var(--font-arabic), "Noto Sans Hebrew", "Noto Sans Arabic", Arial, sans-serif;
 }
 
 @theme inline {
@@ -1132,23 +1132,65 @@ textarea {
 }
 
 .language-switcher {
+  position: relative;
   display: inline-flex;
   min-height: 38px;
   align-items: center;
-  gap: 9px;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.66);
-  padding: 0 12px;
   color: var(--stone);
   font-size: 0.78rem;
   font-weight: 700;
 }
 
-.language-switcher span {
-  width: 1px;
-  height: 15px;
-  background: var(--line);
+.language-switcher-trigger {
+  display: inline-flex;
+  min-height: 38px;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.66);
+  padding: 0 14px;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.language-switcher-caret {
+  font-size: 0.7rem;
+  opacity: 0.7;
+}
+
+.language-switcher-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 90;
+  display: grid;
+  min-width: 168px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 16px 40px rgba(28, 24, 18, 0.1);
+  padding: 6px;
+}
+
+.language-switcher-menu a {
+  display: block;
+  border-radius: 9px;
+  padding: 8px 10px;
+  color: var(--charcoal);
+  text-decoration: none;
+}
+
+.language-switcher-menu a:hover,
+.language-switcher-menu a.is-active {
+  background: rgba(32, 59, 52, 0.08);
+}
+
+[dir="rtl"] .language-switcher-menu {
+  right: auto;
+  left: 0;
 }
 
 .button {
