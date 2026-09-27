@@ -1336,37 +1336,51 @@ h1,
 
 .hero-visual {
   position: relative;
-  min-height: 560px;
+  min-height: 0;
+  width: min(100%, 560px);
+  margin-left: auto;
+  aspect-ratio: 1 / 1.14;
 }
 
 .hero-image {
-  position: absolute;
   overflow: hidden;
   border: 1px solid rgba(220, 202, 167, 0.78);
   border-radius: 8px;
-  background: var(--white);
+  background: #fff;
   box-shadow: 0 30px 80px rgba(25, 23, 20, 0.12);
 }
 
-.hero-image img {
+.hero-image img,
+.hero-photo {
+  width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center;
+  background: #fff;
 }
 
 .hero-image-main {
-  inset: 18px 40px auto 0;
-  height: 420px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 78%;
+  aspect-ratio: 1;
+  height: auto;
 }
 
 [dir="rtl"] .hero-image-main {
-  inset: 18px 0 auto 40px;
+  left: auto;
+  right: 0;
 }
 
 .hero-image-secondary {
+  position: absolute;
   right: 0;
-  bottom: 38px;
-  width: 285px;
-  height: 250px;
+  bottom: 0;
+  width: 40%;
+  height: auto;
+  aspect-ratio: 1;
+  border: 7px solid #fff;
 }
 
 [dir="rtl"] .hero-image-secondary {
@@ -1392,13 +1406,13 @@ h1,
 }
 
 .hero-note-top {
-  top: 58px;
-  right: 14px;
+  top: 14px;
+  right: 8px;
 }
 
 .hero-note-bottom {
   bottom: 0;
-  left: 34px;
+  left: 0;
 }
 
 [dir="rtl"] .hero-note-top {
@@ -1412,10 +1426,7 @@ h1,
 }
 
 .hero-swatch {
-  position: absolute;
-  width: 82px;
-  height: 82px;
-  border-radius: 8px;
+  display: none;
 }
 
 .swatch-gold {
@@ -3170,17 +3181,8 @@ h1,
   }
 
   .hero-visual {
-    min-height: 430px;
-  }
-
-  .hero-image-main {
-    inset: 0 34px auto 0;
-    height: 330px;
-  }
-
-  .hero-image-secondary {
-    width: 220px;
-    height: 190px;
+    width: min(100%, 480px);
+    margin-inline: auto;
   }
 
   .section-intro h2,
@@ -3246,22 +3248,17 @@ h1,
   }
 
   .hero-visual {
-    min-height: 360px;
+    width: 100%;
   }
 
-  .hero-note,
-  .hero-swatch {
-    display: none;
-  }
-
-  .hero-image-main {
-    right: 0;
-    height: 290px;
+  .hero-note {
+    padding: 10px 12px;
+    font-size: 0.75rem;
   }
 
   .hero-image-secondary {
-    width: 170px;
-    height: 150px;
+    width: 42%;
+    border-width: 5px;
   }
 
   .testimonial-card blockquote {
