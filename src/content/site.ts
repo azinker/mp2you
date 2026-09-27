@@ -396,15 +396,15 @@ const en: SiteContent = {
     },
     {
       slug: "gallery",
-      title: "Gallery",
-      eyebrow: "Visual direction and gifting context",
+      title: "Completed programs",
+      eyebrow: "Past projects",
       intro:
-        "The gallery preserves the current site's gift-box context while pointing the new brand toward cleaner, more premium editorial imagery.",
+        "A look at custom boxes and gifts we have produced for gaming studios and VIP programs — packed, branded, and ready for the recipient.",
       seo: {
-        title: "Gifting Gallery | MorePower2You",
+        title: "Project Gallery | MorePower2You",
         description:
-          "Explore MorePower2You gallery context for custom gift boxes, specialty gifting, corporate programs, packaging, and fulfillment-ready gift concepts.",
-        keywords: ["gift box gallery", "corporate gifting examples", "custom gifts"],
+          "Browse completed MorePower2You gifting programs for Best Fiends, Slotomania, House of Fun, Wooga, and other studios: custom boxes, VIP kits, and seasonal gifts.",
+        keywords: ["corporate gifting gallery", "VIP gift examples", "custom gift boxes"],
       },
       blocks: [
         {
@@ -1404,12 +1404,12 @@ const he: SiteContent = {
     },
     {
       "slug": "gallery",
-      "title": "גלריה",
-      "eyebrow": "הנחיות ויזואליות והקשר של מתנות",
-      "intro": "הגלריה משמרת את הקשר של קופסת המתנות מהאתר הנוכחי, תוך שהיא מכוונת את המותג החדש לכיוון של תמונות עריכה נקיות יותר ויוקרתיות יותר.",
+      "title": "תוכניות שהושלמו",
+      "eyebrow": "פרויקטים קודמים",
+      "intro": "מבט על קופסאות ומתנות שייצרנו לאולפני גיימינג ותוכניות VIP — נארזו, מותגו והוכנו למקבל.",
       "seo": {
-        "title": "גלריית מתנות | MorePower2You",
-        "description": "עיינו בגלריית MorePower2You כדי להתרשם ממגוון קופסאות מתנה בהתאמה אישית, מתנות מיוחדות, תוכניות ארגוניות, אריזות ורעיונות למתנות מוכנות למשלוח.",
+        "title": "גלריית פרויקטים | MorePower2You",
+        "description": "עיינו בתוכניות מתנות שהושלמו עבור Best Fiends, Slotomania, House of Fun, Wooga ואולפנים נוספים.",
         "keywords": [
           "גלריית קופסאות מתנה",
           "דוגמאות למתנות ארגוניות",

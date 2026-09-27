@@ -13,8 +13,10 @@ import {
 } from "lucide-react";
 import type { BasicItem, BlogPost, CaseStudy, Locale, MarketingPage, Resource, Service, SiteContent } from "@/content/site";
 import { ui } from "@/content/ui";
+import { featuredGalleryProjects } from "@/content/gallery-projects";
 import { HeroVisual } from "@/components/hero-visual";
 import { ContactForm } from "@/components/contact-form";
+import { ProjectGallery } from "@/components/project-gallery";
 import { VersionedLink as Link } from "@/components/versioned-link";
 import { withLocale } from "@/lib/content";
 import { cn, formatDate } from "@/lib/utils";
@@ -243,19 +245,8 @@ export function GalleryPage({ site }: { site: SiteContent }) {
   return (
     <>
       {page ? <PageHero eyebrow={page.eyebrow} title={page.title} intro={page.intro} compact /> : null}
-      <section className="section-band">
-        <div className="container-shell grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {site.gallery.map((item) => (
-            <article className="image-card" key={item.title}>
-              <Image src={item.image} alt={item.alt} width={680} height={520} className="aspect-[4/3] w-full object-cover" />
-              <div className="p-5">
-                <h2>{item.title}</h2>
-                <p>{item.text}</p>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
+      <ProjectGallery />
+      <FinalCta site={site} />
     </>
   );
 }
@@ -626,10 +617,10 @@ function GalleryPreview({ site }: { site: SiteContent }) {
           </Link>
         </div>
         <div className="mt-10 grid gap-5 sm:grid-cols-3">
-          {site.gallery.slice(0, 3).map((item) => (
-            <div className="preview-image" key={item.title}>
-              <Image src={item.image} alt={item.alt} width={520} height={380} className="aspect-[4/3] w-full object-cover" />
-            </div>
+          {featuredGalleryProjects.slice(0, 3).map((item) => (
+            <Link href={withLocale(site.locale, "/gallery")} className="preview-image" key={item.id}>
+              <Image src={item.photos[0].src} alt={item.photos[0].alt} width={520} height={380} className="aspect-[4/3] w-full object-cover" />
+            </Link>
           ))}
         </div>
       </div>
