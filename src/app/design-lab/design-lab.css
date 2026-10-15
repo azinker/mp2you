@@ -1,0 +1,356 @@
+/* Design Lab scoped styles. Everything lives under .dlab so nothing leaks into production routes. */
+
+.dlab {
+  /* Motion system tokens */
+  --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --duration-fast: 220ms;
+  --duration-medium: 480ms;
+  --duration-slow: 900ms;
+
+  /* Concept 1 — Editorial Luxury */
+  --c1-bg: #f7f4ee;
+  --c1-surface: #efe9de;
+  --c1-ink: #17140e;
+  --c1-muted: #6d6558;
+  --c1-brass: #a07a2f;
+  --c1-champagne: #dcc9a3;
+  --c1-dark: #1c1812;
+
+  /* Concept 2 — Kinetic Creative */
+  --c2-paper: #f4f1ea;
+  --c2-ink: #111110;
+  --c2-muted: #57534a;
+  --c2-fire: #e8452c;
+  --c2-green: #16382d;
+  --c2-cream: #fbf9f4;
+
+  /* Concept 4 — Unfurl */
+  --c4-paper: #efe6d6;
+  --c4-ink: #1a130f;
+  --c4-muted: #6a5d52;
+  --c4-blood: #7a2e2a;
+  --c4-blush: #c9a39a;
+  --c4-night: #120e0c;
+
+  /* Concept 3 — Immersive Gifting */
+  --c3-night: #0a0d13;
+  --c3-navy: #101522;
+  --c3-panel: #141b2b;
+  --c3-gold: #d8b87a;
+  --c3-gold-soft: rgba(216, 184, 122, 0.35);
+  --c3-porcelain: #f3eee4;
+  --c3-mist: #9aa2b1;
+
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.dlab img {
+  display: block;
+  max-width: 100%;
+}
+
+.dlab a {
+  text-decoration: none;
+}
+
+/* Neutralize production element rules (globals.css) that would otherwise
+   beat Tailwind's layered utilities inside the lab. */
+.dlab :is(h1, h2, h3, h4) {
+  margin: 0;
+  color: inherit;
+  max-width: none;
+}
+
+.dlab h1 {
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+}
+
+/* Anchor color classes. globals.css sets `a { color: inherit }` unlayered,
+   which beats layered utilities, so anchors get their colors here. */
+.dlab .c1 .a-nav { color: var(--c1-muted); }
+.dlab .c1 .a-nav:hover { color: var(--c1-ink); }
+.dlab .c1 .a-primary { background: var(--c1-ink); color: var(--c1-bg); }
+.dlab .c1 .a-primary:hover { background: var(--c1-brass); color: var(--c1-bg); }
+.dlab .c1 .a-ghost { border: 1px solid rgba(23, 20, 14, 0.25); color: var(--c1-ink); }
+.dlab .c1 .a-ghost:hover { border-color: var(--c1-brass); color: var(--c1-brass); }
+.dlab .c1 .a-accent { color: var(--c1-brass); }
+
+.dlab .c2 .a-dark { background: var(--c2-ink); color: var(--c2-cream); }
+.dlab .c2 .a-dark:hover { background: var(--c2-fire); color: var(--c2-cream); }
+.dlab .c2 .a-primary { background: var(--c2-fire); color: var(--c2-cream); }
+.dlab .c2 .a-primary:hover { background: var(--c2-ink); color: var(--c2-cream); }
+.dlab .c2 .a-ghost { border: 2px solid var(--c2-ink); color: var(--c2-ink); }
+.dlab .c2 .a-ghost:hover { border-color: var(--c2-fire); color: var(--c2-fire); }
+.dlab .c2 .a-cream { background: var(--c2-cream); color: var(--c2-green); }
+.dlab .c2 .a-cream:hover { background: var(--c2-fire); color: var(--c2-cream); }
+
+.dlab .c3 .a-nav { color: var(--c3-mist); }
+.dlab .c3 .a-nav:hover { color: var(--c3-gold); }
+.dlab .c3 .a-gold { background: var(--c3-gold); color: var(--c3-night); }
+.dlab .c3 .a-gold:hover { box-shadow: 0 0 38px rgba(216, 184, 122, 0.4); }
+.dlab .c3 .a-goldline { border: 1px solid rgba(216, 184, 122, 0.6); color: var(--c3-gold); }
+.dlab .c3 .a-goldline:hover { background: var(--c3-gold); color: var(--c3-night); }
+.dlab .c3 .a-ghost { border: 1px solid rgba(243, 238, 228, 0.3); color: var(--c3-porcelain); }
+.dlab .c3 .a-ghost:hover { border-color: var(--c3-gold); color: var(--c3-gold); }
+.dlab .c3 .a-accent { color: #9a7a33; border-bottom: 1px solid #9a7a33; padding-bottom: 4px; }
+.dlab .c3 .a-accent:hover { color: #181510; border-color: #181510; }
+
+.dlab .c4 .a-ink { background: var(--c4-ink); color: var(--c4-paper); }
+.dlab .c4 .a-ink:hover { background: var(--c4-blood); color: #f7efe6; }
+.dlab .c4 .a-paper { background: var(--c4-paper); color: var(--c4-ink); box-shadow: 0 10px 40px rgba(18, 14, 12, 0.25); }
+.dlab .c4 .a-paper:hover { background: var(--c4-blush); color: var(--c4-ink); }
+.dlab .c4 .a-ghost { border: 1px solid rgba(26, 19, 15, 0.28); color: var(--c4-ink); }
+.dlab .c4 .a-ghost:hover { border-color: var(--c4-blood); color: var(--c4-blood); }
+.dlab .c4 .a-light { color: rgba(239, 230, 214, 0.78); }
+.dlab .c4 .a-light:hover { color: var(--c4-paper); }
+
+/* ---------- Marquee ---------- */
+@keyframes dl-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.dlab .dl-marquee {
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.dlab .dl-marquee-track {
+  display: inline-flex;
+  width: max-content;
+  animation: dl-marquee var(--dl-marquee-speed, 32s) linear infinite;
+  will-change: transform;
+}
+
+.dlab .dl-marquee-track.dl-reverse {
+  animation-direction: reverse;
+}
+
+/* ---------- Slow drift for cinematic imagery ---------- */
+@keyframes dl-kenburns {
+  from { transform: scale(1.02); }
+  to { transform: scale(1.14); }
+}
+
+.dlab .dl-kenburns {
+  animation: dl-kenburns 18s var(--ease-standard) infinite alternate;
+  will-change: transform;
+}
+
+/* ---------- Rotating circular badge ---------- */
+@keyframes dl-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.dlab .dl-rotate {
+  animation: dl-rotate 16s linear infinite;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dlab .dl-rotate {
+    animation: none;
+  }
+}
+
+/* ---------- Hidden scrollbars for galleries ---------- */
+.dlab .dl-noscrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.dlab .dl-noscrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* ---------- Concept scoping ---------- */
+.dlab .c1 {
+  background: var(--c1-bg);
+  color: var(--c1-ink);
+}
+
+.dlab .c1 ::selection {
+  background: var(--c1-champagne);
+  color: var(--c1-ink);
+}
+
+.dlab .c1 .display {
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-weight: 460;
+  letter-spacing: -0.015em;
+}
+
+.dlab .c1 .eyebrow {
+  font-size: 0.72rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--c1-brass);
+  font-weight: 600;
+}
+
+.dlab .c1 .link-sweep {
+  position: relative;
+  padding-bottom: 3px;
+}
+
+.dlab .c1 .link-sweep::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform var(--duration-medium) var(--ease-premium);
+}
+
+.dlab .c1 .link-sweep:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.dlab .c2 {
+  background: var(--c2-paper);
+  color: var(--c2-ink);
+}
+
+.dlab .c2 ::selection {
+  background: var(--c2-fire);
+  color: var(--c2-cream);
+}
+
+.dlab .c2 .display {
+  font-family: var(--font-grotesk), Arial, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.dlab .c2 .eyebrow {
+  font-family: var(--font-grotesk), Arial, sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.dlab .c3 {
+  background: var(--c3-night);
+  color: var(--c3-porcelain);
+}
+
+.dlab .c3 ::selection {
+  background: var(--c3-gold);
+  color: var(--c3-night);
+}
+
+.dlab .c3 .display {
+  font-family: var(--font-sora), Arial, sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+.dlab .c3 .eyebrow {
+  font-size: 0.72rem;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--c3-gold);
+  font-weight: 600;
+}
+
+.dlab .c4 {
+  background: var(--c4-paper);
+  color: var(--c4-ink);
+  font-family: var(--font-outfit), Arial, sans-serif;
+}
+
+.dlab .c4 ::selection {
+  background: var(--c4-blood);
+  color: var(--c4-paper);
+}
+
+.dlab .c4 .display {
+  font-family: var(--font-instrument), Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+.dlab .c4 .display-italic {
+  font-family: var(--font-instrument), Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* ---------- Buttons ---------- */
+.dlab .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  cursor: pointer;
+  transition:
+    transform var(--duration-fast) var(--ease-standard),
+    background-color var(--duration-fast) var(--ease-standard),
+    color var(--duration-fast) var(--ease-standard),
+    border-color var(--duration-fast) var(--ease-standard),
+    box-shadow var(--duration-fast) var(--ease-standard);
+}
+
+.dlab .btn:active {
+  transform: scale(0.98);
+}
+
+.dlab .btn .btn-arrow {
+  transition: transform var(--duration-fast) var(--ease-premium);
+}
+
+.dlab .btn:hover .btn-arrow {
+  transform: translateX(5px);
+}
+
+/* ---------- Lab index ---------- */
+.dlab .lab-root {
+  background: #0c0b09;
+  color: #f4f0e8;
+  min-height: 100vh;
+}
+
+.dlab .lab-root .display {
+  font-family: var(--font-fraunces), Georgia, serif;
+  letter-spacing: -0.01em;
+}
+
+.dlab .lab-card {
+  transition: transform var(--duration-medium) var(--ease-premium), border-color var(--duration-medium) var(--ease-premium);
+}
+
+.dlab .lab-card:hover {
+  transform: translateY(-6px);
+}
+
+.dlab .lab-card:hover .lab-card-img {
+  transform: scale(1.05);
+}
+
+.dlab .lab-card-img {
+  transition: transform 1.1s var(--ease-premium);
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .dlab .dl-marquee-track,
+  .dlab .dl-kenburns {
+    animation: none;
+  }
+
+  .dlab .lab-card:hover,
+  .dlab .lab-card:hover .lab-card-img {
+    transform: none;
+  }
+}
