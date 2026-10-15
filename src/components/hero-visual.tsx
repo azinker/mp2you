@@ -37,8 +37,8 @@ export function HeroVisual({ labels }: { labels: { boxes: string; fulfillment: s
         </ParallaxLayer>
         <ParallaxLayer depth={2.2} className="hero-card hero-card-third">
           <Image
-            src="/gallery-projects/vip-premium/phonograph/01.jpg"
-            alt="Colorful VIP Premium holiday gift box"
+            src="/gallery-projects/slotomania/lcd/01.jpg"
+            alt="Slotomania Happy Birthday gift box with gold lettering and confetti"
             fill
             sizes="(max-width: 1024px) 30vw, 170px"
           />
