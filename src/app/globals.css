@@ -271,36 +271,35 @@ p {
   font-variation-settings: "SOFT" 100;
 }
 
+/* Logo colour flow, left to right as in the MP mark:
+   blue M -> coral ribbon -> gold -> lavender -> teal P. */
 .accent-word-text {
-  background: linear-gradient(100deg, var(--blue) 0%, var(--teal) 30%, var(--coral) 60%, var(--lavender) 85%, var(--blue) 100%);
-  background-size: 250% 100%;
+  /* Gold and lavender are nudged a touch deeper than the swatches so the
+     thin italic strokes stay readable on white. */
+  background: linear-gradient(90deg, var(--blue) 0%, var(--coral) 28%, #e9ae1f 50%, #a96bf0 72%, var(--teal) 100%);
+  background-size: 130% 100%;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  animation: accent-drift 9s ease-in-out infinite;
+  animation: accent-drift 8s ease-in-out infinite;
 }
 
 .accent-word-line {
   position: absolute;
-  left: -0.03em;
-  right: -0.03em;
-  bottom: -0.12em;
-  height: 0.3em;
+  left: 0;
+  bottom: -0.36em;
+  width: 100%; /* replaced element: left/right alone would not stretch it */
+  height: 0.22em;
   overflow: visible;
   pointer-events: none;
 }
 
 .accent-word-line path {
   fill: none;
-  stroke: var(--coral);
-  stroke-width: 7;
+  stroke: url(#accent-line-gradient);
+  stroke-width: 8;
   stroke-linecap: round;
   stroke-linejoin: round;
-}
-
-.accent-word-line path + path {
-  stroke: var(--gold);
-  stroke-width: 5;
 }
 
 @keyframes accent-drift {
@@ -805,8 +804,15 @@ p {
 
 @media (min-width: 1024px) {
   .hero-grid {
-    grid-template-columns: 1.02fr 0.98fr;
+    grid-template-columns: 1.1fr 0.9fr;
   }
+}
+
+/* Home headline: sized so "from idea to doorstep." lands on one line on
+   desktop (3 even lines) instead of leaving a short, gappy line. */
+.home-hero h1 {
+  font-size: clamp(2.35rem, 4.15vw, 3.8rem);
+  text-wrap: balance;
 }
 
 .hero-ctas {

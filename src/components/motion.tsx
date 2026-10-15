@@ -155,7 +155,10 @@ export function SplitWords({
   // half-highlighted).
   const chunks: { text: string; accent: boolean }[] = plainWords.map((w) => ({ text: w, accent: false }));
   if (accentCount > 0) chunks.push({ text: accentText, accent: true });
-  const lineDelay = delay + stagger * chunks.length + 0.55;
+  const lineDelay = delay + stagger * chunks.length + 0.4;
+  // Gentle hand-drawn stroke spanning the full accent width (viewBox is
+  // stretched to the group's width, so x: 3..197 covers the whole phrase).
+  const linePath = "M3 14 C 40 6, 80 20, 120 12 S 170 6, 197 12";
 
   const renderChunk = (chunk: { text: string; accent: boolean }, animated: boolean) => {
     if (!chunk.accent) return chunk.text;
@@ -163,26 +166,25 @@ export function SplitWords({
       <span className="accent-word">
         <span className="accent-word-text">{chunk.text}</span>
         <svg className="accent-word-line" viewBox="0 0 200 24" preserveAspectRatio="none" aria-hidden="true">
+          <defs>
+            {/* Logo colour flow: blue -> coral -> gold -> lavender -> teal */}
+            <linearGradient id="accent-line-gradient" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stopColor="var(--blue)" />
+              <stop offset="0.28" stopColor="var(--coral)" />
+              <stop offset="0.5" stopColor="#e9ae1f" />
+              <stop offset="0.72" stopColor="#a96bf0" />
+              <stop offset="1" stopColor="var(--teal)" />
+            </linearGradient>
+          </defs>
           {animated ? (
-            <>
-              <motion.path
-                d="M4 15 C 36 4, 66 22, 100 12 S 164 3, 196 13"
-                initial={{ pathLength: 0, opacity: 0 }}
-                animate={{ pathLength: 1, opacity: 1 }}
-                transition={{ pathLength: { duration: 0.9, ease: EASE, delay: lineDelay }, opacity: { duration: 0.2, delay: lineDelay } }}
-              />
-              <motion.path
-                d="M8 20 C 44 10, 70 24, 104 17 S 160 9, 192 19"
-                initial={{ pathLength: 0, opacity: 0 }}
-                animate={{ pathLength: 1, opacity: 1 }}
-                transition={{ pathLength: { duration: 0.8, ease: EASE, delay: lineDelay + 0.25 }, opacity: { duration: 0.2, delay: lineDelay + 0.25 } }}
-              />
-            </>
+            <motion.path
+              d={linePath}
+              initial={{ pathLength: 0, opacity: 0 }}
+              animate={{ pathLength: 1, opacity: 1 }}
+              transition={{ pathLength: { duration: 0.75, ease: EASE, delay: lineDelay }, opacity: { duration: 0.15, delay: lineDelay } }}
+            />
           ) : (
-            <>
-              <path d="M4 15 C 36 4, 66 22, 100 12 S 164 3, 196 13" />
-              <path d="M8 20 C 44 10, 70 24, 104 17 S 160 9, 192 19" />
-            </>
+            <path d={linePath} />
           )}
         </svg>
       </span>
@@ -217,8 +219,8 @@ export function SplitWords({
               display: "inline-block",
               overflow: "hidden",
               verticalAlign: "bottom",
-              paddingBottom: chunk.accent ? "0.32em" : "0.12em",
-              marginBottom: chunk.accent ? "-0.32em" : "-0.12em",
+              paddingBottom: chunk.accent ? "0.6em" : "0.12em",
+              marginBottom: chunk.accent ? "-0.6em" : "-0.12em",
             }}
           >
             <motion.span
