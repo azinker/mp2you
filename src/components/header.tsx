@@ -1,38 +1,61 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
+import { ArrowRight } from "lucide-react";
 import type { Locale } from "@/content/site";
-import { BrandMark, type BrandVariant } from "@/components/brand-mark";
+import { BrandMark } from "@/components/brand-mark";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { MobileNav } from "@/components/mobile-nav";
 import { VersionedLink as Link } from "@/components/versioned-link";
+import { stripLocale } from "@/lib/i18n";
+import { cn } from "@/lib/utils";
 
 export function Header({
   locale,
   nav,
   cta,
-  brandVariant,
 }: {
   locale: Locale;
   nav: { label: string; href: string }[];
   cta: { label: string; href: string };
-  brandVariant: BrandVariant;
 }) {
+  const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname() || "/";
+  const current = stripLocale(pathname);
+
+  useEffect(() => {
+    function onScroll() {
+      setScrolled(window.scrollY > 12);
+    }
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    <header className="site-header">
-      <div className="container-shell flex h-24 items-center justify-between gap-6 sm:h-32">
-        <BrandMark locale={locale} variant={brandVariant} />
-        <nav className="hidden items-center gap-6 min-[1400px]:flex" aria-label="Main navigation">
-          {nav.map((item) => (
-            <Link key={item.href} href={item.href} className="nav-link">
-              {item.label}
-            </Link>
-          ))}
+    <header className={cn("site-header", scrolled && "is-scrolled")}>
+      <div className="container-shell site-header-inner">
+        <BrandMark locale={locale} />
+        <nav className="site-nav" aria-label="Main navigation">
+          {nav.map((item) => {
+            const target = stripLocale(item.href);
+            const active = target === "/" ? current === "/" : current === target || current.startsWith(`${target}/`);
+            return (
+              <Link key={item.href} href={item.href} className={cn("nav-link", active && "is-active")} aria-current={active ? "page" : undefined}>
+                {item.label}
+              </Link>
+            );
+          })}
         </nav>
-        <div className="hidden items-center gap-4 min-[1400px]:flex">
+        <div className="site-header-actions">
           <LanguageSwitcher />
-          <Link href={cta.href} className="button button-primary" data-track="header-main-cta">
+          <Link href={cta.href} className="button button-primary button-small" data-track="header-main-cta">
             {cta.label}
+            <ArrowRight size={16} aria-hidden="true" />
           </Link>
         </div>
-        <MobileNav locale={locale} nav={nav} cta={cta} brandVariant={brandVariant} />
+        <MobileNav locale={locale} nav={nav} cta={cta} />
       </div>
     </header>
   );

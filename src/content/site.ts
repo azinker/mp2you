@@ -437,9 +437,9 @@ const en: SiteContent = {
     {
       slug: "testimonials",
       title: "Testimonials",
-      eyebrow: "What clients valued on the current site",
+      eyebrow: "What clients value about working with us",
       intro:
-        "The meaning of the current testimonials has been preserved and professionally rewritten for clarity, warmth, and credibility.",
+        "Real feedback from teams that trusted MorePower2You with storage, fulfillment, coordination, and the finishing details of their gifting programs.",
       seo: {
         title: "Client Testimonials | MorePower2You",
         description:

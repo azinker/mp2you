@@ -6,7 +6,6 @@ import { Header } from "@/components/header";
 import { ui } from "@/content/ui";
 import { getLocaleContent, withLocale } from "@/lib/content";
 import { localeFromPathname, localeMeta } from "@/lib/i18n";
-import { cn } from "@/lib/utils";
 import type { Locale } from "@/content/site";
 
 export function SiteChrome({ children }: { children: React.ReactNode }) {
@@ -27,17 +26,17 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
 
   if (isStudio || isInventory) {
     return (
-      <div lang="en" dir="ltr" className="min-h-screen bg-white text-charcoal">
+      <div lang="en" dir="ltr" className="min-h-screen bg-white text-ink">
         {children}
       </div>
     );
   }
 
   return (
-    <div lang={localeMeta[locale].htmlLang} dir={site.direction} className={cn("min-h-screen bg-porcelain text-charcoal", "theme-v1")}>
-      <Header locale={locale} nav={site.nav} cta={cta} brandVariant="v1" />
+    <div lang={localeMeta[locale].htmlLang} dir={site.direction} className="site-shell theme-brand">
+      <Header locale={locale} nav={site.nav} cta={cta} />
       <main>{children}</main>
-      <Footer locale={locale} footer={site.footer} serviceArea={site.settings.serviceArea} brandVariant="v1" />
+      <Footer locale={locale} footer={site.footer} serviceArea={site.settings.serviceArea} />
     </div>
   );
 }

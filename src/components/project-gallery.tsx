@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 import { X } from "lucide-react";
+import { Counter } from "@/components/motion";
 import {
   featuredGalleryProjects,
   galleryProjects,
@@ -58,16 +59,22 @@ export function ProjectGallery() {
       <section className="project-gallery-proof">
         <div className="container-shell">
           <ul>
-            <li>
-              <strong>{stats.studios}</strong>
+            <li className="tone-blue">
+              <strong>
+                <Counter value={String(stats.studios)} />
+              </strong>
               <span>studios</span>
             </li>
-            <li>
-              <strong>{stats.programs}</strong>
+            <li className="tone-teal">
+              <strong>
+                <Counter value={String(stats.programs)} />
+              </strong>
               <span>completed programs</span>
             </li>
-            <li>
-              <strong>{stats.photos}</strong>
+            <li className="tone-coral">
+              <strong>
+                <Counter value={String(stats.photos)} />
+              </strong>
               <span>production photos</span>
             </li>
           </ul>

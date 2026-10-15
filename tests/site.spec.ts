@@ -68,7 +68,7 @@ test("retired preview routes redirect to V1 equivalents", async ({ page }) => {
   for (const { from, to } of redirects) {
     await page.goto(from);
     await expect(page).toHaveURL(new RegExp(`${to === "/" ? "/$" : `${to}$`}`));
-    await expect(page.locator(".theme-v1")).toBeVisible();
+    await expect(page.locator(".theme-brand")).toBeVisible();
   }
 });
 
