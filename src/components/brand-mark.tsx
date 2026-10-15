@@ -5,34 +5,29 @@ import { VersionedLink as Link } from "@/components/versioned-link";
 import { withLocale } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
-export type BrandVariant = "v1" | "v2" | "v3";
+export type BrandVariant = "lockup" | "mark";
 
-const logos: Record<BrandVariant, { src: string; width: number; height: number }> = {
-  v1: { src: "/generated-assets/logo-lockup-v1.png", width: 892, height: 212 },
-  v2: { src: "/generated-assets/logo-lockup-v2.png", width: 912, height: 214 },
-  v3: { src: "/generated-assets/logo-lockup-v3.png", width: 906, height: 220 },
-};
-
-export function BrandMark({ locale, variant = "v1" }: { locale: Locale; variant?: BrandVariant }) {
-  const logo = logos[variant];
-
+/**
+ * The official MorePower2You lockup (MP ribbon monogram + wordmark + tagline).
+ * Rendered from the supplied brand PNG so it always matches print collateral.
+ */
+export function BrandMark({ locale, variant = "lockup", className, priority = true }: { locale: Locale; variant?: BrandVariant; className?: string; priority?: boolean }) {
   return (
-    <Link
-      href={withLocale(locale, "/")}
-      className={cn("brand-lockup brand-lockup-image group", `brand-lockup-image-${variant}`)}
-      aria-label="MorePower2You home"
-    >
-      <Image
-        className="brand-logo-image"
-        src={logo.src}
-        alt=""
-        aria-hidden="true"
-        width={logo.width}
-        height={logo.height}
-        priority
-        unoptimized
-        sizes="(max-width: 639px) 72vw, (max-width: 1535px) 500px, 420px"
-      />
+    <Link href={withLocale(locale, "/")} className={cn("brand-lockup", className)} aria-label="MorePower2You home">
+      {variant === "mark" ? (
+        <Image className="brand-mark-image" src="/brand/mp-mark.png" alt="" aria-hidden="true" width={512} height={512} priority={priority} />
+      ) : (
+        <Image
+          className="brand-logo-image"
+          src="/brand/logo-lockup-1200.png"
+          alt=""
+          aria-hidden="true"
+          width={1200}
+          height={235}
+          priority={priority}
+          sizes="(max-width: 640px) 240px, 340px"
+        />
+      )}
       <span className="sr-only">MorePower2You - {ui[locale].brandTagline}</span>
     </Link>
   );

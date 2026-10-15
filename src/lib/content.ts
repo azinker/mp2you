@@ -350,7 +350,12 @@ function mapSanityPayload(payload: SanitySitePayload, locale: Locale): SiteConte
       whatWeDo: mapPageBlocks([homeBlocks[0]].filter(Boolean) as SanityBlock[], locale)[0] || fallback.home.whatWeDo,
       process: mapBlocks(homeProcess?.items, locale).length ? mapBlocks(homeProcess?.items, locale) : fallback.home.process,
       featured: homeFeatured.length ? mapPageBlocks(homeFeatured, locale) : fallback.home.featured,
-      occasions: mapBlocks(homeOccasions?.items, locale).map((item) => item.title) || fallback.home.occasions,
+      occasions: (() => {
+        const titles = mapBlocks(homeOccasions?.items, locale)
+          .map((item) => item.title)
+          .filter(Boolean);
+        return titles.length ? titles : fallback.home.occasions;
+      })(),
       finalCta: mapPageBlocks([homeBlocks[homeBlocks.length - 1]].filter(Boolean) as SanityBlock[], locale)[0] || fallback.home.finalCta,
     },
     pages: standardPages.length ? standardPages : fallback.pages,

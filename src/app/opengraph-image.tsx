@@ -1,3 +1,5 @@
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 import { ImageResponse } from "next/og";
 
 export const size = {
@@ -7,7 +9,10 @@ export const size = {
 
 export const contentType = "image/png";
 
-export default function Image() {
+export default async function Image() {
+  const logo = await readFile(join(process.cwd(), "public/brand/logo-lockup-1200.png"));
+  const logoSrc = `data:image/png;base64,${logo.toString("base64")}`;
+
   return new ImageResponse(
     (
       <div
@@ -15,18 +20,31 @@ export default function Image() {
           width: "100%",
           height: "100%",
           display: "flex",
-          background: "#fbfaf7",
-          color: "#191714",
+          flexDirection: "column",
+          justifyContent: "space-between",
           padding: 72,
-          border: "18px solid #dccaa7",
+          background: "linear-gradient(135deg, #ffffff 0%, #f5f8fd 60%, #e6ecfb 100%)",
+          color: "#0e1b4d",
           fontFamily: "serif",
+          position: "relative",
         }}
       >
-        <div style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", width: "100%" }}>
-          <div style={{ fontSize: 32, color: "#a97f2d" }}>MorePower2You</div>
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <div style={{ fontSize: 78, lineHeight: 0.98, maxWidth: 880 }}>Custom corporate gifting handled from idea to doorstep.</div>
-            <div style={{ marginTop: 32, fontSize: 28, color: "#676057" }}>Gifting / Concierge / Fulfillment</div>
+        <div style={{ position: "absolute", top: -120, right: -120, width: 420, height: 420, borderRadius: 999, background: "rgba(0,168,180,0.18)", display: "flex" }} />
+        <div style={{ position: "absolute", bottom: -160, left: -100, width: 380, height: 380, borderRadius: 999, background: "rgba(252,108,96,0.16)", display: "flex" }} />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={logoSrc} alt="" width={560} height={110} style={{ objectFit: "contain" }} />
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <div style={{ fontSize: 72, lineHeight: 1.02, maxWidth: 940 }}>Custom corporate gifting handled from idea to doorstep.</div>
+          <div style={{ display: "flex", gap: 14, marginTop: 34, fontSize: 24, fontFamily: "sans-serif", fontWeight: 700 }}>
+            {[
+              ["Gifting", "#0b3da7"],
+              ["Concierge", "#00a8b4"],
+              ["Fulfillment", "#fc6c60"],
+            ].map(([label, color]) => (
+              <div key={label} style={{ display: "flex", padding: "10px 22px", borderRadius: 999, background: color, color: "#ffffff" }}>
+                {label}
+              </div>
+            ))}
           </div>
         </div>
       </div>
