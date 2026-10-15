@@ -2,9 +2,19 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   allowedDevOrigins: ["127.0.0.1"],
+  poweredByHeader: false,
   images: {
     formats: ["image/avif", "image/webp"],
     remotePatterns: [{ protocol: "https", hostname: "cdn.sanity.io" }],
+  },
+  async headers() {
+    // Static brand + video assets are versioned by filename; let browsers and
+    // Google's crawler cache them aggressively so repeat visits stay fast.
+    const immutable = [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }];
+    return [
+      { source: "/video/:path*", headers: immutable },
+      { source: "/brand/:path*", headers: immutable },
+    ];
   },
   async redirects() {
     return [

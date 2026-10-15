@@ -1259,7 +1259,7 @@ p {
   padding: 22px 24px;
 }
 
-.explainer-copy .proof-card h2 {
+.explainer-copy .proof-card h3 {
   font-size: 1.35rem;
 }
 
@@ -1424,7 +1424,8 @@ p {
   position: relative;
 }
 
-.proof-card h2 {
+.proof-card h2,
+.proof-card h3 {
   font-size: 1.6rem;
 }
 

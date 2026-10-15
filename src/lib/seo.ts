@@ -1,9 +1,23 @@
 import type { Metadata } from "next";
 import { getLocaleContent, withLocale } from "@/lib/content";
 import type { Locale, Seo } from "@/content/site";
+import { ui } from "@/content/ui";
 import { languageAlternates, localeMeta } from "@/lib/i18n";
 
 const fallbackUrl = "https://www.morepower2you.com";
+
+/** Date the public site content was last materially revised. Bump when copy or pages change. */
+export const siteContentUpdated = "2026-10-15";
+
+/** Explainer video shown on every home page. One source of truth for schema + sitemap. */
+export const explainerVideo = {
+  contentPath: "/video/mp2y-explainer.mp4",
+  posterPath: "/video/mp2y-explainer-poster.jpg",
+  uploadDate: "2026-10-15",
+  durationSeconds: 25,
+};
+
+const brandAlternateNames = ["More Power 2 You", "MP2Y", "MorePower2You Corporate Gifting Concierge"];
 
 export function siteUrl() {
   return (process.env.NEXT_PUBLIC_SITE_URL || fallbackUrl).replace(/\/$/, "");
@@ -12,6 +26,35 @@ export function siteUrl() {
 export function absoluteUrl(path = "/") {
   return `${siteUrl()}${path.startsWith("/") ? path : `/${path}`}`;
 }
+
+function organizationId() {
+  return `${siteUrl()}/#organization`;
+}
+
+function websiteId() {
+  return `${siteUrl()}/#website`;
+}
+
+function logoObject() {
+  return {
+    "@type": "ImageObject",
+    url: absoluteUrl("/brand/logo-lockup-1200.png"),
+    width: 1200,
+    height: 235,
+  };
+}
+
+export const defaultRobots: NonNullable<Metadata["robots"]> = {
+  index: true,
+  follow: true,
+  googleBot: {
+    index: true,
+    follow: true,
+    "max-image-preview": "large",
+    "max-snippet": -1,
+    "max-video-preview": -1,
+  },
+};
 
 export function metadataFor(locale: Locale, path: string, seo: Seo): Metadata {
   const site = getLocaleContent(locale);
@@ -55,20 +98,76 @@ export function organizationSchema(locale: Locale) {
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
+    "@id": organizationId(),
     name: site.settings.siteName,
+    alternateName: brandAlternateNames,
     url: siteUrl(),
+    logo: logoObject(),
+    image: absoluteUrl("/opengraph-image"),
     description: site.footer.description,
-    areaServed: ["United States", "International"],
+    slogan: site.settings.tagline,
+    areaServed: [{ "@type": "Country", name: "United States" }, "Worldwide"],
+    contactPoint: [
+      {
+        "@type": "ContactPoint",
+        contactType: "sales",
+        url: absoluteUrl(withLocale(locale, "/contact")),
+        availableLanguage: ["English", "Spanish", "French", "German", "Portuguese", "Chinese", "Arabic", "Hebrew"],
+      },
+    ],
     knowsAbout: [
       "Corporate gifting",
-      "Custom gift boxes",
+      "Corporate gift boxes",
+      "Custom branded gift boxes",
+      "Client appreciation gifts",
+      "Employee appreciation gifts",
+      "Holiday corporate gifts",
       "VIP gifting",
+      "Gaming and casino VIP player gifting",
       "Gift fulfillment",
-      "Warehousing",
+      "Kitting and warehousing",
       "Mass mailings",
-      "Concierge services",
+      "Concierge gifting services",
     ],
   };
+}
+
+export function websiteSchema(locale: Locale) {
+  const site = getLocaleContent(locale);
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": websiteId(),
+    url: siteUrl(),
+    name: site.settings.siteName,
+    alternateName: brandAlternateNames,
+    description: site.home.seo.description,
+    inLanguage: localeMeta[locale].bcp47,
+    publisher: { "@id": organizationId() },
+  };
+}
+
+export function explainerVideoSchema(locale: Locale) {
+  const t = ui[locale];
+  return {
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    "@id": `${absoluteUrl(withLocale(locale, "/"))}#explainer-video`,
+    name: t.videoTitle,
+    description: t.videoText,
+    thumbnailUrl: [absoluteUrl(explainerVideo.posterPath)],
+    contentUrl: absoluteUrl(explainerVideo.contentPath),
+    uploadDate: explainerVideo.uploadDate,
+    duration: `PT${explainerVideo.durationSeconds}S`,
+    inLanguage: "en",
+    isFamilyFriendly: true,
+    publisher: { "@id": organizationId() },
+  };
+}
+
+/** Everything the home page should emit: org + website + the explainer video. */
+export function homeSchemas(locale: Locale) {
+  return [organizationSchema(locale), websiteSchema(locale), explainerVideoSchema(locale)];
 }
 
 export function serviceSchema(locale: Locale, path: string, name: string, description: string) {
@@ -76,13 +175,15 @@ export function serviceSchema(locale: Locale, path: string, name: string, descri
     "@context": "https://schema.org",
     "@type": "Service",
     name,
+    serviceType: name,
     description,
     provider: {
+      "@id": organizationId(),
       "@type": "Organization",
       name: "MorePower2You",
       url: siteUrl(),
     },
-    areaServed: ["United States", "International"],
+    areaServed: ["United States", "Worldwide"],
     url: absoluteUrl(withLocale(locale, path)),
   };
 }
@@ -116,15 +217,19 @@ export function faqSchema(faqs: { question: string; answer: string }[]) {
 }
 
 export function articleSchema(locale: Locale, path: string, title: string, description: string, datePublished: string) {
+  const url = absoluteUrl(withLocale(locale, path));
   return {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: title,
     description,
+    url,
+    image: [absoluteUrl("/opengraph-image")],
+    inLanguage: localeMeta[locale].bcp47,
     datePublished,
     dateModified: datePublished,
-    author: { "@type": "Organization", name: "MorePower2You" },
-    publisher: { "@type": "Organization", name: "MorePower2You" },
-    mainEntityOfPage: absoluteUrl(withLocale(locale, path)),
+    author: { "@id": organizationId(), "@type": "Organization", name: "MorePower2You", url: siteUrl() },
+    publisher: { "@id": organizationId(), "@type": "Organization", name: "MorePower2You", logo: logoObject() },
+    mainEntityOfPage: { "@type": "WebPage", "@id": url },
   };
 }

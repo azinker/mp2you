@@ -23,7 +23,7 @@ import {
 } from "@/lib/content";
 import { isPrefixedLocale, prefixedLocales, withLocale } from "@/lib/i18n";
 import { RenderSlugPage, seoForSlugInSite } from "@/lib/page-router";
-import { articleSchema, breadcrumbSchema, faqSchema, metadataFor, organizationSchema, serviceSchema } from "@/lib/seo";
+import { articleSchema, breadcrumbSchema, faqSchema, homeSchemas, metadataFor, organizationSchema, serviceSchema } from "@/lib/seo";
 
 export function dynamicMarketingLocales() {
   return prefixedLocales.filter((locale) => locale !== "he");
@@ -57,7 +57,7 @@ export async function LocaleHome({ locale }: { locale: Locale }) {
   const site = await getSiteContent(locale);
   return (
     <>
-      <SchemaScript data={organizationSchema(locale)} />
+      <SchemaScript data={homeSchemas(locale)} />
       <HomePage site={site} />
     </>
   );
@@ -72,7 +72,7 @@ export async function localeRestMetadata(locale: Locale, rest: string[]): Promis
       return metadataFor(locale, "/insights", {
         title: `${ui[locale].insights} | MorePower2You`,
         description: ui[locale].insightsText,
-        keywords: [],
+        keywords: getLocaleContent("en").home.seo.keywords,
       });
     }
     const seo = seoForSlugInSite(site, section);

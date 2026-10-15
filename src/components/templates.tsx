@@ -190,7 +190,7 @@ export function HomePage({ site }: { site: SiteContent }) {
       <section className="section-band explainer-band">
         <div className="container-shell explainer-grid">
           <Reveal className="explainer-media" y={32}>
-            <ExplainerVideo src="/video/mp2y-explainer.mp4" poster="/video/mp2y-explainer-poster.jpg" playLabel={t.playVideo} pauseLabel={t.pauseVideo} />
+            <ExplainerVideo src="/video/mp2y-explainer.mp4" poster="/video/mp2y-explainer-poster.jpg" title={t.videoTitle} playLabel={t.playVideo} pauseLabel={t.pauseVideo} />
           </Reveal>
           <div className="explainer-copy">
             <SectionIntro eyebrow={t.videoEyebrow} title={t.videoTitle} text={t.videoText} />
@@ -203,7 +203,7 @@ export function HomePage({ site }: { site: SiteContent }) {
                       <span className="icon-badge">
                         <Icon size={24} aria-hidden="true" />
                       </span>
-                      <h2>{item.title}</h2>
+                      <h3>{item.title}</h3>
                       <p>{item.text}</p>
                     </Tilt>
                   </StaggerItem>

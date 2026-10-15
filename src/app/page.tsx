@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { HomePage } from "@/components/templates";
 import { SchemaScript } from "@/components/schema-script";
 import { getSiteContent } from "@/lib/content";
-import { metadataFor, organizationSchema } from "@/lib/seo";
+import { homeSchemas, metadataFor } from "@/lib/seo";
 
 const locale = "en";
 
@@ -16,7 +16,7 @@ export default async function Page() {
 
   return (
     <>
-      <SchemaScript data={organizationSchema(locale)} />
+      <SchemaScript data={homeSchemas(locale)} />
       <HomePage site={site} />
     </>
   );

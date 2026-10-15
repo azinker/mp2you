@@ -186,15 +186,22 @@ const en: SiteContent = {
   },
   home: {
     seo: {
-      title: "Corporate Gifting, VIP Gifting & Fulfillment | MorePower2You",
+      title: "Corporate Gifting Company & Concierge | MorePower2You",
       description:
-        "Premium turnkey corporate gifting, custom branded gift boxes, concierge sourcing, warehousing, fulfillment, and VIP gifting programs for companies of many sizes.",
+        "Turnkey corporate gifting company: custom branded gift boxes, client and VIP gifts, concierge sourcing, warehousing, and fulfillment handled end to end.",
       keywords: [
         "corporate gifting",
+        "corporate gifting company",
+        "corporate gifting services",
+        "corporate gifts",
         "custom gift boxes",
+        "branded gift boxes",
+        "client appreciation gifts",
+        "employee appreciation gifts",
         "VIP gifting",
         "gaming player gifting",
         "gift fulfillment",
+        "corporate gifting concierge",
       ],
     },
     hero: {
@@ -319,11 +326,11 @@ const en: SiteContent = {
         {
           title: "A modern partner for projects that need care and coordination.",
           text:
-            "The original MorePower2You message was simple: specialty gifting and concierge services together, so a project can become turnkey. The new site carries that idea forward with a more refined focus on corporate gifting, branded gift boxes, VIP customer programs, storage, fulfillment, and mass mailing support.",
+            "The MorePower2You idea has always been simple: bring specialty gifting and concierge services together so a project becomes truly turnkey. Today that means corporate gifting campaigns, custom branded gift boxes, VIP customer programs, storage, fulfillment, and mass mailing support, all coordinated by one team.",
           items: [
             { title: "From small to high-volume", text: "The team can support projects of many sizes, with strong emphasis on larger corporate campaigns." },
             { title: "Custom by nature", text: "Gift concepts can include goods ranging from edibles to electronics and anything in between." },
-            { title: "Service-area language", text: "The business supports national and international work without publishing a public physical address." },
+            { title: "National and international reach", text: "Programs ship across the United States and internationally, coordinated end to end so your team never has to manage the logistics." },
           ],
         },
       ],
@@ -337,10 +344,10 @@ const en: SiteContent = {
       primaryCta: { label: "Start a Custom Gifting Project", href: "/contact" },
       secondaryCta: { label: "See the Process", href: "/process" },
       seo: {
-        title: "Corporate Gifting Services | Custom Gift Boxes & Fulfillment",
+        title: "Corporate Gifting Services: Boxes, Concierge & Fulfillment",
         description:
-          "Explore MorePower2You services: corporate gifting campaigns, custom branded gift boxes, concierge sourcing, warehousing, fulfillment, distribution, and mass mailings.",
-        keywords: ["corporate gifting services", "custom branded gift boxes", "gift fulfillment"],
+          "Corporate gifting services from one partner: gifting campaigns, custom branded gift boxes, concierge sourcing, warehousing, fulfillment, and mass mailings.",
+        keywords: ["corporate gifting services", "custom branded gift boxes", "gift fulfillment", "concierge gifting", "corporate gift programs"],
       },
       blocks: [
         {
@@ -355,14 +362,14 @@ const en: SiteContent = {
       title: "Who We Serve",
       eyebrow: "Built for teams that need gifting to feel considered",
       intro:
-        "The site publishes a dedicated Gaming & VIP Player Gifting page now, while keeping the content model ready for future industry pages.",
+        "From gaming studios and tech companies to finance, real estate, hospitality, and healthcare teams, every program is shaped around your audience, occasion, and brand.",
       primaryCta: { label: "Start a Project", href: "/contact" },
       secondaryCta: { label: "Gaming & VIP Player Gifting", href: "/gaming-vip-player-gifting" },
       seo: {
-        title: "Corporate Gifting for Gaming, Tech, Finance & More",
+        title: "Corporate Gifting by Industry: Gaming, Tech, Finance & More | MorePower2You",
         description:
-          "MorePower2You supports gifting programs for gaming brands, tech companies, real estate firms, finance teams, hospitality groups, healthcare organizations, events, HR, and marketing teams.",
-        keywords: ["industry gifting", "gaming gifting", "client appreciation gifts"],
+          "Corporate gifting programs for gaming brands, tech companies, real estate firms, finance teams, hospitality groups, healthcare organizations, events, HR, and marketing teams.",
+        keywords: ["corporate gifting by industry", "gaming gifting", "client appreciation gifts", "employee gifts", "tech company gifts"],
       },
       blocks: [
         {
@@ -401,7 +408,7 @@ const en: SiteContent = {
       intro:
         "A look at custom boxes and gifts we have produced for gaming studios and VIP programs — packed, branded, and ready for the recipient.",
       seo: {
-        title: "Project Gallery | MorePower2You",
+        title: "Corporate Gift Box Gallery: Completed Programs | MorePower2You",
         description:
           "Browse completed MorePower2You gifting programs for Best Fiends, Slotomania, House of Fun, Wooga, and other studios: custom boxes, VIP kits, and seasonal gifts.",
         keywords: ["corporate gifting gallery", "VIP gift examples", "custom gift boxes"],
@@ -419,7 +426,7 @@ const en: SiteContent = {
       title: "Case Studies",
       eyebrow: "Anonymous project profiles and example project types",
       intro:
-        "These are clearly labeled planning profiles, not named-client claims. They show the kinds of needs MorePower2You is structured to support.",
+        "Example project profiles showing how we approach VIP player gifting, holiday campaigns, fulfillment programs, and branded launch kits. Details are anonymized to protect client confidentiality.",
       seo: {
         title: "Corporate Gifting Case Studies | Example Project Types",
         description:
@@ -430,7 +437,7 @@ const en: SiteContent = {
         {
           title: "Use these profiles to start a smarter conversation.",
           text:
-            "Each profile highlights a common gifting challenge, likely approach, and outcome language without inventing client names, awards, or unsupported statistics.",
+            "Each profile outlines the gifting challenge, the approach we take, and what a successful outcome looks like, so you can start your own project with a clearer brief.",
         },
       ],
     },
@@ -441,10 +448,10 @@ const en: SiteContent = {
       intro:
         "Real feedback from teams that trusted MorePower2You with storage, fulfillment, coordination, and the finishing details of their gifting programs.",
       seo: {
-        title: "Client Testimonials | MorePower2You",
+        title: "Client Testimonials & Reviews | MorePower2You",
         description:
-          "Read rewritten testimonials preserving the meaning of current MorePower2You reviews about storage, fulfillment, gifting ideas, and project coordination.",
-        keywords: ["MorePower2You testimonials", "corporate gifting reviews", "gift fulfillment testimonial"],
+          "What clients say about MorePower2You: reliable storage and fulfillment, thoughtful gift ideas, and smooth coordination on corporate gifting programs.",
+        keywords: ["MorePower2You reviews", "corporate gifting reviews", "gift fulfillment testimonial", "corporate gifting company reviews"],
       },
       blocks: [],
     },
@@ -469,10 +476,10 @@ const en: SiteContent = {
       intro:
         "Tell us what you are planning. Please enter the project scale, timeline, destinations, and customization needs.",
       seo: {
-        title: "Start a Custom Gifting Project | MorePower2You",
+        title: "Contact MorePower2You | Start a Corporate Gifting Project",
         description:
-          "Contact MorePower2You for corporate gifting, VIP player gifting, branded gift boxes, fulfillment, warehousing, distribution, and concierge project support.",
-        keywords: ["custom gifting project inquiry", "corporate gifting contact", "VIP gifting quote"],
+          "Request a quote for corporate gifting, VIP player gifting, branded gift boxes, fulfillment, warehousing, or concierge support. Tell us your scale and timeline.",
+        keywords: ["corporate gifting quote", "contact MorePower2You", "custom gifting project inquiry", "VIP gifting quote"],
       },
       blocks: [
         {
@@ -518,10 +525,10 @@ const en: SiteContent = {
       primaryCta: { label: "Start a Corporate Gifting Project", href: "/contact" },
       secondaryCta: { label: "See Custom Gift Boxes", href: "/custom-gift-boxes" },
       seo: {
-        title: "Corporate Gifting Campaigns | MorePower2You",
+        title: "Corporate Gifting Campaigns & Programs | MorePower2You",
         description:
-          "Premium corporate gifting campaigns for client appreciation, employee appreciation, VIP customers, holidays, events, launches, and milestone gifting.",
-        keywords: ["corporate gifting campaigns", "client appreciation gifts", "employee appreciation gifts"],
+          "Premium corporate gifting campaigns for client appreciation, employee appreciation, VIP customers, holidays, events, launches, and milestone gifting, planned and delivered for you.",
+        keywords: ["corporate gifting campaigns", "corporate gifting programs", "client appreciation gifts", "employee appreciation gifts", "holiday corporate gifts", "bulk corporate gifts"],
       },
       blocks: [
         {
@@ -548,10 +555,10 @@ const en: SiteContent = {
       primaryCta: { label: "Build a Custom Gift Box", href: "/contact" },
       secondaryCta: { label: "View Gallery", href: "/gallery" },
       seo: {
-        title: "Custom Branded Gift Boxes | MorePower2You",
+        title: "Custom Branded Corporate Gift Boxes | MorePower2You",
         description:
-          "Create premium custom branded gift boxes for corporate clients, VIP customers, employees, events, holidays, launches, and loyalty programs.",
-        keywords: ["custom gift boxes", "branded gift boxes", "corporate gift boxes"],
+          "Premium custom branded gift boxes for corporate clients, VIP customers, employees, events, holidays, launches, and loyalty programs, from product mix to packaging and inserts.",
+        keywords: ["custom gift boxes", "branded gift boxes", "corporate gift boxes", "custom corporate gift boxes", "branded welcome boxes", "employee welcome kits"],
       },
       blocks: [
         {
@@ -640,10 +647,10 @@ const en: SiteContent = {
       primaryCta: { label: "Plan a VIP Player Gift", href: "/contact" },
       secondaryCta: { label: "Explore Corporate Gifting", href: "/corporate-gifting" },
       seo: {
-        title: "Gaming & VIP Player Gifting | MorePower2You",
+        title: "Gaming & Casino VIP Player Gifting | MorePower2You",
         description:
-          "Custom VIP player gifting for casino apps, RPGs, action/adventure games, strategy games, loyalty programs, milestone gifting, seasonal drops, and high-value customer appreciation.",
-        keywords: ["gaming gifting", "VIP player gifting", "casino app gifting", "loyalty program gifts"],
+          "Custom VIP player gifting for casino apps, social casino, RPGs, and strategy games: loyalty rewards, milestone gifts, seasonal drops, and high-value player appreciation.",
+        keywords: ["gaming gifting", "VIP player gifting", "casino app gifting", "social casino VIP gifts", "loyalty program gifts", "player appreciation gifts"],
       },
       blocks: [
         {
@@ -711,15 +718,15 @@ const en: SiteContent = {
   ],
   faqs: [
     { question: "What types of gifting projects can MorePower2You support?", answer: "Corporate gifting campaigns, custom branded gift boxes, VIP client and player gifting, employee appreciation, seasonal gifting, event kits, product launch gifts, milestone programs, fulfillment, warehousing, distribution, mass mailings, and custom concierge projects." },
-    { question: "Can you handle large-volume gifting?", answer: "Yes. The new positioning emphasizes large-scale corporate gifting, and the site may truthfully state that select projects have exceeded 5,000 gifts. Smaller projects can also be supported when the scope is a good fit." },
+    { question: "Can you handle large-volume gifting?", answer: "Yes. Large-scale corporate gifting is our core focus, and select projects have exceeded 5,000 gifts. Smaller, carefully scoped projects can also be supported when the fit is right." },
     { question: "Do you publish fixed package prices?", answer: "No. Projects are quoted based on recipient count, product mix, customization, packaging, storage, fulfillment needs, destination count, and timeline." },
     { question: "Can gifts be branded or customized?", answer: "Yes. Gift boxes, inserts, packaging, and selected goods can be customized or branded based on timeline, quantities, and product availability." },
     { question: "Do you support national and international shipping?", answer: "MorePower2You can support national and international project planning and mass mailings. Details depend on destination list, products, timing, and shipping requirements." },
     { question: "Do you ask for budget in the inquiry form?", answer: "No. The form asks for project scale instead, so the first conversation can focus on audience, timing, customization, and logistics." },
     { question: "Can you store products and ship them over time?", answer: "Yes. Warehousing and storage support can be part of the scope, including recurring or staged fulfillment when appropriate." },
-    { question: "Can you support gaming and VIP player gifting?", answer: "Yes. Gaming and VIP player gifting has a dedicated page for casino apps, RPGs, action/adventure, strategy games, VIP player segments, loyalty programs, milestone gifts, and seasonal drops." },
-    { question: "Do you offer ecommerce checkout?", answer: "No. The site is built for lead generation and custom project inquiry, not public ecommerce checkout." },
-    { question: "Do you display a public phone number or physical address?", answer: "No. The new site uses service-area language and a project inquiry form as the primary CTA." },
+    { question: "Can you support gaming and VIP player gifting?", answer: "Yes. We run VIP player gifting programs for casino apps, social casino, RPGs, action/adventure, and strategy games, covering VIP player segments, loyalty rewards, milestone gifts, and seasonal drops." },
+    { question: "Do you offer ecommerce checkout?", answer: "No. Every program is custom, so there is no public checkout. Share your project details through the inquiry form and we will scope and quote it for you." },
+    { question: "How do I get in touch?", answer: "Start with the project inquiry form. Tell us your audience, scale, timeline, and destinations, and we will follow up with next steps. We support programs across the United States and internationally." },
   ],
   gallery: [
     { title: "Custom box presentation", text: "A gift-box context from the current site, reframed for a more premium editorial gallery.", image: "/legacy-images/Wooden-box.jpg", alt: "Custom wooden gift box presentation" },

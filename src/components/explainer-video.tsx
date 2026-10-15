@@ -10,7 +10,21 @@ import { cn } from "@/lib/utils";
  * and native controls are enabled only while playing so viewers can
  * scrub or mute.
  */
-export function ExplainerVideo({ src, poster, playLabel, pauseLabel, className }: { src: string; poster: string; playLabel: string; pauseLabel: string; className?: string }) {
+export function ExplainerVideo({
+  src,
+  poster,
+  title,
+  playLabel,
+  pauseLabel,
+  className,
+}: {
+  src: string;
+  poster: string;
+  title: string;
+  playLabel: string;
+  pauseLabel: string;
+  className?: string;
+}) {
   const ref = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(false);
   const [started, setStarted] = useState(false);
@@ -31,6 +45,8 @@ export function ExplainerVideo({ src, poster, playLabel, pauseLabel, className }
         ref={ref}
         src={src}
         poster={poster}
+        title={title}
+        aria-label={title}
         preload="metadata"
         playsInline
         controls={started}
