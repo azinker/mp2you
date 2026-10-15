@@ -27,6 +27,7 @@ import { ui } from "@/content/ui";
 import { featuredGalleryProjects } from "@/content/gallery-projects";
 import { HeroVisual } from "@/components/hero-visual";
 import { ContactForm } from "@/components/contact-form";
+import { ExplainerVideo } from "@/components/explainer-video";
 import { ProjectGallery } from "@/components/project-gallery";
 import { BowArt, DrawLine, Enter, Marquee, Petals, Reveal, SplitWords, Stagger, StaggerItem, Tilt } from "@/components/motion";
 import { VersionedLink as Link } from "@/components/versioned-link";
@@ -186,23 +187,31 @@ export function HomePage({ site }: { site: SiteContent }) {
         ))}
       </Marquee>
 
-      <section className="section-band">
-        <Stagger className="container-shell proof-grid">
-          {site.home.proof.map((item, index) => {
-            const Icon = [Gem, Boxes, Sparkles][index % 3];
-            return (
-              <StaggerItem key={item.title}>
-                <Tilt className={cn("card card-hover proof-card", tone(index))}>
-                  <span className="icon-badge">
-                    <Icon size={24} aria-hidden="true" />
-                  </span>
-                  <h2>{item.title}</h2>
-                  <p>{item.text}</p>
-                </Tilt>
-              </StaggerItem>
-            );
-          })}
-        </Stagger>
+      <section className="section-band explainer-band">
+        <div className="container-shell explainer-grid">
+          <Reveal className="explainer-media" y={32}>
+            <ExplainerVideo src="/video/mp2y-explainer.mp4" poster="/video/mp2y-explainer-poster.jpg" playLabel={t.playVideo} pauseLabel={t.pauseVideo} />
+          </Reveal>
+          <div className="explainer-copy">
+            <SectionIntro eyebrow={t.videoEyebrow} title={t.videoTitle} text={t.videoText} />
+            <Stagger className="proof-grid is-stacked" stagger={0.1}>
+              {site.home.proof.map((item, index) => {
+                const Icon = [Gem, Boxes, Sparkles][index % 3];
+                return (
+                  <StaggerItem key={item.title}>
+                    <Tilt className={cn("card card-hover proof-card", tone(index))}>
+                      <span className="icon-badge">
+                        <Icon size={24} aria-hidden="true" />
+                      </span>
+                      <h2>{item.title}</h2>
+                      <p>{item.text}</p>
+                    </Tilt>
+                  </StaggerItem>
+                );
+              })}
+            </Stagger>
+          </div>
+        </div>
       </section>
 
       <EditorialBlock block={site.home.whatWeDo} cloud />

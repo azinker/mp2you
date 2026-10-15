@@ -1223,8 +1223,178 @@ p {
 }
 
 @media (min-width: 820px) {
-  .proof-grid {
+  .proof-grid:not(.is-stacked) {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* ---------- Explainer video band (home) ---------- */
+
+.explainer-band {
+  position: relative;
+  padding-top: 72px;
+}
+
+.explainer-grid {
+  display: grid;
+  gap: 40px;
+  align-items: center;
+}
+
+.explainer-media {
+  width: min(100%, 340px);
+  margin-inline: auto;
+}
+
+.explainer-copy .section-intro {
+  max-width: 560px;
+}
+
+.explainer-copy .proof-grid {
+  margin-top: 32px;
+  gap: 14px;
+}
+
+.explainer-copy .proof-card {
+  padding: 22px 24px;
+}
+
+.explainer-copy .proof-card h2 {
+  font-size: 1.35rem;
+}
+
+@media (min-width: 1024px) {
+  .explainer-grid {
+    grid-template-columns: 380px minmax(0, 1fr);
+    gap: 64px;
+  }
+
+  .explainer-media {
+    width: 100%;
+    margin-inline: 0;
+  }
+
+  .explainer-copy .proof-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .explainer-copy .proof-card {
+    padding: 22px 20px;
+    gap: 12px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .explainer-grid {
+    grid-template-columns: 400px minmax(0, 1fr);
+    gap: 80px;
+  }
+}
+
+/* The video itself: no frame or chrome, just softly rounded corners and the
+   page's shadow so it sits like the other media cards. */
+.explainer-video {
+  position: relative;
+  aspect-ratio: 9 / 16;
+  overflow: hidden;
+  border-radius: 28px;
+  background: var(--ink);
+  box-shadow: var(--shadow-lg);
+  isolation: isolate;
+}
+
+.explainer-video video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.explainer-video.has-started video {
+  cursor: default;
+}
+
+/* Soft shade across the surface on hover so the button reads clearly. */
+.explainer-video::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(60% 50% at 50% 50%, rgba(14, 27, 77, 0.28), rgba(14, 27, 77, 0.06) 70%, transparent);
+  opacity: 0;
+  transition: opacity 260ms ease;
+}
+
+.explainer-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 84px;
+  height: 84px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 999px;
+  color: var(--white);
+  background: rgba(14, 27, 77, 0.45);
+  backdrop-filter: blur(10px) saturate(1.2);
+  box-shadow:
+    0 18px 40px rgba(14, 27, 77, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  cursor: pointer;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.92);
+  transition:
+    opacity 260ms ease,
+    transform 320ms var(--ease-spring),
+    background 200ms ease;
+}
+
+.explainer-play svg {
+  margin-inline-start: 4px; /* optically centre the triangle */
+}
+
+.explainer-video:hover::after,
+.explainer-video:focus-within::after {
+  opacity: 1;
+}
+
+.explainer-video:hover .explainer-play,
+.explainer-play:focus-visible {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.explainer-play:hover {
+  background: var(--coral);
+  border-color: var(--coral);
+}
+
+.explainer-play:focus-visible {
+  outline: 3px solid var(--white);
+  outline-offset: 3px;
+}
+
+/* Once playback has begun the native controls take over. */
+.explainer-video.has-started .explainer-play,
+.explainer-video.has-started::after {
+  display: none;
+}
+
+/* Touch devices have no hover: keep the button visible until first play. */
+@media (hover: none) {
+  .explainer-video:not(.has-started) .explainer-play {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  .explainer-video:not(.has-started)::after {
+    opacity: 1;
   }
 }
 
