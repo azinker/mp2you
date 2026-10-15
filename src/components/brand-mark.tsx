@@ -25,7 +25,7 @@ export function BrandMark({ locale, variant = "lockup", className, priority = tr
           width={1200}
           height={235}
           priority={priority}
-          sizes="(max-width: 640px) 200px, 260px"
+          sizes="(max-width: 640px) 240px, 340px"
         />
       )}
       <span className="sr-only">MorePower2You - {ui[locale].brandTagline}</span>

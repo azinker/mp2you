@@ -157,18 +157,24 @@ h4 {
   margin: 0;
   color: var(--ink);
   font-family: var(--font-serif), Georgia, serif;
-  font-weight: 400;
-  letter-spacing: -0.005em;
+  font-weight: 600;
+  font-optical-sizing: auto;
+  font-variation-settings: "SOFT" 60;
+  letter-spacing: -0.015em;
 }
 
 h1 {
-  font-size: clamp(2.5rem, 5.4vw, 4.4rem);
-  line-height: 1.02;
+  font-size: clamp(2.6rem, 5.4vw, 4.5rem);
+  font-weight: 650;
+  font-variation-settings: "SOFT" 80;
+  line-height: 1.0;
+  letter-spacing: -0.025em;
 }
 
 h2 {
   font-size: clamp(2rem, 3.6vw, 3rem);
   line-height: 1.06;
+  letter-spacing: -0.02em;
 }
 
 h3 {
@@ -254,24 +260,57 @@ p {
   line-height: 1.75;
 }
 
-.accent-mark {
+/* Headline accent: the final words are kept together on one line, filled
+   with a slowly drifting brand gradient, and underlined by a hand-drawn
+   stroke that draws itself on after the words land. */
+.accent-word {
   position: relative;
   display: inline-block;
   white-space: nowrap;
+  font-style: italic;
+  font-variation-settings: "SOFT" 100;
 }
 
-.accent-mark::after {
-  content: "";
+.accent-word-text {
+  background: linear-gradient(100deg, var(--blue) 0%, var(--teal) 30%, var(--coral) 60%, var(--lavender) 85%, var(--blue) 100%);
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: accent-drift 9s ease-in-out infinite;
+}
+
+.accent-word-line {
   position: absolute;
-  left: -0.08em;
-  right: -0.08em;
-  bottom: 0.08em;
-  height: 0.34em;
-  z-index: -1;
-  border-radius: 0.2em;
-  background: linear-gradient(90deg, var(--gold), #ffe08a);
-  transform: skewX(-6deg);
-  opacity: 0.9;
+  left: -0.03em;
+  right: -0.03em;
+  bottom: -0.12em;
+  height: 0.3em;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.accent-word-line path {
+  fill: none;
+  stroke: var(--coral);
+  stroke-width: 7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.accent-word-line path + path {
+  stroke: var(--gold);
+  stroke-width: 5;
+}
+
+@keyframes accent-drift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
 .text-gradient {
@@ -469,16 +508,17 @@ p {
   align-items: center;
   justify-content: space-between;
   gap: 20px;
-  height: 88px;
+  height: 96px;
   transition: height 260ms var(--ease-out);
 }
 
 .site-header.is-scrolled .site-header-inner {
-  height: 72px;
+  height: 78px;
 }
 
 .brand-lockup {
   display: inline-flex;
+  flex: 0 0 auto;
   align-items: center;
   min-width: 0;
   transition: transform 260ms var(--ease-out);
@@ -490,13 +530,21 @@ p {
 
 .brand-logo-image {
   display: block;
-  width: 250px;
+  width: 330px;
   height: auto;
   transition: width 260ms var(--ease-out);
 }
 
 .site-header.is-scrolled .brand-logo-image {
-  width: 220px;
+  width: 280px;
+}
+
+/* Desktop nav is visible from 1200px; give the full nav room until the wide range. */
+@media (min-width: 1200px) and (max-width: 1339px) {
+  .brand-logo-image,
+  .site-header.is-scrolled .brand-logo-image {
+    width: 284px;
+  }
 }
 
 .brand-mark-image {
@@ -515,11 +563,12 @@ p {
   display: inline-flex;
   align-items: center;
   min-height: 42px;
-  padding: 0 14px;
+  padding: 0 13px;
   border-radius: 999px;
   color: var(--text);
   font-size: 0.93rem;
   font-weight: 650;
+  white-space: nowrap;
   transition:
     color 200ms ease,
     background 200ms ease;
@@ -2071,7 +2120,7 @@ p {
 }
 
 .footer-brand-chip .brand-logo-image {
-  width: 230px;
+  width: 290px;
 }
 
 .footer-copy {
@@ -2772,12 +2821,12 @@ p {
 
   .brand-logo-image,
   .site-header.is-scrolled .brand-logo-image {
-    width: 196px;
+    width: 236px;
   }
 
   .site-header-inner,
   .site-header.is-scrolled .site-header-inner {
-    height: 72px;
+    height: 78px;
   }
 
   .hero-note {

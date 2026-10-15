@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { DM_Serif_Display, Heebo, Noto_Sans_Arabic, Plus_Jakarta_Sans } from "next/font/google";
+import { Fraunces, Heebo, Noto_Sans_Arabic, Plus_Jakarta_Sans } from "next/font/google";
 import { SiteChrome } from "@/components/site-chrome";
 import "./globals.css";
 
@@ -9,11 +9,13 @@ const sans = Plus_Jakarta_Sans({
   display: "swap",
 });
 
-const serif = DM_Serif_Display({
+// Fraunces: a warm, soft "wonky" display serif. Variable weight plus the
+// SOFT and optical-size axes so large headlines render rounder and friendlier.
+const serif = Fraunces({
   subsets: ["latin"],
   variable: "--font-serif",
   display: "swap",
-  weight: "400",
+  axes: ["SOFT", "opsz"],
 });
 
 const hebrew = Heebo({

@@ -31,7 +31,7 @@ import { ProjectGallery } from "@/components/project-gallery";
 import { BowArt, DrawLine, Enter, Marquee, Petals, Reveal, SplitWords, Stagger, StaggerItem, Tilt } from "@/components/motion";
 import { VersionedLink as Link } from "@/components/versioned-link";
 import { withLocale } from "@/lib/content";
-import { cn, formatDate } from "@/lib/utils";
+import { cn, formatDate, titleCase } from "@/lib/utils";
 
 const serviceIcons: LucideIcon[] = [Gift, PackageCheck, Sparkles, Warehouse, Gamepad2, Globe2];
 const industryIcons: LucideIcon[] = [Gamepad2, Cpu, Building2, Landmark, Hotel, HeartPulse, Ticket, Users];
@@ -181,7 +181,7 @@ export function HomePage({ site }: { site: SiteContent }) {
         {site.industries.map((item) => (
           <span className="marquee-item" key={item.title}>
             <Sparkles size={14} aria-hidden="true" />
-            {item.title}
+            {titleCase(item.title, site.locale)}
           </span>
         ))}
       </Marquee>

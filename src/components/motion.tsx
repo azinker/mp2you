@@ -146,16 +146,56 @@ export function SplitWords({
   accentLast?: number;
 }) {
   const reduced = useReducedMotionSafe();
-  const words = text.trim().split(/\s+/);
-  const accentFrom = accentLast > 0 ? Math.max(0, words.length - accentLast) : words.length;
+  const allWords = text.trim().split(/\s+/);
+  const accentCount = Math.min(Math.max(accentLast, 0), allWords.length);
+  const plainWords = allWords.slice(0, allWords.length - accentCount);
+  const accentText = allWords.slice(allWords.length - accentCount).join("\u00A0");
+  // Chunks: each plain word on its own, then the accent words as ONE unit so
+  // they can never be split across lines (which made the old marker look
+  // half-highlighted).
+  const chunks: { text: string; accent: boolean }[] = plainWords.map((w) => ({ text: w, accent: false }));
+  if (accentCount > 0) chunks.push({ text: accentText, accent: true });
+  const lineDelay = delay + stagger * chunks.length + 0.55;
+
+  const renderChunk = (chunk: { text: string; accent: boolean }, animated: boolean) => {
+    if (!chunk.accent) return chunk.text;
+    return (
+      <span className="accent-word">
+        <span className="accent-word-text">{chunk.text}</span>
+        <svg className="accent-word-line" viewBox="0 0 200 24" preserveAspectRatio="none" aria-hidden="true">
+          {animated ? (
+            <>
+              <motion.path
+                d="M4 15 C 36 4, 66 22, 100 12 S 164 3, 196 13"
+                initial={{ pathLength: 0, opacity: 0 }}
+                animate={{ pathLength: 1, opacity: 1 }}
+                transition={{ pathLength: { duration: 0.9, ease: EASE, delay: lineDelay }, opacity: { duration: 0.2, delay: lineDelay } }}
+              />
+              <motion.path
+                d="M8 20 C 44 10, 70 24, 104 17 S 160 9, 192 19"
+                initial={{ pathLength: 0, opacity: 0 }}
+                animate={{ pathLength: 1, opacity: 1 }}
+                transition={{ pathLength: { duration: 0.8, ease: EASE, delay: lineDelay + 0.25 }, opacity: { duration: 0.2, delay: lineDelay + 0.25 } }}
+              />
+            </>
+          ) : (
+            <>
+              <path d="M4 15 C 36 4, 66 22, 100 12 S 164 3, 196 13" />
+              <path d="M8 20 C 44 10, 70 24, 104 17 S 160 9, 192 19" />
+            </>
+          )}
+        </svg>
+      </span>
+    );
+  };
 
   if (reduced) {
     return (
       <Tag className={className}>
-        {words.map((word, i) => (
-          <span key={`${word}-${i}`} className={i >= accentFrom ? "accent-mark" : undefined}>
-            {word}
-            {i < words.length - 1 ? " " : ""}
+        {chunks.map((chunk, i) => (
+          <span key={`${chunk.text}-${i}`}>
+            {renderChunk(chunk, false)}
+            {i < chunks.length - 1 ? " " : ""}
           </span>
         ))}
       </Tag>
@@ -170,18 +210,26 @@ export function SplitWords({
         animate="show"
         variants={{ hidden: {}, show: { transition: { staggerChildren: stagger, delayChildren: delay } } }}
       >
-        {words.map((word, i) => (
-          <span key={`${word}-${i}`} style={{ display: "inline-block", overflow: "hidden", verticalAlign: "bottom", paddingBottom: "0.12em", marginBottom: "-0.12em" }}>
+        {chunks.map((chunk, i) => (
+          <span
+            key={`${chunk.text}-${i}`}
+            style={{
+              display: "inline-block",
+              overflow: "hidden",
+              verticalAlign: "bottom",
+              paddingBottom: chunk.accent ? "0.32em" : "0.12em",
+              marginBottom: chunk.accent ? "-0.32em" : "-0.12em",
+            }}
+          >
             <motion.span
               style={{ display: "inline-block" }}
-              className={i >= accentFrom ? "accent-mark" : undefined}
               variants={{
                 hidden: { y: "110%", opacity: 0 },
                 show: { y: 0, opacity: 1, transition: { duration: 0.85, ease: EASE } },
               }}
             >
-              {word}
-              {i < words.length - 1 ? "\u00A0" : ""}
+              {renderChunk(chunk, true)}
+              {i < chunks.length - 1 ? "\u00A0" : ""}
             </motion.span>
           </span>
         ))}
