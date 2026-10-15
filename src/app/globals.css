@@ -488,6 +488,11 @@ p {
   position: sticky;
   top: 0;
   z-index: 60;
+  /* The header must never change height on scroll: a sticky in-flow element
+     that resizes triggers browser scroll anchoring, which shifts scrollY and
+     flips the state back, producing a visible flicker loop. Only the shadow,
+     border, and background change. */
+  overflow-anchor: none;
   background: rgba(255, 255, 255, 0.86);
   backdrop-filter: blur(18px) saturate(1.3);
   border-bottom: 1px solid transparent;
@@ -508,12 +513,7 @@ p {
   align-items: center;
   justify-content: space-between;
   gap: 20px;
-  height: 96px;
-  transition: height 260ms var(--ease-out);
-}
-
-.site-header.is-scrolled .site-header-inner {
-  height: 78px;
+  height: 92px;
 }
 
 .brand-lockup {
@@ -532,17 +532,11 @@ p {
   display: block;
   width: 330px;
   height: auto;
-  transition: width 260ms var(--ease-out);
-}
-
-.site-header.is-scrolled .brand-logo-image {
-  width: 280px;
 }
 
 /* Desktop nav is visible from 1200px; give the full nav room until the wide range. */
 @media (min-width: 1200px) and (max-width: 1339px) {
-  .brand-logo-image,
-  .site-header.is-scrolled .brand-logo-image {
+  .brand-logo-image {
     width: 284px;
   }
 }
@@ -2819,13 +2813,11 @@ p {
     padding: 64px 0;
   }
 
-  .brand-logo-image,
-  .site-header.is-scrolled .brand-logo-image {
+  .brand-logo-image {
     width: 236px;
   }
 
-  .site-header-inner,
-  .site-header.is-scrolled .site-header-inner {
+  .site-header-inner {
     height: 78px;
   }
 

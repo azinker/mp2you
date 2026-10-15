@@ -25,8 +25,11 @@ export function Header({
   const current = stripLocale(pathname);
 
   useEffect(() => {
+    // Hysteresis: turn on past 40px, off below 8px, so hovering around a
+    // single threshold can never toggle the state back and forth.
     function onScroll() {
-      setScrolled(window.scrollY > 12);
+      const y = window.scrollY;
+      setScrolled((prev) => (prev ? y > 8 : y > 40));
     }
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
