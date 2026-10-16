@@ -39,7 +39,7 @@ export function Header({
   return (
     <header className={cn("site-header", scrolled && "is-scrolled")}>
       <div className="container-shell site-header-inner">
-        <BrandMark locale={locale} />
+        <BrandMark locale={locale} animate />
         <nav className="site-nav" aria-label="Main navigation">
           {nav.map((item) => {
             const target = stripLocale(item.href);

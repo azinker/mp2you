@@ -527,15 +527,147 @@ p {
   transform: translateY(-1px);
 }
 
-.brand-logo-image {
-  display: block;
+.brand-logo {
+  display: inline-flex;
+  align-items: center;
   width: 330px;
+  direction: ltr;
+  line-height: 0;
+}
+
+.brand-logo-mark {
+  position: relative;
+  flex: 0 0 24.333%;
+  transform-origin: 50% 58%;
+  transition: transform 460ms cubic-bezier(0.18, 0.9, 0.22, 1.4);
+}
+
+.brand-logo-mark-fly {
+  position: relative;
+  display: block;
+  transform-origin: 50% 62%;
+}
+
+.brand-logo-mark-image,
+.brand-logo-word img {
+  display: block;
   height: auto;
+}
+
+.brand-logo-word {
+  flex: 0 0 75.667%;
+  min-width: 0;
+}
+
+/* The monogram flies in from above, overshoots, and pops like a gift opening. */
+.brand-logo.is-animated .brand-logo-mark-fly {
+  animation: mp-arrive 1.28s cubic-bezier(0.16, 0.8, 0.24, 1) both;
+}
+
+.brand-logo.is-animated .brand-logo-mark-fly::after {
+  content: "";
+  position: absolute;
+  inset: 8% 6% 14%;
+  border: 2px solid transparent;
+  border-radius: 46%;
+  pointer-events: none;
+  animation: mp-ring 1.28s ease-out both;
+}
+
+.brand-pop {
+  position: absolute;
+  left: 64%;
+  top: 18%;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.brand-pop i {
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  margin: -3.5px 0 0 -3.5px;
+  border-radius: 99px;
+  opacity: 0;
+}
+
+.brand-logo.is-animated .brand-pop i {
+  animation: mp-spark 1.28s ease-out both;
+}
+
+.brand-pop i:nth-child(1) { background: var(--coral); --dx: 22px; --dy: -26px; animation-delay: 0s; }
+.brand-pop i:nth-child(2) { background: var(--gold); --dx: -20px; --dy: -18px; width: 6px; height: 6px; }
+.brand-pop i:nth-child(3) { background: var(--teal); --dx: 26px; --dy: 8px; }
+.brand-pop i:nth-child(4) { background: #a96bf0; --dx: -8px; --dy: -30px; width: 5px; height: 5px; }
+.brand-pop i:nth-child(5) { background: var(--blue); --dx: 8px; --dy: 16px; width: 5px; height: 5px; }
+.brand-pop i:nth-child(6) { background: var(--coral); --dx: -24px; --dy: 6px; width: 6px; height: 6px; }
+
+.brand-lockup:hover .brand-logo-mark {
+  transform: translateY(-3px) rotate(-8deg) scale(1.12);
+}
+
+@keyframes mp-arrive {
+  0% {
+    opacity: 0;
+    transform: translate3d(-34px, -58px, 0) rotate(-34deg) scale(0.08);
+  }
+  42% {
+    opacity: 1;
+    transform: translate3d(5px, 7px, 0) rotate(12deg) scale(1.34);
+  }
+  56% {
+    transform: translate3d(0, 1px, 0) rotate(-9deg) scale(0.84);
+  }
+  72% {
+    transform: translate3d(0, -4px, 0) rotate(5deg) scale(1.16);
+  }
+  86% {
+    transform: translate3d(0, 0, 0) rotate(-2deg) scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+  }
+}
+
+@keyframes mp-ring {
+  0%,
+  46% {
+    opacity: 0;
+    transform: scale(0.35);
+    border-color: transparent;
+  }
+  58% {
+    opacity: 0.85;
+    border-color: rgba(252, 108, 96, 0.7);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.45);
+    border-color: rgba(0, 168, 180, 0);
+  }
+}
+
+@keyframes mp-spark {
+  0%,
+  46% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.2);
+  }
+  60% {
+    opacity: 1;
+    transform: translate(calc(var(--dx) * 0.35), calc(var(--dy) * 0.35)) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--dx), var(--dy)) scale(0.4);
+  }
 }
 
 /* Desktop nav is visible from 1200px; give the full nav room until the wide range. */
 @media (min-width: 1200px) and (max-width: 1339px) {
-  .brand-logo-image {
+  .brand-logo {
     width: 284px;
   }
 }
@@ -2290,7 +2422,7 @@ p {
   box-shadow: var(--shadow);
 }
 
-.footer-brand-chip .brand-logo-image {
+.footer-brand-chip .brand-logo {
   width: 290px;
 }
 
@@ -2990,7 +3122,7 @@ p {
     padding: 64px 0;
   }
 
-  .brand-logo-image {
+  .brand-logo {
     width: 236px;
   }
 
