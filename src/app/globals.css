@@ -1009,6 +1009,73 @@ p {
   }
 }
 
+/* Hero video: a portrait card centred on the blob. Narrower than the old
+   collage so the 9:16 shape does not tower over the headline. */
+.hero-visual-video {
+  display: grid;
+  place-items: center;
+  width: min(100%, 420px);
+  aspect-ratio: auto;
+  padding: 6% 0;
+}
+
+.hero-visual-video .hero-blob {
+  inset: 10% -10% 8% -10%;
+}
+
+.hero-video-card {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 320px);
+  will-change: transform;
+}
+
+.hero-video-card .explainer-video {
+  width: 100%;
+  border: 6px solid var(--white);
+  border-radius: calc(var(--radius-lg) + 6px);
+}
+
+.hero-visual-video .hero-note-top {
+  top: 5%;
+  right: -8%;
+}
+
+.hero-visual-video .hero-note-bottom {
+  bottom: 7%;
+  left: -8%;
+}
+
+[dir="rtl"] .hero-visual-video .hero-note-top {
+  right: auto;
+  left: -8%;
+}
+
+[dir="rtl"] .hero-visual-video .hero-note-bottom {
+  left: auto;
+  right: -8%;
+}
+
+@media (min-width: 1024px) {
+  .hero-visual-video {
+    margin-inline-end: 6%;
+  }
+}
+
+@media (max-width: 1023px) {
+  .hero-visual-video {
+    width: min(100%, 340px);
+  }
+
+  .hero-visual-video .hero-note-top {
+    right: -4%;
+  }
+
+  .hero-visual-video .hero-note-bottom {
+    left: -4%;
+  }
+}
+
 /* On narrow screens the section-level petals would drift over the copy. */
 @media (max-width: 1023px) {
   .home-hero > .petal {
@@ -1374,8 +1441,16 @@ p {
 }
 
 .explainer-media {
-  width: min(100%, 340px);
+  width: min(100%, 520px);
   margin-inline: auto;
+}
+
+/* The photo collage in the band: same tilted cards and parallax as before,
+   with a little breathing room so the rotated corners never clip. */
+.photo-collage {
+  width: 100%;
+  margin-inline: 0;
+  padding: 4% 2%;
 }
 
 .explainer-copy .section-intro {
@@ -1397,7 +1472,7 @@ p {
 
 @media (min-width: 1024px) {
   .explainer-grid {
-    grid-template-columns: 380px minmax(0, 1fr);
+    grid-template-columns: 460px minmax(0, 1fr);
     gap: 64px;
   }
 
@@ -1419,7 +1494,7 @@ p {
 
 @media (min-width: 1280px) {
   .explainer-grid {
-    grid-template-columns: 400px minmax(0, 1fr);
+    grid-template-columns: 520px minmax(0, 1fr);
     gap: 80px;
   }
 }

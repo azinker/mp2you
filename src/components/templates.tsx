@@ -25,9 +25,8 @@ import {
 import type { BasicItem, BlogPost, CaseStudy, Locale, MarketingPage, Resource, Service, SiteContent } from "@/content/site";
 import { ui } from "@/content/ui";
 import { featuredGalleryProjects } from "@/content/gallery-projects";
-import { HeroVisual } from "@/components/hero-visual";
+import { HeroVisual, PhotoCollage } from "@/components/hero-visual";
 import { ContactForm } from "@/components/contact-form";
-import { ExplainerVideo } from "@/components/explainer-video";
 import { ProjectGallery } from "@/components/project-gallery";
 import { BowArt, DrawLine, Enter, Marquee, Petals, Reveal, SplitWords, Stagger, StaggerItem, Tilt } from "@/components/motion";
 import { VersionedLink as Link } from "@/components/versioned-link";
@@ -173,7 +172,16 @@ export function HomePage({ site }: { site: SiteContent }) {
               </div>
             </Enter>
           </div>
-          <HeroVisual labels={{ boxes: t.heroNoteBoxes, fulfillment: t.heroNoteFulfillment }} />
+          <HeroVisual
+            labels={{ boxes: t.heroNoteBoxes, fulfillment: t.heroNoteFulfillment }}
+            video={{
+              src: "/video/mp2y-explainer.mp4",
+              poster: "/video/mp2y-explainer-poster.jpg",
+              title: t.videoTitle,
+              playLabel: t.playVideo,
+              pauseLabel: t.pauseVideo,
+            }}
+          />
         </div>
       </section>
 
@@ -190,7 +198,7 @@ export function HomePage({ site }: { site: SiteContent }) {
       <section className="section-band explainer-band">
         <div className="container-shell explainer-grid">
           <Reveal className="explainer-media" y={32}>
-            <ExplainerVideo src="/video/mp2y-explainer.mp4" poster="/video/mp2y-explainer-poster.jpg" title={t.videoTitle} playLabel={t.playVideo} pauseLabel={t.pauseVideo} />
+            <PhotoCollage />
           </Reveal>
           <div className="explainer-copy">
             <SectionIntro eyebrow={t.videoEyebrow} title={t.videoTitle} text={t.videoText} />
