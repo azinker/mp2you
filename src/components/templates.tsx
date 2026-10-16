@@ -173,7 +173,6 @@ export function HomePage({ site }: { site: SiteContent }) {
             </Enter>
           </div>
           <HeroVisual
-            labels={{ boxes: t.heroNoteBoxes, fulfillment: t.heroNoteFulfillment }}
             video={{
               src: "/video/mp2y-explainer.mp4",
               poster: "/video/mp2y-explainer-poster.jpg",
@@ -198,7 +197,7 @@ export function HomePage({ site }: { site: SiteContent }) {
       <section className="section-band explainer-band">
         <div className="container-shell explainer-grid">
           <Reveal className="explainer-media" y={32}>
-            <PhotoCollage />
+            <PhotoCollage labels={{ boxes: t.heroNoteBoxes, fulfillment: t.heroNoteFulfillment }} />
           </Reveal>
           <div className="explainer-copy">
             <SectionIntro eyebrow={t.videoEyebrow} title={t.videoTitle} text={t.videoText} />
