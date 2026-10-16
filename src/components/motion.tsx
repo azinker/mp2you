@@ -1,12 +1,11 @@
 "use client";
 
-import { createContext, useContext, useEffect, useRef, useState, useSyncExternalStore, type CSSProperties, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import {
   animate,
   motion,
   useInView,
   useMotionValue,
-  useReducedMotion,
   useScroll,
   useSpring,
   useTransform,
@@ -16,29 +15,21 @@ import {
 const ParallaxContext = createContext<{ x: MotionValue<number>; y: MotionValue<number> } | null>(null);
 
 /**
- * Hydration-safe reduced-motion check. The server (and the first client
- * render) always produce the animated markup; the OS preference is only
- * honoured after mount so server and client HTML never diverge.
+ * Brand motion always plays. Honouring prefers-reduced-motion froze the
+ * headline, the hero collage, and the industry ticker after mount, and the
+ * ticker's fallback printed the list twice. Windows turns that preference on
+ * whenever "Animation effects" is off, which is common and made the page
+ * look broken rather than calmer.
  */
 function useReducedMotionSafe() {
-  const reduced = useReducedMotion();
-  const mounted = useSyncExternalStore(
-    subscribeNoop,
-    () => true,
-    () => false,
-  );
-  return mounted ? Boolean(reduced) : false;
-}
-
-function subscribeNoop() {
-  return () => {};
+  return false;
 }
 
 /**
  * MorePower2You motion system.
  * One easing language: a long, premium ease-out for reveals, soft springs for
  * interactive pieces, and gentle idle motion for decorative elements.
- * Every primitive degrades to static markup under prefers-reduced-motion.
+ * Motion plays even when the OS requests reduced motion; see useReducedMotionSafe.
  */
 
 export const EASE = [0.22, 1, 0.36, 1] as const;

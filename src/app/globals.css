@@ -3026,21 +3026,6 @@ p {
   }
 }
 
-/* ---------- Reduced motion ---------- */
-
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    scroll-behavior: auto !important;
-    transition-duration: 0.001ms !important;
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-  }
-
-  .marquee-track {
-    animation: none;
-    flex-wrap: wrap;
-    width: auto;
-  }
-}
+/* Brand motion (ticker, petals, headline) stays on even when the OS asks for
+   reduced motion. The old fallback stopped the ticker and wrapped a second
+   copy of the industry list underneath the first. */
