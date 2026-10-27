@@ -498,7 +498,7 @@ const en: SiteContent = {
       title: "Data & Form Notice",
       eyebrow: "Simple data disclosure",
       intro:
-        "This site uses a project inquiry form, CMS-backed content, email delivery, and spam protection. It does not include separate measurement scripts.",
+        "This site uses a project inquiry form, CMS-backed content, email delivery, spam protection, and the Meta Pixel to measure ad visits and project inquiries.",
       seo: {
         title: "Data & Form Notice | MorePower2You",
         description: "Data and form notice for the MorePower2You website.",
@@ -508,7 +508,7 @@ const en: SiteContent = {
         {
           title: "Form and service data",
           text:
-            "The project inquiry form collects the contact and project details a visitor submits. The site also uses Sanity CMS, Resend email delivery, Cloudflare Turnstile spam protection, and Vercel hosting.",
+            "The project inquiry form collects the contact and project details a visitor submits. The site also uses Sanity CMS, Resend email delivery, Cloudflare Turnstile spam protection, Vercel hosting, and the Meta Pixel to measure page visits and project inquiries from ads.",
         },
       ],
     },
@@ -984,7 +984,7 @@ const en: SiteContent = {
       blocks: [
         { title: "Information collected", text: "The project inquiry form collects contact and project details submitted voluntarily by the visitor." },
         { title: "How information is used", text: "Submitted information is used to review project requests, follow up with next steps, respond to inquiries, and manage internal lead status." },
-        { title: "Third-party services", text: "The site is prepared for Sanity CMS, Resend email delivery, Cloudflare Turnstile spam protection, and Vercel hosting." },
+        { title: "Third-party services", text: "The site uses Sanity CMS, Resend email delivery, Cloudflare Turnstile spam protection, Vercel hosting, and the Meta Pixel to measure page visits and project inquiries from ads." },
       ],
     },
     {
@@ -1522,7 +1522,7 @@ const he: SiteContent = {
       "slug": "data-cookies-notice",
       "title": "הודעה בנושא נתונים וטפסים",
       "eyebrow": "גילוי נתונים פשוט",
-      "intro": "אתר זה משתמש בטופס בקשת הצעת מחיר, תוכן הנתמך על ידי CMS, משלוח דוא\"ל והגנה מפני דואר זבל. הוא אינו כולל סקריפטים נפרדים למדידה.",
+      "intro": "אתר זה משתמש בטופס בקשת הצעת מחיר, תוכן הנתמך על ידי CMS, משלוח דוא\"ל, הגנה מפני דואר זבל, וב-Meta Pixel למדידת ביקורים ממודעות ופניות לפרויקטים.",
       "seo": {
         "title": "הודעה בנושא נתונים וטפסים | MorePower2You",
         "description": "הודעה בנושא נתונים וטפסים לאתר MorePower2You.",
@@ -1535,7 +1535,7 @@ const he: SiteContent = {
       "blocks": [
         {
           "title": "נתוני טפסים ושירותים",
-          "text": "טופס הפנייה לפרויקט אוסף את פרטי הקשר ופרטי הפרויקט שהמבקר שולח. האתר משתמש גם ב-Sanity CMS, בשירות Resend למשלוח דוא\"ל, בהגנת דואר זבל Cloudflare Turnstile ובשירותי אחסון Vercel."
+          "text": "טופס הפנייה לפרויקט אוסף את פרטי הקשר ופרטי הפרויקט שהמבקר שולח. האתר משתמש גם ב-Sanity CMS, בשירות Resend למשלוח דוא\"ל, בהגנת דואר זבל Cloudflare Turnstile, בשירותי אחסון Vercel, וב-Meta Pixel למדידת ביקורים באתר ופניות לפרויקטים שמגיעות ממודעות."
         }
       ]
     }
@@ -2398,7 +2398,7 @@ const he: SiteContent = {
         },
         {
           "title": "שירותי צד שלישי",
-          "text": "האתר מותאם ל-Sanity CMS, משלוח דוא\"ל Resend, הגנת ספאם Cloudflare Turnstile, ואחסון Vercel."
+          "text": "האתר משתמש ב-Sanity CMS, במשלוח דוא\"ל Resend, בהגנת ספאם Cloudflare Turnstile, באחסון Vercel, וב-Meta Pixel למדידת ביקורים באתר ופניות לפרויקטים שמגיעות ממודעות."
         }
       ]
     },

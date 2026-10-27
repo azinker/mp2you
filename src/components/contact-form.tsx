@@ -3,12 +3,15 @@
 import Script from "next/script";
 import { Send } from "lucide-react";
 import { FormEvent, useState } from "react";
+import { trackMetaLead } from "@/lib/meta-pixel";
 import type { Locale } from "@/content/site";
 
 type FormCopy = {
   name: string;
   company: string;
   email: string;
+  phone: string;
+  phoneInvalid: string;
   projectType: string;
   industry: string;
   occasion: string;
@@ -30,6 +33,8 @@ const copy: Record<Locale, FormCopy> = {
     name: "Name",
     company: "Company",
     email: "Email",
+    phone: "Phone",
+    phoneInvalid: "Enter a phone number with at least 7 digits",
     projectType: "Project type",
     industry: "Industry",
     occasion: "Gifting occasion",
@@ -49,6 +54,8 @@ const copy: Record<Locale, FormCopy> = {
     name: "Nombre",
     company: "Empresa",
     email: "Correo",
+    phone: "Teléfono",
+    phoneInvalid: "Introduce un teléfono con al menos 7 dígitos",
     projectType: "Tipo de proyecto",
     industry: "Sector",
     occasion: "Ocasión del regalo",
@@ -68,6 +75,8 @@ const copy: Record<Locale, FormCopy> = {
     name: "Nom",
     company: "Entreprise",
     email: "E-mail",
+    phone: "Téléphone",
+    phoneInvalid: "Saisissez un numéro d’au moins 7 chiffres",
     projectType: "Type de projet",
     industry: "Secteur",
     occasion: "Occasion du cadeau",
@@ -87,6 +96,8 @@ const copy: Record<Locale, FormCopy> = {
     name: "Name",
     company: "Unternehmen",
     email: "E-Mail",
+    phone: "Telefon",
+    phoneInvalid: "Geben Sie eine Telefonnummer mit mindestens 7 Ziffern ein",
     projectType: "Projektart",
     industry: "Branche",
     occasion: "Anlass",
@@ -106,6 +117,8 @@ const copy: Record<Locale, FormCopy> = {
     name: "Nome",
     company: "Empresa",
     email: "E-mail",
+    phone: "Telefone",
+    phoneInvalid: "Introduza um telefone com pelo menos 7 dígitos",
     projectType: "Tipo de projeto",
     industry: "Setor",
     occasion: "Ocasião do presente",
@@ -125,6 +138,8 @@ const copy: Record<Locale, FormCopy> = {
     name: "姓名",
     company: "公司",
     email: "邮箱",
+    phone: "电话",
+    phoneInvalid: "请输入至少包含 7 位数字的电话号码",
     projectType: "项目类型",
     industry: "行业",
     occasion: "礼赠场合",
@@ -144,6 +159,8 @@ const copy: Record<Locale, FormCopy> = {
     name: "الاسم",
     company: "الشركة",
     email: "البريد الإلكتروني",
+    phone: "الهاتف",
+    phoneInvalid: "أدخل رقم هاتف يحتوي على 7 أرقام على الأقل",
     projectType: "نوع المشروع",
     industry: "القطاع",
     occasion: "مناسبة الإهداء",
@@ -163,6 +180,8 @@ const copy: Record<Locale, FormCopy> = {
     name: "שם",
     company: "חברה",
     email: "אימייל",
+    phone: "טלפון",
+    phoneInvalid: "הזינו מספר טלפון עם 7 ספרות לפחות",
     projectType: "סוג הפרויקט",
     industry: "תחום",
     occasion: "מטרת המתנה",
@@ -278,6 +297,7 @@ export function ContactForm({ locale }: { locale: Locale }) {
       if (!response.ok || !result.ok) throw new Error(result.message || t.error);
 
       setStatus("success");
+      trackMetaLead();
       form.reset();
     } catch (submitError) {
       setStatus("error");
@@ -291,7 +311,19 @@ export function ContactForm({ locale }: { locale: Locale }) {
       <div className="form-grid">
         <Field id="name" label={t.name} requiredText={t.required} />
         <Field id="company" label={t.company} requiredText={t.required} />
-        <Field id="email" label={t.email} requiredText={t.required} type="email" />
+        <Field id="email" label={t.email} requiredText={t.required} type="email" autoComplete="email" />
+        <Field
+          id="phone"
+          label={t.phone}
+          requiredText={t.required}
+          type="tel"
+          autoComplete="tel"
+          inputMode="tel"
+          minLength={7}
+          maxLength={40}
+          pattern={"(?:[0-9+\\(\\) .\\-]*[0-9]){7}[0-9+\\(\\) .\\-]*"}
+          title={t.phoneInvalid}
+        />
         <Select id="projectType" label={t.projectType} requiredText={t.required} values={selectOptions.projectType} />
         <Select id="industry" label={t.industry} requiredText={t.required} values={selectOptions.industry} />
         <Select id="occasion" label={t.occasion} requiredText={t.required} values={selectOptions.occasion} />
@@ -328,18 +360,41 @@ function Field({
   label,
   requiredText,
   type = "text",
+  autoComplete,
+  inputMode,
+  pattern,
+  minLength,
+  maxLength,
+  title,
 }: {
   id: string;
   label: string;
   requiredText: string;
   type?: string;
+  autoComplete?: string;
+  inputMode?: "tel" | "email" | "text";
+  pattern?: string;
+  minLength?: number;
+  maxLength?: number;
+  title?: string;
 }) {
   return (
     <label className="field" htmlFor={id}>
       <span>
         {label} <em>{requiredText}</em>
       </span>
-      <input id={id} name={id} type={type} required />
+      <input
+        id={id}
+        name={id}
+        type={type}
+        required
+        autoComplete={autoComplete}
+        inputMode={inputMode}
+        pattern={pattern}
+        minLength={minLength}
+        maxLength={maxLength}
+        title={title}
+      />
     </label>
   );
 }

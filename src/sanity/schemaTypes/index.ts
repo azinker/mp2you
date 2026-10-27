@@ -248,6 +248,7 @@ const inquirySubmission = defineType({
     defineField({ name: "name", title: "Name", type: "string" }),
     defineField({ name: "company", title: "Company", type: "string" }),
     defineField({ name: "email", title: "Email", type: "string" }),
+    defineField({ name: "phone", title: "Phone", type: "string" }),
     defineField({ name: "projectType", title: "Project type", type: "string" }),
     defineField({ name: "industry", title: "Industry", type: "string" }),
     defineField({ name: "occasion", title: "Occasion", type: "string" }),

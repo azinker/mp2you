@@ -1,6 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import { Fraunces, Heebo, Noto_Sans_Arabic, Plus_Jakarta_Sans } from "next/font/google";
+import Script from "next/script";
 import { HtmlLang } from "@/components/html-lang";
+import { MetaPixel } from "@/components/meta-pixel";
+import { META_PIXEL_ID } from "@/lib/meta-pixel";
 import { SiteChrome } from "@/components/site-chrome";
 import { defaultRobots } from "@/lib/seo";
 import "./globals.css";
@@ -86,7 +89,11 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en" data-scroll-behavior="smooth" className={`${serif.variable} ${sans.variable} ${hebrew.variable} ${arabic.variable}`}>
       <body>
+        <Script id="meta-pixel" strategy="beforeInteractive">
+          {`!function(){var p=location.pathname;if(p==="/inventory"||p.indexOf("/inventory/")===0||p==="/studio"||p.indexOf("/studio/")===0||p==="/design-lab"||p.indexOf("/design-lab/")===0)return;!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version="2.0";n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,"script","https://connect.facebook.net/en_US/fbevents.js");fbq("init","${META_PIXEL_ID}");fbq("track","PageView")}();`}
+        </Script>
         <HtmlLang />
+        <MetaPixel />
         <SiteChrome>{children}</SiteChrome>
       </body>
     </html>

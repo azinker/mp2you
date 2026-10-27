@@ -8,6 +8,7 @@ type InquirySubmission = {
   name?: string;
   company?: string;
   email?: string;
+  phone?: string;
   projectType?: string;
   industry?: string;
   occasion?: string;
@@ -57,6 +58,7 @@ async function main() {
       name,
       company,
       email,
+      phone,
       projectType,
       industry,
       occasion,
@@ -82,6 +84,7 @@ async function main() {
     <p><strong>Name:</strong> ${escapeHtml(data.name)}</p>
     <p><strong>Company:</strong> ${escapeHtml(data.company)}</p>
     <p><strong>Email:</strong> ${escapeHtml(data.email)}</p>
+    <p><strong>Phone:</strong> ${escapeHtml(data.phone)}</p>
     <p><strong>Project type:</strong> ${escapeHtml(data.projectType)}</p>
     <p><strong>Industry:</strong> ${escapeHtml(data.industry)}</p>
     <p><strong>Occasion:</strong> ${escapeHtml(data.occasion)}</p>

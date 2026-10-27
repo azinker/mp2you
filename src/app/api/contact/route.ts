@@ -7,6 +7,13 @@ const inquirySchema = z.object({
   name: z.string().min(2).max(120),
   company: z.string().min(2).max(160),
   email: z.string().email().max(180),
+  phone: z
+    .string()
+    .trim()
+    .min(7)
+    .max(40)
+    .regex(/^[0-9+().\-\s]+$/)
+    .refine((value) => (value.match(/\d/g) ?? []).length >= 7),
   projectType: z.string().min(2).max(120),
   industry: z.string().min(2).max(120),
   occasion: z.string().min(2).max(120),
@@ -84,6 +91,7 @@ async function sendEmails(data: z.infer<typeof inquirySchema>) {
     <p><strong>Name:</strong> ${escapeHtml(data.name)}</p>
     <p><strong>Company:</strong> ${escapeHtml(data.company)}</p>
     <p><strong>Email:</strong> ${escapeHtml(data.email)}</p>
+    <p><strong>Phone:</strong> ${escapeHtml(data.phone)}</p>
     <p><strong>Project type:</strong> ${escapeHtml(data.projectType)}</p>
     <p><strong>Industry:</strong> ${escapeHtml(data.industry)}</p>
     <p><strong>Occasion:</strong> ${escapeHtml(data.occasion)}</p>
@@ -143,6 +151,7 @@ async function storeSubmission(data: z.infer<typeof inquirySchema>) {
     name: data.name,
     company: data.company,
     email: data.email,
+    phone: data.phone,
     projectType: data.projectType,
     industry: data.industry,
     occasion: data.occasion,
