@@ -92,9 +92,8 @@ Vercel environment variables:
 - Set `APP_URL=https://www.morepower2you.com` and `INVENTORY_BASE_URL=https://www.morepower2you.com/inventory`.
 
 Vercel Cron:
-- `vercel.json` schedules `/api/inventory/reports/weekly` at both `0 21 * * 5` and `0 22 * * 5` UTC.
-- The route checks that the actual local time is Friday 5:00 PM America/New_York, so daylight saving time is handled safely.
-- Protect the endpoint with `CRON_SECRET`. Vercel should call with `?secret=...` or a `Bearer` token if configured.
+- The weekly inventory report is turned off. `vercel.json` has an empty `crons` list.
+- `/api/inventory/reports/weekly` still requires `CRON_SECRET`, then returns skipped and does not send email.
 
 Seed user:
 - Production seed creates/updates `eli@morepower2you.com` with password `1234`, active status, and original-admin protection.

@@ -412,7 +412,7 @@ export async function ReportsView({ pending = false }: { pending?: boolean }) {
   return (
     <>
       <div className="inventory-breadcrumbs"><Link href="/inventory/dashboard">Dashboard</Link> / Reports</div>
-      <PageHeader eyebrow="Friday 5 PM Eastern scheduled report" title={pending ? "Pending Weekly Report" : "Reports"}>
+      <PageHeader eyebrow="Scheduled Friday email is off" title={pending ? "Pending Weekly Report" : "Reports"}>
         <Link className="inventory-secondary" href="/api/inventory/exports?format=csv"><Download size={16} /> CSV <HelpTooltip k="exportData" /></Link>
         <Link className="inventory-secondary" href="/api/inventory/exports?format=xlsx"><Download size={16} /> XLSX <HelpTooltip k="exportData" /></Link>
       </PageHeader>

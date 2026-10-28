@@ -26,7 +26,7 @@ export const inventoryHelp = {
   saleValue: "Calculated automatically as total pieces on hand x unit sale price.",
   inviteUser: "Send an invite email so a teammate can verify email and set a password.",
   archive: "Archives the record without deleting audit history. Type confirmation is required for major archives.",
-  weeklyReport: "Preview or send the current weekly snapshot. Manual sends do not cancel Friday's scheduled email.",
+  weeklyReport: "Preview or send the current weekly snapshot. The automatic Friday email is turned off.",
   exportData: "Download filtered inventory, Studio, product, and activity data as CSV or XLSX.",
   imageUpload: "Optional image. Accepted types: JPG, PNG, WebP, GIF. Files upload to Cloudflare R2.",
 };
